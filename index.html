@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>Hydrogen Calculator</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mb-5">
+            <form action="" id="Dashboard">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-center text-secondary mb-5">Blue Hydrogen Financial Model</h1>
+                    </div>
+                </div>
+                <div class="row mt-3" style="display: flex; justify-content: center;">
+                    <div class="col-md-4 p-4">
+                        <h5 class="bg-info text-white text-center p-1 rounded">General Data</h5>
+
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Hydrogen Production</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="C8">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Hydrogen Facility</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="C9">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Financial Close</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="C10">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Project Life</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="C11">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Operating Date</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="C12">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Natural Gas Price (USD/MWh)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="C13">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Real WACC</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="C14">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Base Year Calculations</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="C15">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">45Q Tax Credit (USD/ton)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="C16">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 p-4">
+                        <h5 class="bg-info text-white text-center p-1 rounded">Input</h5>
+
+                        <!-- <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Electricity Export</label>
+                            <div class="col-md-4">
+                                <select class="form-control form-control-sm" disabled data-cell="G8">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">CAPEX Assumptions</label>
+                            <div class="col-md-4">
+                                <select class="form-control form-control-sm" disabled data-cell="G9">
+                                    <option value="Low">Low</option>
+                                    <option value="Med">Med</option>
+                                    <option value="Hight">High</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">OPEX Assumptions </label>
+                            <div class="col-md-4">
+                                <select class="form-control form-control-sm" disabled data-cell="G10">
+                                    <option value="Low">Low</option>
+                                    <option value="Med">Med</option>
+                                    <option value="Hight">High</option>
+                                </select>
+                            </div>
+                        </div> -->
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Natural Gas Price (USD/MMBTU)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" id="gas" data-cell="G11">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Electricity Price (USD/MWh)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" id="electricity"
+                                    data-cell="G12">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Carbon T&S (USD/ton)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" id="carbon" data-cell="G13">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Carbon Price (USD/ton)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" id="carbonPrice"
+                                    data-cell="G14">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">45Q Tax Credit</label>
+                            <div class="col-md-4">
+                                <select class="form-control form-control-sm" id="taxCredit" data-cell="G15">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="row mt-3">
+                    <div class="col-md-4 offset-md-1"> -->
+                <!-- <h5 class="bg-info text-white text-center p-1 rounded">SMR +90% CCS</h5> -->
+                <!-- <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Cost of H2 Production (USD/kg)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="O8">
+                            </div>
+                        </div> -->
+                <!-- <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Cost of H2 Production (USD/MMBTU)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="O9">
+                            </div>
+                        </div> -->
+                <!-- <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Energy Efficiency </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="O10">
+                            </div>
+                        </div> -->
+                <!-- <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">CO2 Intensity (kg/kg H2)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="O11">
+                            </div>
+                        </div> -->
+                <!-- <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">LCA Emissions (kg CO2e/kg H2)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="O12">
+                            </div>
+                        </div> -->
+                <!-- <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Carbon Abatement Cost (USD/ton)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="O13">
+                            </div>
+                        </div> -->
+                <!-- </div> -->
+
+                <!-- <div class="col-md-4 offset-md-2"> -->
+                <!-- <h5 class="bg-info text-white text-center p-1 rounded">ATR + GHR</h5> -->
+                <!-- <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Cost of H2 Production (USD/kg)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="S8">
+                            </div>
+                        </div> -->
+                <!-- <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Cost of H2 Production (USD/MMBTU)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="S9">
+                            </div>
+                        </div> -->
+                <!-- <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Energy Efficiency </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="S10">
+                            </div>
+                        </div> -->
+                <!-- <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">CO2 Intensity (kg/kg H2)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="S11">
+                            </div>
+                        </div> -->
+                <!-- <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">LCA Emissions (kg CO2e/kg H2)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="S12">
+                            </div>
+                        </div> -->
+                <!-- <div class="row form-group mb-1">
+                            <label class="col-md-8" for="">Carbon Abatement Cost (USD/ton)</label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="S13">
+                            </div>
+                        </div> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <div class="row mt-3" style="display: flex; justify-content: center;">
+                    <div class="col-md-8 p-8">
+                        <!-- <h5 class="bg-info text-white text-center p-1 rounded">Reference Case</h5> -->
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for=""></label>
+                            <div class="col-md-8"
+                                style="display: flex; flex-direction: row; justify-content: space-between;">
+                                <h5 class="bg-info text-white text-center p-1 rounded"
+                                    style="width:33%; text-align: center;">Reference Case</h5>
+                                <h5 class="bg-info text-white text-center p-1 rounded"
+                                    style="width:33%; text-align: center;">SMR +90% CCS</h5>
+                                <h5 class="bg-info text-white text-center p-1 rounded"
+                                    style="width:33%; text-align: center;">ATR + GHR</h5>
+                                <!-- <input type="text" class="form-control form-control-sm" disabled value="Reference Case">
+                            <input type="text" class="form-control form-control-sm" disabled value="SMR+90%CCS">
+                            <input type="text" class="form-control form-control-sm" disabled value="ATR+GHR"> -->
+                            </div>
+                        </div>
+
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">Cost of H2 Production (USD/kg)</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="K8">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="O8">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="S8">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">Cost of H2 Production (USD/MMBTU)</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="K9">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="O9">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="S9">
+
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">Energy Efficiency</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="K10">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="O10">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="S10">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">CO2 Intensity (kg/kg H2)</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="K11">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="O11">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="S11">
+
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">LCA Emissions (kg CO2e/kg H2)</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" data-cell="K12">
+                                <input type="text" class="form-control form-control-sm" data-cell="O12">
+                                <input type="text" class="form-control form-control-sm" data-cell="S12">
+
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">Carbon Abatement Cost (USD/ton)</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="K13">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="O13">
+                                <input type="text" class="form-control form-control-sm" disabled data-cell="S13">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6 offset-md-3" id="canvas_wr">
+                        <canvas id="chart_container" height="200px"></canvas>
+                    </div>
+                </div>
+
+
+                <div class="row mt-3" style="display: none; justify-content: center;">
+                    <div class="col-md-8 p-8">
+                        <h5 class="bg-info text-white text-center p-1 rounded">Chart Data</h5>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for=""></label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" disabled value="Reference Case">
+                                <input type="text" class="form-control form-control-sm" disabled value="SMR+90%CCS">
+                                <input type="text" class="form-control form-control-sm" disabled value="ATR+GHR">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">Power Export</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" id="pe1" disabled
+                                    data-cell="A1">
+                                <input type="text" class="form-control form-control-sm" id="pe2" disabled
+                                    data-cell="A2">
+                                <input type="text" class="form-control form-control-sm" id="pe3" disabled
+                                    data-cell="B6">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">CAPEX</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" id="cap1" disabled
+                                    data-cell="F6">
+                                <input type="text" class="form-control form-control-sm" disabled id="cap2"
+                                    data-cell="J6">
+                                <input type="text" class="form-control form-control-sm" disabled id="cap3"
+                                    data-cell="N6">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">Fixed OPEX</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" id="fo1" disabled
+                                    data-cell="R6">
+                                <input type="text" class="form-control form-control-sm" id="fo2" disabled
+                                    data-cell="B8">
+                                <input type="text" class="form-control form-control-sm" id="fo3" disabled
+                                    data-cell="F8">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">Feedstock</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" id="fs1" disabled
+                                    data-cell="L41">
+                                <input type="text" class="form-control form-control-sm" id="fs2" disabled
+                                    data-cell="B9">
+                                <input type="text" class="form-control form-control-sm" id="fs3" disabled
+                                    data-cell="F9">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">Fuel</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" id="fuel1" disabled
+                                    data-cell="B41">
+                                <input type="text" class="form-control form-control-sm" id="fuel2" disabled
+                                    data-cell="B10">
+                                <input type="text" class="form-control form-control-sm" id="fuel3" disabled
+                                    data-cell="F10">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">Electricity</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" id="el1" disabled
+                                    data-cell="L19">
+                                <input type="text" class="form-control form-control-sm" id="el2" disabled
+                                    data-cell="J10">
+                                <input type="text" class="form-control form-control-sm" id="el3" disabled
+                                    data-cell="N10">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">Water</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" id="wat1" disabled
+                                    data-cell="R10">
+                                <input type="text" class="form-control form-control-sm" id="wat2" disabled
+                                    data-cell="B11">
+                                <input type="text" class="form-control form-control-sm" id="wat3" disabled
+                                    data-cell="F11">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">CO2 T&S</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" id="co1" disabled
+                                    data-cell="B12">
+                                <input type="text" class="form-control form-control-sm" id="co2" disabled
+                                    data-cell="F12">
+                                <input type="text" class="form-control form-control-sm" id="co3" disabled
+                                    data-cell="B13">
+                            </div>
+                        </div>
+
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">Hydrogen Distribution </label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" id="hd1" disabled
+                                    data-cell="F13">
+                                <input type="text" class="form-control form-control-sm" id="hd2" disabled
+                                    data-cell="J13">
+                                <input type="text" class="form-control form-control-sm" id="hd3" disabled
+                                    data-cell="N13">
+                            </div>
+                        </div>
+
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4" for="">Carbon Price</label>
+                            <div class="col-md-8" style="display: flex; flex-direction: row;">
+                                <input type="text" class="form-control form-control-sm" id="cp1" disabled
+                                    data-cell="R13">
+                                <input type="text" class="form-control form-control-sm" id="cp2" disabled
+                                    data-cell="B14">
+                                <input type="text" class="form-control form-control-sm" id="cp3" disabled
+                                    data-cell="F14">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div id="Assumptions"></div>
+            <div id="BaseCase"></div>
+            <div id="SMR"></div>
+            <div id="ATR"></div>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+    <script src="libs/jquery/jquery.min.js"></script>
+    <script src="libs/chartjs/chartjs.js"></script>
+    <script src="libs/ssf/ssf.js"></script>
+    <script src="libs/moment/moment.js"></script>
+    <script src="libs/calx/jquery-calx-2.2.8.min.js"></script>
+    <script src="hydrogen-data.js"></script>
+    <script src="hydrogen-calc.js"></script>
+    <script>
+        hc = new HydrogenCalc();
+    </script>
+    <script>
+
+    </script>
+</body>
+
+</html>
