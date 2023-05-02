@@ -208,13 +208,19 @@ $("#taxCredit, #carbonPrice, #carbon, #electricity, #gas").keypress(function (e)
 })
 
 $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function () {
+    function buildValue(element) {
+        const value = element.val();
+        const res = value.replace(/[^.\d]/g, '');
+        return value.includes('(') ? `-${res}` : res
+    }
+
     setTimeout(function () {
         chartOpts.data.datasets = [{
             label: 'Power Export',
             data: [
-                $('#pe1').val().replace(/[^.\d]/g, ''),
-                $('#pe2').val().replace(/[^.\d]/g, ''),
-                $('#pe3').val().replace(/[^.\d]/g, ''),
+                buildValue($('#pe1')),
+                buildValue($('#pe2')),
+                buildValue($('#pe3')),
             ],
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: [
@@ -224,9 +230,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function () {
         }, {
             label: 'CAPEX',
             data: [
-                $('#cap1').val().replace(/[^.\d]/g, ''),
-                $('#cap2').val().replace(/[^.\d]/g, ''),
-                $('#cap3').val().replace(/[^.\d]/g, ''),
+                buildValue($('#cap1')),
+                buildValue($('#cap2')),
+                buildValue($('#cap3')),
             ],
             backgroundColor: [
                 'rgba(54, 162, 235, 0.2)'
@@ -238,9 +244,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function () {
         }, {
             label: 'Fixed OPEX',
             data: [
-                $('#fo1').val().replace(/[^.\d]/g, ''),
-                $('#fo2').val().replace(/[^.\d]/g, ''),
-                $('#fo3').val().replace(/[^.\d]/g, ''),
+                buildValue($('#fo1')),
+                buildValue($('#fo2')),
+                buildValue($('#fo3')),
             ],
             backgroundColor: [
                 'rgba(255, 206, 86, 0.2)',
@@ -252,9 +258,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function () {
         }, {
             label: 'Feedstock',
             data: [
-                $('#fs1').val().replace(/[^.\d]/g, ''),
-                $('#fs2').val().replace(/[^.\d]/g, ''),
-                $('#fs3').val().replace(/[^.\d]/g, ''),
+                buildValue($('#fs1')),
+                buildValue($('#fs2')),
+                buildValue($('#fs3')),
             ],
             backgroundColor: [
                 'rgba(75, 192, 192, 0.2)',
@@ -266,9 +272,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function () {
         }, {
             label: 'Fuel',
             data: [
-                $('#fuel1').val().replace(/[^.\d]/g, ''),
-                $('#fuel2').val().replace(/[^.\d]/g, ''),
-                $('#fuel3').val().replace(/[^.\d]/g, ''),
+                buildValue($('#fuel1')),
+                buildValue($('#fuel2')),
+                buildValue($('#fuel3')),
             ],
             backgroundColor: [
                 'rgba(153, 102, 255, 0.2)',
@@ -280,9 +286,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function () {
         }, {
             label: 'Electricity',
             data: [
-                $('#el1').val().replace(/[^.\d]/g, ''),
-                $('#el2').val().replace(/[^.\d]/g, ''),
-                $('#el3').val().replace(/[^.\d]/g, ''),
+                buildValue($('#el1')),
+                buildValue($('#el2')),
+                buildValue($('#el3')),
             ],
             backgroundColor: [
                 'rgba(255, 159, 64, 0.2)'
@@ -294,9 +300,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function () {
         }, {
             label: 'Water',
             data: [
-                $('#wat1').val().replace(/[^.\d]/g, ''),
-                $('#wat2').val().replace(/[^.\d]/g, ''),
-                $('#wat3').val().replace(/[^.\d]/g, ''),
+                buildValue($('#wat1')),
+                buildValue($('#wat2')),
+                buildValue($('#wat3')),
             ],
             backgroundColor: [
                 'rgba(31, 2, 217, 0.2);'
@@ -308,9 +314,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function () {
         }, {
             label: 'CO2 T&S',
             data: [
-                $('#co1').val().replace(/[^.\d]/g, ''),
-                $('#co2').val().replace(/[^.\d]/g, ''),
-                $('#co3').val().replace(/[^.\d]/g, ''),
+                buildValue($('#co1')),
+                buildValue($('#co2')),
+                buildValue($('#co3')),
             ],
             backgroundColor: [
                 'rgba(80, 99, 132, 0.2)'
@@ -322,18 +328,18 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function () {
         }, {
             label: 'Hydrogen Distribution',
             data: [
-                $('#hd1').val().replace(/[^.\d]/g, ''),
-                $('#hd2').val().replace(/[^.\d]/g, ''),
-                $('#hd3').val().replace(/[^.\d]/g, ''),
+                buildValue($('#hd1')),
+                buildValue($('#hd2')),
+                buildValue($('#hd3')),
             ],
             backgroundColor: 'rgb(120, 120, 120)',
             borderWidth: 1
         }, {
             label: 'Carbon Price',
             data: [
-                $('#cp1').val().replace(/[^.\d]/g, ''),
-                $('#cp2').val().replace(/[^.\d]/g, ''),
-                $('#cp3').val().replace(/[^.\d]/g, '')
+                buildValue($('#cp1')),
+                buildValue($('#cp2')),
+                buildValue($('#cp3'))
             ],
             backgroundColor: [
                 'rgba(25, 9, 232, 0.2)'
