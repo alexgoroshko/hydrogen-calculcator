@@ -61,6 +61,8 @@ HydrogenCalc.fn.init = async function() {
         });
     });
 
+    console.log(hydrogenData)
+
     $(self.tabs.join(',')).calx({
         data: hydrogenData,
         onAfterCalculate: function() {
@@ -111,9 +113,9 @@ HydrogenCalc.fn.drawChart = function() {
     chartOpts.data.datasets = [{
         label: 'Power Export',
         data: [
-            self.getVal('BaseCase', 'C117'),
-            self.getVal('SMR', 'C117'),
-            self.getVal('ATR', 'C117')
+            self.getVal('BaseCase', 'H117'),
+            self.getVal('BaseCase', 'I117'),
+            self.getVal('BaseCase', 'J117')
         ],
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderColor: [
@@ -123,9 +125,9 @@ HydrogenCalc.fn.drawChart = function() {
     }, {
         label: 'CAPEX',
         data: [
-            self.getVal('BaseCase', 'C118'),
-            self.getVal('SMR', 'C118'),
-            self.getVal('ATR', 'C118')
+            self.getVal('BaseCase', 'H118'),
+            self.getVal('BaseCase', 'I118'),
+            self.getVal('BaseCase', 'J118')
         ],
         backgroundColor: [
             'rgba(54, 162, 235, 0.2)'
@@ -137,9 +139,9 @@ HydrogenCalc.fn.drawChart = function() {
     }, {
         label: 'Fixed OPEX',
         data: [
-            self.getVal('BaseCase', 'C119'),
-            self.getVal('SMR', 'C119'),
-            self.getVal('ATR', 'C119')
+            self.getVal('BaseCase', 'H119'),
+            self.getVal('BaseCase', 'I119'),
+            self.getVal('BaseCase', 'J119')
         ],
         backgroundColor: [
             'rgba(255, 206, 86, 0.2)'
@@ -151,9 +153,9 @@ HydrogenCalc.fn.drawChart = function() {
     }, {
         label: 'Feedstock',
         data: [
-            self.getVal('BaseCase', 'C120'),
-            self.getVal('SMR', 'C120'),
-            self.getVal('ATR', 'C120')
+            self.getVal('BaseCase', 'H120'),
+            self.getVal('BaseCase', 'I120'),
+            self.getVal('BaseCase', 'J120')
         ],
         backgroundColor: [
             'rgba(75, 192, 192, 0.2)'
@@ -165,9 +167,9 @@ HydrogenCalc.fn.drawChart = function() {
     }, {
         label: 'Fuel',
         data: [
-            self.getVal('BaseCase', 'C121'),
-            self.getVal('SMR', 'C121'),
-            self.getVal('ATR', 'C121')
+            self.getVal('BaseCase', 'H121'),
+            self.getVal('BaseCase', 'I121'),
+            self.getVal('BaseCase', 'J121')
         ],
         backgroundColor: [
             'rgba(153, 102, 255, 0.2)'
@@ -179,9 +181,9 @@ HydrogenCalc.fn.drawChart = function() {
     }, {
         label: 'Electricity',
         data: [
-            self.getVal('BaseCase', 'C122'),
-            self.getVal('SMR', 'C122'),
-            self.getVal('ATR', 'C122')
+            self.getVal('BaseCase', 'H122'),
+            self.getVal('BaseCase', 'I122'),
+            self.getVal('BaseCase', 'J122')
         ],
         backgroundColor: [
             'rgba(255, 159, 64, 0.2)'
@@ -193,9 +195,9 @@ HydrogenCalc.fn.drawChart = function() {
     }, {
         label: 'Water',
         data: [
-            self.getVal('BaseCase', 'C123'),
-            self.getVal('SMR', 'C123'),
-            self.getVal('ATR', 'C123')
+            self.getVal('BaseCase', 'H123'),
+            self.getVal('BaseCase', 'I123'),
+            self.getVal('BaseCase', 'J123')
         ],
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)'
@@ -207,9 +209,9 @@ HydrogenCalc.fn.drawChart = function() {
     }, {
         label: 'CO2 T&S',
         data: [
-            self.getVal('BaseCase', 'C124'),
-            self.getVal('SMR', 'C124'),
-            self.getVal('ATR', 'C124')
+            self.getVal('BaseCase', 'H124'),
+            self.getVal('BaseCase', 'I124'),
+            self.getVal('BaseCase', 'J124')
         ],
         backgroundColor: [
             'rgba(80, 99, 132, 0.2)'
@@ -221,18 +223,18 @@ HydrogenCalc.fn.drawChart = function() {
     }, {
         label: 'Hydrogen Distribution',
         data: [
-            self.getVal('BaseCase', 'C125'),
-            self.getVal('SMR', 'C125'),
-            self.getVal('ATR', 'C125')
+            self.getVal('BaseCase', 'H125'),
+            self.getVal('BaseCase', 'I125'),
+            self.getVal('BaseCase', 'J125')
         ],
         backgroundColor: 'rgb(120, 120, 120)',
         borderWidth: 1
     }, {
         label: 'Carbon Price',
         data: [
-            self.getVal('BaseCase', 'C126'),
-            self.getVal('SMR', 'C126'),
-            self.getVal('ATR', 'C126')
+            self.getVal('BaseCase', 'H126'),
+            self.getVal('BaseCase', 'I126'),
+            self.getVal('BaseCase', 'J126')
         ],
         backgroundColor: [
             'rgba(25, 9, 232, 0.2)'
@@ -254,7 +256,9 @@ $('#taxCredit, #carbonPrice, #carbon, #electricity, #gas').keypress(function(e) 
 
 $('#gas, #electricity, #carbon, #carbonPrice, #taxCredit').change(function() {
     function buildValue(element) {
+        console.log(element)
         const value = element.val();
+        console.log(value)
         const res = value.replace(/[^.\d]/g, '');
         return value.includes('(') ? `-${res}` : res;
     }
