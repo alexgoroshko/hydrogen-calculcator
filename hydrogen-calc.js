@@ -61,7 +61,6 @@ HydrogenCalc.fn.init = async function() {
         });
     });
 
-    console.log(hydrogenData)
 
     $(self.tabs.join(',')).calx({
         data: hydrogenData,
@@ -256,9 +255,7 @@ $('#taxCredit, #carbonPrice, #carbon, #electricity, #gas').keypress(function(e) 
 
 $('#gas, #electricity, #carbon, #carbonPrice, #taxCredit').change(function() {
     function buildValue(element) {
-        console.log(element)
         const value = element.val();
-        console.log(value)
         const res = value.replace(/[^.\d]/g, '');
         return value.includes('(') ? `-${res}` : res;
     }
