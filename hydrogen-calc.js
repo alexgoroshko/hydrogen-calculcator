@@ -78,8 +78,7 @@ HydrogenCalc.fn.init = async function() {
   const a = await f.arrayBuffer();
   const wb = this.xlsx.read(a, { cellFormula: true, cellNF: true });
   if(wb) {
-    $('#loaderMain').css('display', 'none');
-    $("#body").css("overflow", "auto");
+    hiddenLoader()
   }
   const hydrogenData = {};
   Object.keys(wb.Sheets).forEach(name => {
@@ -450,8 +449,7 @@ AmmoniaCalc.fn.init = async function() {
   const wb = this.xlsx.read(a, { cellFormula: true, cellNF: true });
   $("#body").css("overflow","hidden");
   if(wb) {
-    $('#loaderMain').css('display', 'none');
-    $("#body").css("overflow", "auto");
+    hiddenLoader()
   }
   const ammoniaData = {};
   Object.keys(wb.Sheets).forEach(name => {
@@ -774,7 +772,12 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
 
 //GREEN CALC ________________________________________________________________________________________________________
 
-
+function hiddenLoader(){
+  setTimeout(function(){
+    $('#loaderMain').css('display', 'none');
+    $("#body").css("overflow", "auto");
+  }, 2000);
+}
 
 GreenHydrogenCalc.fn.init = async function() {
   self3 = this;
@@ -783,8 +786,7 @@ GreenHydrogenCalc.fn.init = async function() {
   const wb = this.xlsx.read(a, { cellFormula: true, cellNF: true });
   $("#body").css("overflow","hidden");
   if(wb) {
-    $('#loaderMain').css('display', 'none');
-    $("#body").css("overflow", "auto");
+    hiddenLoader()
   }
   const greenHydrogenData = {};
   Object.keys(wb.Sheets).forEach(name => {
