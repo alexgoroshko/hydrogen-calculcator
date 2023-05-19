@@ -1,20 +1,5 @@
-// $(document).ready(function(){
-//   $("#menu").on("click","a", function (event) {
-//     //отменяем стандартную обработку нажатия по ссылке
-//     event.preventDefault();
-//
-//     //забираем идентификатор бока с атрибута href
-//     var id  = $(this).attr('href'),
-//
-//       //узнаем высоту от начала страницы до блока на который ссылается якорь
-//       top = $(id).offset().top;
-//
-//     //анимируем переход на расстояние - top за 1000 мс
-//     $('body,html').animate({scrollTop: top}, 1000);
-//   });
-// });
-
 function HydrogenCalc() {
+  Chart.register(ChartDataLabels)
   this.$ = jQuery;
   this.chart;
   this.xlsx = XLSX;
@@ -114,7 +99,6 @@ HydrogenCalc.fn.init = async function() {
     onAfterCalculate: function() {
       if (self.chart) {
         self.chart.data.datasets[0].data = [];
-
         self.chart.update();
       }
     }
@@ -127,6 +111,13 @@ HydrogenCalc.fn.init = async function() {
   self.drawChart();
 };
 
+const topLabels = {
+  id: 'topLabels',
+  afterDatasetsDraw(chart, args, pluginOpt) {
+    const {ctx, scales: {x, y}} = chart;
+  }
+}
+
 HydrogenCalc.fn.getDefaultChartOpts = function() {
   return {
     type: "bar",
@@ -135,6 +126,20 @@ HydrogenCalc.fn.getDefaultChartOpts = function() {
       datasets: []
     },
     options: {
+
+      plugins: {
+        datalabels: {
+          anchor: 'start',
+          formatter: function(value, context) {
+            if(context.dataset.label === ''){
+              return Math.round(value) + '\n';
+            } else {
+              return ''
+            }
+          },
+          anchor: 'start',
+        }
+      },
       scales: {
         x: {
           stacked: true
@@ -147,7 +152,8 @@ HydrogenCalc.fn.getDefaultChartOpts = function() {
           }
         }
       }
-    }
+    },
+    plugins: [ChartDataLabels, topLabels]
   };
 };
 
@@ -155,7 +161,6 @@ HydrogenCalc.fn.getDefaultChartOpts = function() {
 HydrogenCalc.fn.getVal = function(sheet, addr) {
   return this.sheets[sheet ?? "SMR"].cells[addr] ? this.sheets[sheet].cells[addr].getValue() : 0;
 };
-
 
 HydrogenCalc.fn.drawChart = function() {
   self = this;
@@ -290,6 +295,19 @@ HydrogenCalc.fn.drawChart = function() {
       backgroundColor: "rgba(75,97,182,0.2)",
       borderColor: [
         "rgb(72,15,217)"
+      ],
+      borderWidth: 1
+    },
+    {
+      label: "",
+      data: [
+        self.getVal("BaseCase", "H129"),
+        self.getVal("BaseCase", "I129"),
+        self.getVal("BaseCase", "J129")
+      ],
+      backgroundColor: "rgba(75,97,182,0)",
+      borderColor: [
+        "rgba(72,15,217,0)"
       ],
       borderWidth: 1
     }
@@ -436,7 +454,20 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
         "rgba(25, 9, 232, 1)"
       ],
       borderWidth: 1
-    }];
+    },
+      {
+        label: "",
+        data: [
+          buildValue($("#total1")),
+          buildValue($("#total2")),
+          buildValue($("#total3"))
+        ],
+        backgroundColor: "rgba(75,97,182,0)",
+        borderColor: [
+          "rgba(72,15,217,0)"
+        ],
+        borderWidth: 1
+      }];
     $("#canvas_wr").html(""); //remove canvas from container
     $("#canvas_wr").html("   <canvas id=\"chart_container\" height=\"200px\"></canvas>"); //add it back to the container
     this.chart = new Chart($("#chart_container")[0], chartOpts);
@@ -509,6 +540,19 @@ AmmoniaCalc.fn.getDefaultChartOpts = function() {
       datasets: []
     },
     options: {
+      plugins: {
+        anchor: 'start',
+        datalabels: {
+          anchor: 'start',
+          formatter: function(value, context) {
+            if(context.dataset.label == ''){
+              return Math.round(value) + '\n';
+            } else {
+              return ''
+            }
+          }
+        }
+      },
       scales: {
         x: {
           stacked: true
@@ -646,6 +690,20 @@ AmmoniaCalc.fn.drawChart = function() {
       ],
       borderWidth: 1
     },
+    {
+      label: "",
+      data: [
+        self2.getVal("KBRPurifierReferenceCase", "G128"),
+        self2.getVal("KBRPurifierReferenceCase", "H128"),
+      ],
+      backgroundColor: [
+        "rgba(255,255,255,0)"
+      ],
+      borderColor: [
+        "rgba(255,255,255,0)"
+      ],
+      borderWidth: 1
+    },
   ];
 
   this.chart2 = new Chart($("#chart_container2")[0], chartOpts2);
@@ -769,7 +827,21 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
         "rgba(25, 9, 232, 1)"
       ],
       borderWidth: 1
-    }];
+    },
+      {
+        label: '',
+        data: [
+          buildValue($("#amtotal1")),
+          buildValue($("#amtotal2")),
+        ],
+        backgroundColor: [
+          "rgba(255,255,255,0)"
+        ],
+        borderColor: [
+          "rgba(255,255,255,0)"
+        ],
+        borderWidth: 1
+      }];
     $("#canvas_wr2").html(""); //remove canvas from container
     $("#canvas_wr2").html("   <canvas id=\"chart_container2\" height=\"200px\"></canvas>"); //add it back to the container
     this.chart2 = new Chart($("#chart_container2")[0], chartOpts2);
@@ -850,6 +922,18 @@ GreenHydrogenCalc.fn.getDefaultChartOpts = function() {
       datasets: []
     },
     options: {
+      plugins: {
+        datalabels: {
+          anchor: 'start',
+          formatter: function(value, context) {
+            if(context.dataset.label === ''){
+              return Math.round(value) + '\n';
+            } else {
+              return ''
+            }
+          }
+        }
+      },
       scales: {
         x: {
           stacked: true
@@ -951,6 +1035,20 @@ GreenHydrogenCalc.fn.drawChart = function() {
       ],
       borderWidth: 1
     },
+    {
+      label: "",
+      data: [
+        self3.getVal("H2PEM", "H90"),
+        self3.getVal("H2PEM", "I90"),
+      ],
+      backgroundColor: [
+        "rgba(68,134,60,0)"
+      ],
+      borderColor: [
+        "rgba(14,227,7,0)"
+      ],
+      borderWidth: 1
+    },
   ];
 
   this.chart3 = new Chart($("#chart_container3")[0], chartOpts3);
@@ -1022,6 +1120,20 @@ GreenHydrogenCalc.fn.drawChart = function() {
       ],
       borderColor: [
         "rgb(14,227,7)"
+      ],
+      borderWidth: 1
+    },
+    {
+      label: "",
+      data: [
+        self3.getVal("NH3PEM", "G90"),
+        self3.getVal("NH3PEM", "H90"),
+      ],
+      backgroundColor: [
+        "rgba(68,134,60,0)"
+      ],
+      borderColor: [
+        "rgba(14,227,7,0)"
       ],
       borderWidth: 1
     },
@@ -1109,6 +1221,19 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
         "rgba(25, 9, 232, 1)"
       ],
       borderWidth: 1
+    },{
+      label: "",
+      data: [
+        buildValue($("#gr1total1")),
+        buildValue($("#gr1total2")),
+      ],
+      backgroundColor: [
+        "rgba(25,9,232,0)"
+      ],
+      borderColor: [
+        "rgba(25,9,232,0)"
+      ],
+      borderWidth: 1
     }];
 
     chartOpts4.data.datasets = [{
@@ -1117,11 +1242,9 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
         buildValue($("#gr2cap1")),
         buildValue($("#gr2cap2")),
       ],
-      backgroundColor: [
-        "rgba(238,96,96,0.2)"
-      ],
+      backgroundColor: "rgba(75,97,182,0.2)",
       borderColor: [
-        "rgb(227,5,43)"
+        "rgb(72,15,217)"
       ],
       borderWidth: 1
     }, {
@@ -1174,6 +1297,19 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
       ],
       borderColor: [
         "rgba(25, 9, 232, 1)"
+      ],
+      borderWidth: 1
+    }, {
+      label: "",
+      data: [
+        buildValue($("#gr2total1")),
+        buildValue($("#gr2total2")),
+      ],
+      backgroundColor: [
+        "rgba(25,9,232,0)"
+      ],
+      borderColor: [
+        "rgba(25,9,232,0)"
       ],
       borderWidth: 1
     }];
