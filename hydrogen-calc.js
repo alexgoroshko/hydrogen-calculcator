@@ -140,7 +140,11 @@ HydrogenCalc.fn.getDefaultChartOpts = function() {
           stacked: true
         },
         y: {
-          stacked: true
+          stacked: true,
+          title: {
+            display: true,
+            text: 'Levelized Cost of Hydrogen (USD/kg)'
+          }
         }
       }
     }
@@ -239,10 +243,10 @@ HydrogenCalc.fn.drawChart = function() {
         self.getVal("BaseCase", "J123")
       ],
       backgroundColor: [
-        "rgba(153,178,70,0.2)"
+        "rgb(167,186,227)"
       ],
       borderColor: [
-        "rgb(245,224,9)"
+        "rgb(7,77,227)"
       ],
       borderWidth: 1
     },
@@ -356,10 +360,10 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
         buildValue($("#ng3"))
       ],
       backgroundColor: [
-        "rgba(143,96,65,0.2)"
+        "rgb(167,186,227)"
       ],
       borderColor: [
-        "rgb(241,133,3)"
+        "rgb(7,77,227)"
       ],
       borderWidth: 1
     }, {
@@ -485,7 +489,6 @@ AmmoniaCalc.fn.init = async function() {
     onAfterCalculate: function() {
       if (self2.chart) {
         self2.chart.data.datasets[0].data = [];
-
         self2.chart.update();
       }
     }
@@ -511,7 +514,11 @@ AmmoniaCalc.fn.getDefaultChartOpts = function() {
           stacked: true
         },
         y: {
-          stacked: true
+          stacked: true,
+          title: {
+            display: true,
+            text: 'Levelized Cost of Ammonia (USD/ton)'
+          }
         }
       }
     }
@@ -604,10 +611,10 @@ AmmoniaCalc.fn.drawChart = function() {
         self2.getVal("KBRPurifierReferenceCase", "H122"),
       ],
       backgroundColor: [
-        "rgba(153,178,70,0.2)"
+        "rgb(167,186,227)"
       ],
       borderColor: [
-        "rgb(245,224,9)"
+        "rgb(7,77,227)"
       ],
       borderWidth: 1
     },
@@ -848,7 +855,7 @@ GreenHydrogenCalc.fn.getDefaultChartOpts = function() {
           stacked: true
         },
         y: {
-          stacked: true
+          stacked: true,
         }
       }
     }
@@ -865,6 +872,14 @@ GreenHydrogenCalc.fn.drawChart = function() {
   self3 = this;
   chartOpts3 = self3.getDefaultChartOpts();
   chartOpts4 = self3.getDefaultChartOpts();
+  chartOpts3.options.scales.y.title = {
+    display: true,
+    text: 'Levelized Cost of Hydrogen (USD/kg)'
+  }
+  chartOpts4.options.scales.y.title = {
+    display: true,
+    text: 'Levelized Cost of Ammonia (USD/tona)'
+  }
 
   chartOpts3.data.datasets = [{
     label: "CAPEX",
@@ -873,10 +888,10 @@ GreenHydrogenCalc.fn.drawChart = function() {
       self3.getVal("H2PEM", "I89"),
     ],
     backgroundColor: [
-      "rgba(25, 9, 232, 0.2)"
+      "rgba(238,96,96,0.2)"
     ],
     borderColor: [
-      "rgba(25, 9, 232, 1)"
+      "rgb(227,5,43)"
     ],
     borderWidth: 1
   },
@@ -947,10 +962,10 @@ GreenHydrogenCalc.fn.drawChart = function() {
       self3.getVal("NH3PEM", "H89"),
     ],
     backgroundColor: [
-      "rgba(25, 9, 232, 0.2)"
+      "rgba(238,96,96,0.2)"
     ],
     borderColor: [
-      "rgba(25, 9, 232, 1)"
+      "rgb(227,5,43)"
     ],
     borderWidth: 1
   },
@@ -1035,9 +1050,11 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
         buildValue($("#gr1cap1")),
         buildValue($("#gr1cap2")),
       ],
-      backgroundColor: "rgba(75,97,182,0.2)",
+      backgroundColor: [
+        "rgba(238,96,96,0.2)"
+      ],
       borderColor: [
-        "rgb(72,15,217)"
+        "rgb(227,5,43)"
       ],
       borderWidth: 1
     }, {
@@ -1100,9 +1117,11 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
         buildValue($("#gr2cap1")),
         buildValue($("#gr2cap2")),
       ],
-      backgroundColor: "rgba(75,97,182,0.2)",
+      backgroundColor: [
+        "rgba(238,96,96,0.2)"
+      ],
       borderColor: [
-        "rgb(72,15,217)"
+        "rgb(227,5,43)"
       ],
       borderWidth: 1
     }, {
