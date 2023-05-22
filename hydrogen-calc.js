@@ -325,8 +325,7 @@ $("#taxCredit, #carbonPrice, #carbon, #electricity, #gas").keypress(function(e) 
 $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
   function buildValue(element) {
     const value = element.val();
-    const res = value.replace(/[^.\d]/g, "");
-    return value.includes("(") ? `-${res}` : res;
+    return value.replace(/^[-+]?[0-9]*[.,]?[0-9]+$/g, "").replace('$', "");
   }
 
   setTimeout(function() {
@@ -718,8 +717,7 @@ $("#taxCreditAm, #carbonPriceAm, #carbonAm, #electricityAm, #gasAm, #elExportAm"
 $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm").change(function() {
   function buildValue(element) {
     const value = element.val();
-    const res = value.replace(/[^.\d]/g, "");
-    return value.includes("(") ? `-${res}` : res;
+    return value.replace(/^[-+]?[0-9]*[.,]?[0-9]+$/g, "").replace('$', "");
   }
 
   setTimeout(function() {
@@ -1151,8 +1149,7 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
 $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit").change(function() {
   function buildValue(element) {
     const value = element.val();
-    const res = value.replace(/[^.\d]/g, "");
-    return value.includes("(") ? `-${res}` : res;
+    return value.replace(/^[-+]?[0-9]*[.,]?[0-9]+$/g, "").replace('$', "");
   }
 
   setTimeout(function() {
