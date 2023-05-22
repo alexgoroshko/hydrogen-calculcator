@@ -374,9 +374,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "Natural Gas",
       data: [
-        buildValue($("#ng1")),
-        buildValue($("#ng2")),
-        buildValue($("#ng3"))
+        buildValue($("#natGas1")),
+        buildValue($("#natGas2")),
+        buildValue($("#natGas3"))
       ],
       backgroundColor: [
         "rgb(167,186,227)"
