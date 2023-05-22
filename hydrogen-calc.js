@@ -848,7 +848,7 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     $("#canvas_wr2").html(""); //remove canvas from container
     $("#canvas_wr2").html("   <canvas id=\"chart_container2\" height=\"200px\"></canvas>"); //add it back to the container
     this.chart2 = new Chart($("#chart_container2")[0], chartOpts2);
-  }, 4000);
+  }, 3000);
 });
 
 
