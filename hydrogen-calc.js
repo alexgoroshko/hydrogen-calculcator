@@ -134,7 +134,7 @@ HydrogenCalc.fn.getDefaultChartOpts = function() {
           anchor: 'start',
           formatter: function(value, context) {
             if(context.dataset.label === ''){
-              return Math.round(value) + '\n';
+              return Number(value).toFixed(2) + '\n';
             } else {
               return ''
             }
@@ -550,7 +550,7 @@ AmmoniaCalc.fn.getDefaultChartOpts = function() {
           anchor: 'start',
           formatter: function(value, context) {
             if(context.dataset.label == ''){
-              return Math.round(value) + '\n';
+              return Number(value).toFixed(2) + '\n';
             } else {
               return ''
             }
@@ -932,7 +932,7 @@ GreenHydrogenCalc.fn.getDefaultChartOpts = function() {
           anchor: 'start',
           formatter: function(value, context) {
             if(context.dataset.label === ''){
-              return Math.round(value) + '\n';
+              return Number(value).toFixed(2) + '\n';
             } else {
               return ''
             }
