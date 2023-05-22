@@ -108,7 +108,9 @@ HydrogenCalc.fn.init = async function() {
     self.sheets[tab.replace("#", "")] = self.$(tab).calx("getSheet");
   });
 
-  self.drawChart();
+  setTimeout(function () {
+    self.drawChart();
+  }, 2000);
 };
 
 const topLabels = {
@@ -528,7 +530,10 @@ AmmoniaCalc.fn.init = async function() {
     self2.sheets[tab.replace("#", "")] = self2.$(tab).calx("getSheet");
   });
 
-  self2.drawChart();
+  
+  setTimeout(function () {
+    self2.drawChart();
+  }, 2000);
 };
 
 AmmoniaCalc.fn.getDefaultChartOpts = function() {
@@ -909,7 +914,9 @@ GreenHydrogenCalc.fn.init = async function() {
     self3.sheets[tab.replace("#", "")] = self3.$(tab).calx("getSheet");
   });
 
-  self3.drawChart();
+  setTimeout(function () {
+    self3.drawChart();
+  }, 2000);
 };
 
 GreenHydrogenCalc.fn.getDefaultChartOpts = function() {
