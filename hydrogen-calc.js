@@ -472,7 +472,7 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     $("#canvas_wr").html(""); //remove canvas from container
     $("#canvas_wr").html("   <canvas id=\"chart_container\" height=\"200px\"></canvas>"); //add it back to the container
     this.chart = new Chart($("#chart_container")[0], chartOpts);
-  }, 4000);
+  }, 3000);
 });
 
 
@@ -1326,5 +1326,5 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
     $("#canvas_wr4").html(""); //remove canvas from container
     $("#canvas_wr4").html("   <canvas id=\"chart_container4\" height=\"200px\"></canvas>"); //add it back to the container
     this.chart4 = new Chart($("#chart_container4")[0], chartOpts4);
-  }, 4000);
+  }, 3000);
 });
