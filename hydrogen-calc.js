@@ -84,7 +84,7 @@ HydrogenCalc.fn.init = async function() {
       } else {
         hydrogenData[splitName(name)][cell] = {
           format: wb.Sheets[name][cell].z || "",
-          value: wb.Sheets[name][cell].v
+          value: wb.Sheets[name][cell].v == 0 ? '$0' : wb.Sheets[name][cell].v
         };
       }
       if (hydrogenData[splitName(name)][cell].format === "General") {
@@ -506,7 +506,7 @@ AmmoniaCalc.fn.init = async function() {
       } else {
         ammoniaData[splitName(name)][cell] = {
           format: wb.Sheets[name][cell].z || "",
-          value: wb.Sheets[name][cell].v
+          value: wb.Sheets[name][cell].v == 0 ? '$0' : wb.Sheets[name][cell].v
         };
       }
       if (ammoniaData[splitName(name)][cell].format === "General") {
@@ -889,7 +889,7 @@ GreenHydrogenCalc.fn.init = async function() {
       } else {
         greenHydrogenData[splitName(name)][cell] = {
           format: wb.Sheets[name][cell].z || "",
-          value: wb.Sheets[name][cell].v
+          value: wb.Sheets[name][cell].v == 0 ? '$0' : wb.Sheets[name][cell].v
         };
       }
       if (greenHydrogenData[splitName(name)][cell].format === "General") {
