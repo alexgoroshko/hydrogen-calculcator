@@ -1,5 +1,5 @@
 function HydrogenCalc() {
-  Chart.register(ChartDataLabels)
+  Chart.register(ChartDataLabels);
   this.$ = jQuery;
   this.chart;
   this.xlsx = XLSX;
@@ -57,13 +57,13 @@ function splitName(name) {
 }
 
 HydrogenCalc.fn.init = async function() {
-  $("#body").css("overflow","hidden");
+  $("#body").css("overflow", "hidden");
   self = this;
   const f = await fetch("https://docs.google.com/spreadsheets/d/1tmVcYR2Ux9U_4gtpYkQgKR-V8k7PwTRZbTyibNKMyT4/export?format=xlsx");
   const a = await f.arrayBuffer();
   const wb = this.xlsx.read(a, { cellFormula: true, cellNF: true });
-  if(wb) {
-    hiddenLoader()
+  if (wb) {
+    hiddenLoader();
   }
   const hydrogenData = {};
   Object.keys(wb.Sheets).forEach(name => {
@@ -108,17 +108,36 @@ HydrogenCalc.fn.init = async function() {
     self.sheets[tab.replace("#", "")] = self.$(tab).calx("getSheet");
   });
 
-  setTimeout(function () {
+  setTimeout(function() {
     self.drawChart();
   }, 2000);
 };
 
 const topLabels = {
-  id: 'topLabels',
+  id: "topLabels",
   afterDatasetsDraw(chart, args, pluginOpt) {
-    const {ctx, scales: {x, y}} = chart;
+    const { ctx, scales: { x, y } } = chart;
+    chart.data.datasets[0].data.forEach((datapoint, index) => {
+      const datasetArray = [];
+      chart.data.datasets.forEach((dataset) => {
+        if(dataset.data[index] != undefined && !isNaN(dataset.data[index])){
+          datasetArray.push(dataset.data[index]);
+        }
+      });
+
+      function totalSum(total, values) {
+        return total + values;
+      }
+
+      let sum = datasetArray.reduce(totalSum, 0);
+      ctx.font = "bold";
+      ctx.fillStyle = "#808080";
+      ctx.textAlign = "center";
+
+      ctx.fillText(sum.toFixed(1), x.getPixelForValue(index), 75);
+    });
   }
-}
+};
 
 HydrogenCalc.fn.getDefaultChartOpts = function() {
   return {
@@ -128,18 +147,11 @@ HydrogenCalc.fn.getDefaultChartOpts = function() {
       datasets: []
     },
     options: {
-
       plugins: {
         datalabels: {
-          anchor: 'start',
           formatter: function(value, context) {
-            if(context.dataset.label === ''){
-              return Number(value).toFixed(2) + '\n';
-            } else {
-              return ''
-            }
-          },
-          anchor: 'start',
+            return "";
+          }
         }
       },
       scales: {
@@ -150,7 +162,7 @@ HydrogenCalc.fn.getDefaultChartOpts = function() {
           stacked: true,
           title: {
             display: true,
-            text: 'Levelized Cost of Hydrogen (USD/kg)'
+            text: "Levelized Cost of Hydrogen (USD/kg)"
           }
         }
       }
@@ -299,19 +311,6 @@ HydrogenCalc.fn.drawChart = function() {
         "rgb(72,15,217)"
       ],
       borderWidth: 1
-    },
-    {
-      label: "",
-      data: [
-        self.getVal("BaseCase", "H129"),
-        self.getVal("BaseCase", "I129"),
-        self.getVal("BaseCase", "J129")
-      ],
-      backgroundColor: "rgba(75,97,182,0)",
-      borderColor: [
-        "rgba(72,15,217,0)"
-      ],
-      borderWidth: 1
     }
   ];
 
@@ -327,16 +326,16 @@ $("#taxCredit, #carbonPrice, #carbon, #electricity, #gas").keypress(function(e) 
 $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
   function buildValue(element) {
     const value = element.val();
-    return value.replace(/^[-+]?[0-9]*[.,]?[0-9]+$/g, "").replace('$', "");
+    return value.replace(/^[-+]?[0-9]*[.,]?[0-9]+$/g, "").replace("$", "");
   }
 
   setTimeout(function() {
     chartOpts.data.datasets = [{
       label: "Power Export",
       data: [
-        buildValue($("#pe1")),
-        buildValue($("#pe2")),
-        buildValue($("#pe3"))
+        parseFloat(buildValue($("#pe1"))),
+        parseFloat(buildValue($("#pe2"))),
+        parseFloat(buildValue($("#pe3")))
       ],
       backgroundColor: "rgba(75,97,182,0.2)",
       borderColor: [
@@ -346,9 +345,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "CAPEX",
       data: [
-        buildValue($("#cap1")),
-        buildValue($("#cap2")),
-        buildValue($("#cap3"))
+        parseFloat(buildValue($("#cap1"))),
+        parseFloat(buildValue($("#cap2"))),
+        parseFloat(buildValue($("#cap3")))
       ],
       backgroundColor: [
         "rgba(238,96,96,0.2)"
@@ -360,9 +359,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "Fixed OPEX",
       data: [
-        buildValue($("#fo1")),
-        buildValue($("#fo2")),
-        buildValue($("#fo3"))
+        parseFloat(buildValue($("#fo1"))),
+        parseFloat(buildValue($("#fo2"))),
+        parseFloat(buildValue($("#fo3")))
       ],
       backgroundColor: [
         "rgba(61,65,63,0.2)"
@@ -374,9 +373,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "Natural Gas",
       data: [
-        buildValue($("#natGas1")),
-        buildValue($("#natGas2")),
-        buildValue($("#natGas3"))
+        parseFloat(buildValue($("#natGas1"))),
+        parseFloat(buildValue($("#natGas2"))),
+        parseFloat(buildValue($("#natGas3")))
       ],
       backgroundColor: [
         "rgb(167,186,227)"
@@ -388,9 +387,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "Electricity",
       data: [
-        buildValue($("#el1")),
-        buildValue($("#el2")),
-        buildValue($("#el3"))
+        parseFloat(buildValue($("#el1"))),
+        parseFloat(buildValue($("#el2"))),
+        parseFloat(buildValue($("#el3")))
       ],
       backgroundColor: [
         "rgba(68,134,60,0.2)"
@@ -402,9 +401,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "Water",
       data: [
-        buildValue($("#wat1")),
-        buildValue($("#wat2")),
-        buildValue($("#wat3"))
+        parseFloat(buildValue($("#wat1"))),
+        parseFloat(buildValue($("#wat2"))),
+        parseFloat(buildValue($("#wat3")))
       ],
       backgroundColor: [
         "rgba(66,93,164,0.2)"
@@ -416,9 +415,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "CO2 T&S",
       data: [
-        buildValue($("#co1")),
-        buildValue($("#co2")),
-        buildValue($("#co3"))
+        parseFloat(buildValue($("#co1"))),
+        parseFloat(buildValue($("#co2"))),
+        parseFloat(buildValue($("#co3")))
       ],
       backgroundColor: [
         "rgba(136,98,65,0.2)"
@@ -430,9 +429,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "Carbon Tax",
       data: [
-        buildValue($("#ct1")),
-        buildValue($("#ct2")),
-        buildValue($("#ct3"))
+        parseFloat(buildValue($("#ct1"))),
+        parseFloat(buildValue($("#ct2"))),
+        parseFloat(buildValue($("#ct3")))
       ],
       backgroundColor: [
         "rgba(173,171,68,0.2)"
@@ -444,9 +443,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "Carbon Credit",
       data: [
-        buildValue($("#ccr1")),
-        buildValue($("#ccr2")),
-        buildValue($("#ccr3"))
+        parseFloat(buildValue($("#ccr1"))),
+        parseFloat(buildValue($("#ccr2"))),
+        parseFloat(buildValue($("#ccr3")))
       ],
       backgroundColor: [
         "rgba(25, 9, 232, 0.2)"
@@ -455,20 +454,8 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
         "rgba(25, 9, 232, 1)"
       ],
       borderWidth: 1
-    },
-      {
-        label: "",
-        data: [
-          buildValue($("#total1")),
-          buildValue($("#total2")),
-          buildValue($("#total3"))
-        ],
-        backgroundColor: "rgba(75,97,182,0)",
-        borderColor: [
-          "rgba(72,15,217,0)"
-        ],
-        borderWidth: 1
-      }];
+    }
+    ];
     $("#canvas_wr").html(""); //remove canvas from container
     $("#canvas_wr").html("   <canvas id=\"chart_container\" height=\"200px\"></canvas>"); //add it back to the container
     this.chart = new Chart($("#chart_container")[0], chartOpts);
@@ -480,12 +467,12 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
 
 AmmoniaCalc.fn.init = async function() {
   self2 = this;
-  const f = await fetch('https://docs.google.com/spreadsheets/d/136gX-lPlD2fMbYbxCJmtu_f762j5SfbAuUohJT_MdkU/export?format=xlsx');
+  const f = await fetch("https://docs.google.com/spreadsheets/d/136gX-lPlD2fMbYbxCJmtu_f762j5SfbAuUohJT_MdkU/export?format=xlsx");
   const a = await f.arrayBuffer();
   const wb = this.xlsx.read(a, { cellFormula: true, cellNF: true });
-  $("#body").css("overflow","hidden");
-  if(wb) {
-    hiddenLoader()
+  $("#body").css("overflow", "hidden");
+  if (wb) {
+    hiddenLoader();
   }
   const ammoniaData = {};
   Object.keys(wb.Sheets).forEach(name => {
@@ -506,7 +493,7 @@ AmmoniaCalc.fn.init = async function() {
       } else {
         ammoniaData[splitName(name)][cell] = {
           format: wb.Sheets[name][cell].z || "",
-          value: wb.Sheets[name][cell].v 
+          value: wb.Sheets[name][cell].v
         };
       }
       if (ammoniaData[splitName(name)][cell].format === "General") {
@@ -530,8 +517,8 @@ AmmoniaCalc.fn.init = async function() {
     self2.sheets[tab.replace("#", "")] = self2.$(tab).calx("getSheet");
   });
 
-  
-  setTimeout(function () {
+
+  setTimeout(function() {
     self2.drawChart();
   }, 2000);
 };
@@ -545,15 +532,9 @@ AmmoniaCalc.fn.getDefaultChartOpts = function() {
     },
     options: {
       plugins: {
-        anchor: 'start',
         datalabels: {
-          anchor: 'start',
           formatter: function(value, context) {
-            if(context.dataset.label == ''){
-              return Number(value).toFixed(2) + '\n';
-            } else {
-              return ''
-            }
+            return "";
           }
         }
       },
@@ -565,11 +546,12 @@ AmmoniaCalc.fn.getDefaultChartOpts = function() {
           stacked: true,
           title: {
             display: true,
-            text: 'Levelized Cost of Ammonia (USD/ton)'
+            text: "Levelized Cost of Ammonia (USD/ton)"
           }
         }
       }
-    }
+    },
+    plugins: [ChartDataLabels, topLabels]
   };
 };
 
@@ -583,24 +565,24 @@ AmmoniaCalc.fn.drawChart = function() {
   chartOpts2 = self2.getDefaultChartOpts();
   chartOpts2.data.datasets = [
     {
-    label: "Carbon Credit",
-    data: [
-      self2.getVal("KBRPurifierReferenceCase", "G127"),
-      self2.getVal("KBRPurifierReferenceCase", "H127"),
-    ],
-    backgroundColor: [
-      "rgba(25, 9, 232, 0.2)"
-    ],
-    borderColor: [
-      "rgba(25, 9, 232, 1)"
-    ],
-    borderWidth: 1
-  },
+      label: "Carbon Credit",
+      data: [
+        self2.getVal("KBRPurifierReferenceCase", "G127"),
+        self2.getVal("KBRPurifierList2", "C127")
+      ],
+      backgroundColor: [
+        "rgba(25, 9, 232, 0.2)"
+      ],
+      borderColor: [
+        "rgba(25, 9, 232, 1)"
+      ],
+      borderWidth: 1
+    },
     {
       label: "Carbon Tax",
       data: [
         self2.getVal("KBRPurifierReferenceCase", "G126"),
-        self2.getVal("KBRPurifierReferenceCase", "H126"),
+        self2.getVal("KBRPurifierList2", "C126")
       ],
       backgroundColor: [
         "rgba(173,171,68,0.2)"
@@ -614,7 +596,7 @@ AmmoniaCalc.fn.drawChart = function() {
       label: "CO2 T&S",
       data: [
         self2.getVal("KBRPurifierReferenceCase", "G125"),
-        self2.getVal("KBRPurifierReferenceCase", "H125"),
+        self2.getVal("KBRPurifierList2", "C125")
       ],
       backgroundColor: [
         "rgba(136,98,65,0.2)"
@@ -628,7 +610,7 @@ AmmoniaCalc.fn.drawChart = function() {
       label: "Water",
       data: [
         self2.getVal("KBRPurifierReferenceCase", "G124"),
-        self2.getVal("KBRPurifierReferenceCase", "H124"),
+        self2.getVal("KBRPurifierList2", "C124")
       ],
       backgroundColor: [
         "rgba(66,93,164,0.2)"
@@ -642,7 +624,7 @@ AmmoniaCalc.fn.drawChart = function() {
       label: "Electricity",
       data: [
         self2.getVal("KBRPurifierReferenceCase", "G123"),
-        self2.getVal("KBRPurifierReferenceCase", "H123"),
+        self2.getVal("KBRPurifierList2", "C123")
       ],
       backgroundColor: [
         "rgba(68,134,60,0.2)"
@@ -656,7 +638,7 @@ AmmoniaCalc.fn.drawChart = function() {
       label: "Natural Gas",
       data: [
         self2.getVal("KBRPurifierReferenceCase", "G122"),
-        self2.getVal("KBRPurifierReferenceCase", "H122"),
+        self2.getVal("KBRPurifierList2", "C122")
       ],
       backgroundColor: [
         "rgb(167,186,227)"
@@ -670,7 +652,7 @@ AmmoniaCalc.fn.drawChart = function() {
       label: "Fixed OPEX",
       data: [
         self2.getVal("KBRPurifierReferenceCase", "G121"),
-        self2.getVal("KBRPurifierReferenceCase", "H121"),
+        self2.getVal("KBRPurifierList2", "C121")
       ],
       backgroundColor: [
         "rgba(61,65,63,0.2)"
@@ -684,7 +666,7 @@ AmmoniaCalc.fn.drawChart = function() {
       label: "CAPEX",
       data: [
         self2.getVal("KBRPurifierReferenceCase", "G120"),
-        self2.getVal("KBRPurifierReferenceCase", "H120"),
+        self2.getVal("KBRPurifierList2", "C120")
       ],
       backgroundColor: [
         "rgba(238,96,96,0.2)"
@@ -693,21 +675,7 @@ AmmoniaCalc.fn.drawChart = function() {
         "rgb(227,5,43)"
       ],
       borderWidth: 1
-    },
-    {
-      label: "",
-      data: [
-        self2.getVal("KBRPurifierReferenceCase", "G128"),
-        self2.getVal("KBRPurifierReferenceCase", "H128"),
-      ],
-      backgroundColor: [
-        "rgba(255,255,255,0)"
-      ],
-      borderColor: [
-        "rgba(255,255,255,0)"
-      ],
-      borderWidth: 1
-    },
+    }
   ];
 
   this.chart2 = new Chart($("#chart_container2")[0], chartOpts2);
@@ -722,15 +690,15 @@ $("#taxCreditAm, #carbonPriceAm, #carbonAm, #electricityAm, #gasAm, #elExportAm"
 $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm").change(function() {
   function buildValue(element) {
     const value = element.val();
-    return value.replace(/^[-+]?[0-9]*[.,]?[0-9]+$/g, "").replace('$', "");
+    return value.replace(/^[-+]?[0-9]*[.,]?[0-9]+$/g, "").replace("$", "");
   }
 
   setTimeout(function() {
     chartOpts2.data.datasets = [{
       label: "CAPEX",
       data: [
-        buildValue($("#amcap1")),
-        buildValue($("#amcap2")),
+        parseFloat(buildValue($("#amcap1"))),
+        parseFloat(buildValue($("#amcap2")))
       ],
       backgroundColor: [
         "rgba(238,96,96,0.2)"
@@ -742,8 +710,8 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     }, {
       label: "Fixed OPEX",
       data: [
-        buildValue($("#amfo1")),
-        buildValue($("#amfo2")),
+        parseFloat(buildValue($("#amfo1"))),
+        parseFloat(buildValue($("#amfo2")))
       ],
       backgroundColor: [
         "rgba(61,65,63,0.2)"
@@ -755,21 +723,21 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     }, {
       label: "Natural Gas",
       data: [
-        buildValue($("#amng1")),
-        buildValue($("#amng2")),
+        parseFloat(buildValue($("#amng1"))),
+        parseFloat(buildValue($("#amng2")))
       ],
       backgroundColor: [
-        "rgba(143,96,65,0.2)"
+        "rgb(167,186,227)"
       ],
       borderColor: [
-        "rgb(241,133,3)"
+        "rgb(7,77,227)"
       ],
       borderWidth: 1
     }, {
       label: "Electricity",
       data: [
-        buildValue($("#amel1")),
-        buildValue($("#amel2")),
+        parseFloat(buildValue($("#amel1"))),
+        parseFloat(buildValue($("#amel2")))
       ],
       backgroundColor: [
         "rgba(68,134,60,0.2)"
@@ -781,8 +749,8 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     }, {
       label: "Water",
       data: [
-        buildValue($("#amwat1")),
-        buildValue($("#amwat2")),
+        parseFloat(buildValue($("#amwat1"))),
+        parseFloat(buildValue($("#amwat2")))
       ],
       backgroundColor: [
         "rgba(66,93,164,0.2)"
@@ -794,8 +762,8 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     }, {
       label: "CO2 T&S",
       data: [
-        buildValue($("#amco1")),
-        buildValue($("#amco2")),
+        parseFloat(buildValue($("#amco1"))),
+        parseFloat(buildValue($("#amco2")))
       ],
       backgroundColor: [
         "rgba(136,98,65,0.2)"
@@ -807,8 +775,8 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     }, {
       label: "Carbon Tax",
       data: [
-        buildValue($("#amct1")),
-        buildValue($("#amct2")),
+        parseFloat(buildValue($("#amct1"))),
+        parseFloat(buildValue($("#amct2")))
       ],
       backgroundColor: [
         "rgba(173,171,68,0.2)"
@@ -820,8 +788,8 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     }, {
       label: "Carbon Credit",
       data: [
-        buildValue($("#amccr1")),
-        buildValue($("#amccr2")),
+        parseFloat(buildValue($("#amccr1"))),
+        parseFloat(buildValue($("#amccr2")))
       ],
       backgroundColor: [
         "rgba(25, 9, 232, 0.2)"
@@ -830,21 +798,7 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
         "rgba(25, 9, 232, 1)"
       ],
       borderWidth: 1
-    },
-      {
-        label: '',
-        data: [
-          buildValue($("#amtotal1")),
-          buildValue($("#amtotal2")),
-        ],
-        backgroundColor: [
-          "rgba(255,255,255,0)"
-        ],
-        borderColor: [
-          "rgba(255,255,255,0)"
-        ],
-        borderWidth: 1
-      }];
+    }];
     $("#canvas_wr2").html(""); //remove canvas from container
     $("#canvas_wr2").html("   <canvas id=\"chart_container2\" height=\"200px\"></canvas>"); //add it back to the container
     this.chart2 = new Chart($("#chart_container2")[0], chartOpts2);
@@ -854,21 +808,21 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
 
 //GREEN CALC ________________________________________________________________________________________________________
 
-function hiddenLoader(){
-  setTimeout(function(){
-    $('#loaderMain').css('display', 'none');
+function hiddenLoader() {
+  setTimeout(function() {
+    $("#loaderMain").css("display", "none");
     $("#body").css("overflow", "auto");
   }, 2000);
 }
 
 GreenHydrogenCalc.fn.init = async function() {
   self3 = this;
-  const f = await fetch('https://docs.google.com/spreadsheets/d/1QqSpCssFTjQUKgWyHe4BTNVhN7tIFs8ufOBlbS5Lsfw/export?format=xlsx');
+  const f = await fetch("https://docs.google.com/spreadsheets/d/1QqSpCssFTjQUKgWyHe4BTNVhN7tIFs8ufOBlbS5Lsfw/export?format=xlsx");
   const a = await f.arrayBuffer();
   const wb = this.xlsx.read(a, { cellFormula: true, cellNF: true });
-  $("#body").css("overflow","hidden");
-  if(wb) {
-    hiddenLoader()
+  $("#body").css("overflow", "hidden");
+  if (wb) {
+    hiddenLoader();
   }
   const greenHydrogenData = {};
   Object.keys(wb.Sheets).forEach(name => {
@@ -889,7 +843,7 @@ GreenHydrogenCalc.fn.init = async function() {
       } else {
         greenHydrogenData[splitName(name)][cell] = {
           format: wb.Sheets[name][cell].z || "",
-          value: wb.Sheets[name][cell].v 
+          value: wb.Sheets[name][cell].v
         };
       }
       if (greenHydrogenData[splitName(name)][cell].format === "General") {
@@ -914,7 +868,7 @@ GreenHydrogenCalc.fn.init = async function() {
     self3.sheets[tab.replace("#", "")] = self3.$(tab).calx("getSheet");
   });
 
-  setTimeout(function () {
+  setTimeout(function() {
     self3.drawChart();
   }, 2000);
 };
@@ -929,13 +883,8 @@ GreenHydrogenCalc.fn.getDefaultChartOpts = function() {
     options: {
       plugins: {
         datalabels: {
-          anchor: 'start',
           formatter: function(value, context) {
-            if(context.dataset.label === ''){
-              return Number(value).toFixed(2) + '\n';
-            } else {
-              return ''
-            }
+            return "";
           }
         }
       },
@@ -944,10 +893,11 @@ GreenHydrogenCalc.fn.getDefaultChartOpts = function() {
           stacked: true
         },
         y: {
-          stacked: true,
+          stacked: true
         }
       }
-    }
+    },
+    plugins: [ChartDataLabels, topLabels]
   };
 };
 
@@ -963,18 +913,18 @@ GreenHydrogenCalc.fn.drawChart = function() {
   chartOpts4 = self3.getDefaultChartOpts();
   chartOpts3.options.scales.y.title = {
     display: true,
-    text: 'Levelized Cost of Hydrogen (USD/kg)'
-  }
+    text: "Levelized Cost of Hydrogen (USD/kg)"
+  };
   chartOpts4.options.scales.y.title = {
     display: true,
-    text: 'Levelized Cost of Ammonia (USD/tona)'
-  }
+    text: "Levelized Cost of Ammonia (USD/tona)"
+  };
 
   chartOpts3.data.datasets = [{
     label: "CAPEX",
     data: [
       self3.getVal("H2PEM", "H89"),
-      self3.getVal("H2PEM", "I89"),
+      self3.getVal("H2AEL", "C89")
     ],
     backgroundColor: [
       "rgba(238,96,96,0.2)"
@@ -988,7 +938,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
       label: "Tax Credit",
       data: [
         self3.getVal("H2PEM", "H88"),
-        self3.getVal("H2PEM", "I88"),
+        self3.getVal("H2AEL", "C88")
       ],
       backgroundColor: [
         "rgba(173,171,68,0.2)"
@@ -1002,7 +952,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
       label: "Fixed OPEX",
       data: [
         self3.getVal("H2PEM", "H87"),
-        self3.getVal("H2PEM", "I87"),
+        self3.getVal("H2AEL", "C87")
       ],
       backgroundColor: [
         "rgba(61,65,63,0.2)"
@@ -1016,7 +966,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
       label: "Water",
       data: [
         self3.getVal("H2PEM", "H86"),
-        self3.getVal("H2PEM", "I86"),
+        self3.getVal("H2AEL", "C86")
       ],
       backgroundColor: [
         "rgba(66,93,164,0.2)"
@@ -1030,7 +980,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
       label: "Electricity",
       data: [
         self3.getVal("H2PEM", "H85"),
-        self3.getVal("H2PEM", "I85"),
+        self3.getVal("H2AEL", "C85")
       ],
       backgroundColor: [
         "rgba(68,134,60,0.2)"
@@ -1039,21 +989,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
         "rgb(14,227,7)"
       ],
       borderWidth: 1
-    },
-    {
-      label: "",
-      data: [
-        self3.getVal("H2PEM", "H90"),
-        self3.getVal("H2PEM", "I90"),
-      ],
-      backgroundColor: [
-        "rgba(68,134,60,0)"
-      ],
-      borderColor: [
-        "rgba(14,227,7,0)"
-      ],
-      borderWidth: 1
-    },
+    }
   ];
 
   this.chart3 = new Chart($("#chart_container3")[0], chartOpts3);
@@ -1062,7 +998,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
     label: "CAPEX",
     data: [
       self3.getVal("NH3PEM", "G89"),
-      self3.getVal("NH3PEM", "H89"),
+      self3.getVal("NH3PEM", "H89")
     ],
     backgroundColor: [
       "rgba(238,96,96,0.2)"
@@ -1076,7 +1012,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
       label: "Tax Credit",
       data: [
         self3.getVal("NH3PEM", "G88"),
-        self3.getVal("NH3PEM", "H88"),
+        self3.getVal("NH3PEM", "H88")
       ],
       backgroundColor: [
         "rgba(173,171,68,0.2)"
@@ -1090,7 +1026,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
       label: "Fixed OPEX",
       data: [
         self3.getVal("NH3PEM", "G87"),
-        self3.getVal("NH3PEM", "H87"),
+        self3.getVal("NH3PEM", "H87")
       ],
       backgroundColor: [
         "rgba(61,65,63,0.2)"
@@ -1104,7 +1040,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
       label: "Water",
       data: [
         self3.getVal("NH3PEM", "G86"),
-        self3.getVal("NH3PEM", "H86"),
+        self3.getVal("NH3PEM", "H86")
       ],
       backgroundColor: [
         "rgba(66,93,164,0.2)"
@@ -1118,7 +1054,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
       label: "Electricity",
       data: [
         self3.getVal("NH3PEM", "G85"),
-        self3.getVal("NH3PEM", "H85"),
+        self3.getVal("NH3PEM", "H85")
       ],
       backgroundColor: [
         "rgba(68,134,60,0.2)"
@@ -1127,21 +1063,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
         "rgb(14,227,7)"
       ],
       borderWidth: 1
-    },
-    {
-      label: "",
-      data: [
-        self3.getVal("NH3PEM", "G90"),
-        self3.getVal("NH3PEM", "H90"),
-      ],
-      backgroundColor: [
-        "rgba(68,134,60,0)"
-      ],
-      borderColor: [
-        "rgba(14,227,7,0)"
-      ],
-      borderWidth: 1
-    },
+    }
   ];
 
   this.chart4 = new Chart($("#chart_container4")[0], chartOpts4);
@@ -1156,15 +1078,15 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
 $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit").change(function() {
   function buildValue(element) {
     const value = element.val();
-    return value.replace(/^[-+]?[0-9]*[.,]?[0-9]+$/g, "").replace('$', "");
+    return value.replace(/^[-+]?[0-9]*[.,]?[0-9]+$/g, "").replace("$", "");
   }
 
   setTimeout(function() {
     chartOpts3.data.datasets = [{
       label: "CAPEX",
       data: [
-        buildValue($("#gr1cap1")),
-        buildValue($("#gr1cap2")),
+        parseFloat(buildValue($("#gr1cap1"))),
+        parseFloat(buildValue($("#gr1cap2")))
       ],
       backgroundColor: [
         "rgba(238,96,96,0.2)"
@@ -1176,8 +1098,8 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
     }, {
       label: "Fixed OPEX",
       data: [
-        buildValue($("#gr1fo1")),
-        buildValue($("#gr1fo2")),
+        parseFloat(buildValue($("#gr1fo1"))),
+        parseFloat(buildValue($("#gr1fo2")))
       ],
       backgroundColor: [
         "rgba(61,65,63,0.2)"
@@ -1189,8 +1111,8 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
     }, {
       label: "Electricity",
       data: [
-        buildValue($("#gr1el1")),
-        buildValue($("#gr1el2")),
+        parseFloat(buildValue($("#gr1el1"))),
+        parseFloat(buildValue($("#gr1el2")))
       ],
       backgroundColor: [
         "rgba(68,134,60,0.2)"
@@ -1202,8 +1124,8 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
     }, {
       label: "Water",
       data: [
-        buildValue($("#gr1wat1")),
-        buildValue($("#gr1wat2")),
+        parseFloat(buildValue($("#gr1wat1"))),
+        parseFloat(buildValue($("#gr1wat2")))
       ],
       backgroundColor: [
         "rgba(66,93,164,0.2)"
@@ -1215,8 +1137,8 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
     }, {
       label: "Tax Credit",
       data: [
-        buildValue($("#gr1TaxCr1")),
-        buildValue($("#gr1TaxCr2")),
+        parseFloat(buildValue($("#gr1TaxCr1"))),
+        parseFloat(buildValue($("#gr1TaxCr2")))
       ],
       backgroundColor: [
         "rgba(25, 9, 232, 0.2)"
@@ -1225,37 +1147,27 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
         "rgba(25, 9, 232, 1)"
       ],
       borderWidth: 1
-    },{
-      label: "",
-      data: [
-        buildValue($("#gr1total1")),
-        buildValue($("#gr1total2")),
-      ],
-      backgroundColor: [
-        "rgba(25,9,232,0)"
-      ],
-      borderColor: [
-        "rgba(25,9,232,0)"
-      ],
-      borderWidth: 1
-    }];
+    }
+    ];
 
     chartOpts4.data.datasets = [{
       label: "CAPEX",
       data: [
-        buildValue($("#gr2cap1")),
-        buildValue($("#gr2cap2")),
+        parseFloat(buildValue($("#gr2cap1"))),
+        parseFloat(buildValue($("#gr2cap2")))
       ],
-      backgroundColor: "rgba(75,97,182,0.2)",
+      backgroundColor: [
+        "rgba(238,96,96,0.2)"
+      ],
       borderColor: [
-        "rgb(72,15,217)"
+        "rgb(227,5,43)"
       ],
       borderWidth: 1
     }, {
       label: "Fixed OPEX",
       data: [
-        buildValue($("#gr2fo1")),
-        buildValue($("#gr2fo2")),
+        parseFloat(buildValue($("#gr2fo1"))),
+        parseFloat(buildValue($("#gr2fo2")))
       ],
       backgroundColor: [
         "rgba(61,65,63,0.2)"
@@ -1267,8 +1179,8 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
     }, {
       label: "Electricity",
       data: [
-        buildValue($("#gr2el1")),
-        buildValue($("#gr2el2")),
+        parseFloat(buildValue($("#gr2el1"))),
+        parseFloat(buildValue($("#gr2el2")))
       ],
       backgroundColor: [
         "rgba(68,134,60,0.2)"
@@ -1280,8 +1192,8 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
     }, {
       label: "Water",
       data: [
-        buildValue($("#gr2wat1")),
-        buildValue($("#gr2wat2")),
+        parseFloat(buildValue($("#gr2wat1"))),
+        parseFloat(buildValue($("#gr2wat2")))
       ],
       backgroundColor: [
         "rgba(66,93,164,0.2)"
@@ -1293,8 +1205,8 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
     }, {
       label: "Tax Credit",
       data: [
-        buildValue($("#gr2TaxCr1")),
-        buildValue($("#gr2TaxCr2")),
+        parseFloat(buildValue($("#gr2TaxCr1"))),
+        parseFloat(buildValue($("#gr2TaxCr2")))
       ],
       backgroundColor: [
         "rgba(25, 9, 232, 0.2)"
@@ -1303,20 +1215,8 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit")
         "rgba(25, 9, 232, 1)"
       ],
       borderWidth: 1
-    }, {
-      label: "",
-      data: [
-        buildValue($("#gr2total1")),
-        buildValue($("#gr2total2")),
-      ],
-      backgroundColor: [
-        "rgba(25,9,232,0)"
-      ],
-      borderColor: [
-        "rgba(25,9,232,0)"
-      ],
-      borderWidth: 1
-    }];
+    }
+    ];
 
 
     $("#canvas_wr3").html(""); //remove canvas from container
