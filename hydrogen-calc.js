@@ -117,6 +117,7 @@ const topLabels = {
   id: "topLabels",
   afterDatasetsDraw(chart, args, pluginOpt) {
     const { ctx, scales: { x, y } } = chart;
+    console.log(chart)
     chart.data.datasets[0].data.forEach((datapoint, index) => {
       const datasetArray = [];
       chart.data.datasets.forEach((dataset) => {
@@ -897,7 +898,32 @@ GreenHydrogenCalc.fn.getDefaultChartOpts = function() {
         }
       }
     },
-    plugins: [ChartDataLabels, topLabels]
+    plugins: [ChartDataLabels, {
+      id: "topLabels",
+      afterDatasetsDraw(chart, args, pluginOpt) {
+        const { ctx, scales: { x, y } } = chart;
+        console.log(chart)
+        chart.data.datasets[0].data.forEach((datapoint, index) => {
+          const datasetArray = [];
+          chart.data.datasets.forEach((dataset) => {
+            if(dataset.data[index] != undefined && !isNaN(dataset.data[index])){
+              datasetArray.push(dataset.data[index]);
+            }
+          });
+
+          function totalSum(total, values) {
+            return total + values;
+          }
+
+          let sum = datasetArray.reduce(totalSum, 0);
+          ctx.font = "bold";
+          ctx.fillStyle = "#808080";
+          ctx.textAlign = "center";
+
+          ctx.fillText(sum.toFixed(1), x.getPixelForValue(index), 45);
+        });
+      }
+    }]
   };
 };
 
