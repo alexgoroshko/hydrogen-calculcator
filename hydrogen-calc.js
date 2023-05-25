@@ -27,6 +27,18 @@ function GreenHydrogenCalc() {
   this.init();
 }
 
+function onHydrogen(){
+  document.querySelector("#hydrogenCalc").scrollIntoView(true)
+}
+
+function onAmmonia(){
+  document.querySelector("#ammoniaCalc").scrollIntoView(true)
+}
+
+function onGreen(){
+  document.querySelector("#greenCalc").scrollIntoView(true)
+}
+
 HydrogenCalc.fn = HydrogenCalc.prototype;
 AmmoniaCalc.fn = AmmoniaCalc.prototype;
 GreenHydrogenCalc.fn = GreenHydrogenCalc.prototype;
@@ -59,7 +71,8 @@ function splitName(name) {
 HydrogenCalc.fn.init = async function() {
   $("#body").css("overflow", "hidden");
   self = this;
-  const f = await fetch("https://docs.google.com/spreadsheets/d/1tmVcYR2Ux9U_4gtpYkQgKR-V8k7PwTRZbTyibNKMyT4/export?format=xlsx");
+  const f = await fetch("https://docs.google.com/spreadsheets/d/1fdP3vMapCDwfEC7fRxkBpzD5ODnhXEwH79U8a7RU1Ic/export?format=xlsx");
+
   const a = await f.arrayBuffer();
   const wb = this.xlsx.read(a, { cellFormula: true, cellNF: true });
   if (wb) {
@@ -117,7 +130,6 @@ const topLabels = {
   id: "topLabels",
   afterDatasetsDraw(chart, args, pluginOpt) {
     const { ctx, scales: { x, y } } = chart;
-    console.log(chart)
     chart.data.datasets[0].data.forEach((datapoint, index) => {
       const datasetArray = [];
       chart.data.datasets.forEach((dataset) => {
@@ -168,7 +180,20 @@ HydrogenCalc.fn.getDefaultChartOpts = function() {
         }
       }
     },
-    plugins: [ChartDataLabels, topLabels]
+    plugins: [ChartDataLabels, {
+      id: "topLabels",
+      afterDatasetsDraw(chart, args, pluginOpt) {
+        const { ctx, scales: { x, y } } = chart;
+
+        const totalArray = [buildValue($("#total1")), buildValue($("#total2")), buildValue($("#total3")) ]
+
+        totalArray.forEach((data, index) => {
+          ctx.font = "bold";
+          ctx.fillStyle = "#808080";
+          ctx.textAlign = "center";
+          ctx.fillText(data, x.getPixelForValue(index), y.chart.chartArea.bottom - y.chart.chartArea.height + 6);
+        })
+      }}]
   };
 };
 
@@ -183,9 +208,9 @@ HydrogenCalc.fn.drawChart = function() {
   chartOpts.data.datasets = [{
     label: "Carbon Credit",
     data: [
-      self.getVal("BaseCase", "H128"),
-      self.getVal("BaseCase", "I128"),
-      self.getVal("BaseCase", "J128")
+      self.getVal("BaseCase", "K128"),
+      self.getVal("BaseCase", "L128"),
+      self.getVal("BaseCase", "M128")
     ],
     backgroundColor: [
       "rgba(25, 9, 232, 0.2)"
@@ -198,9 +223,9 @@ HydrogenCalc.fn.drawChart = function() {
     {
       label: "Carbon Tax",
       data: [
-        self.getVal("BaseCase", "H127"),
-        self.getVal("BaseCase", "I127"),
-        self.getVal("BaseCase", "J127")
+        self.getVal("BaseCase", "K127"),
+        self.getVal("BaseCase", "L127"),
+        self.getVal("BaseCase", "M127")
       ],
       backgroundColor: [
         "rgba(173,171,68,0.2)"
@@ -213,9 +238,9 @@ HydrogenCalc.fn.drawChart = function() {
     {
       label: "CO2 T&S",
       data: [
-        self.getVal("BaseCase", "H126"),
-        self.getVal("BaseCase", "I126"),
-        self.getVal("BaseCase", "J126")
+        self.getVal("BaseCase", "K126"),
+        self.getVal("BaseCase", "L126"),
+        self.getVal("BaseCase", "M126")
       ],
       backgroundColor: [
         "rgba(136,98,65,0.2)"
@@ -228,9 +253,9 @@ HydrogenCalc.fn.drawChart = function() {
     {
       label: "Water",
       data: [
-        self.getVal("BaseCase", "H125"),
-        self.getVal("BaseCase", "I125"),
-        self.getVal("BaseCase", "J125")
+        self.getVal("BaseCase", "K125"),
+        self.getVal("BaseCase", "L125"),
+        self.getVal("BaseCase", "M125")
       ],
       backgroundColor: [
         "rgba(66,93,164,0.2)"
@@ -243,9 +268,9 @@ HydrogenCalc.fn.drawChart = function() {
     {
       label: "Electricity",
       data: [
-        self.getVal("BaseCase", "H124"),
-        self.getVal("BaseCase", "I124"),
-        self.getVal("BaseCase", "J124")
+        self.getVal("BaseCase", "K124"),
+        self.getVal("BaseCase", "L124"),
+        self.getVal("BaseCase", "M124")
       ],
       backgroundColor: [
         "rgba(68,134,60,0.2)"
@@ -258,9 +283,9 @@ HydrogenCalc.fn.drawChart = function() {
     {
       label: "Natural Gas",
       data: [
-        self.getVal("BaseCase", "H123"),
-        self.getVal("BaseCase", "I123"),
-        self.getVal("BaseCase", "J123")
+        self.getVal("BaseCase", "K123"),
+        self.getVal("BaseCase", "L123"),
+        self.getVal("BaseCase", "M123")
       ],
       backgroundColor: [
         "rgb(167,186,227)"
@@ -273,9 +298,9 @@ HydrogenCalc.fn.drawChart = function() {
     {
       label: "Fixed OPEX",
       data: [
-        self.getVal("BaseCase", "H122"),
-        self.getVal("BaseCase", "I122"),
-        self.getVal("BaseCase", "J122")
+        self.getVal("BaseCase", "K122"),
+        self.getVal("BaseCase", "L122"),
+        self.getVal("BaseCase", "M122")
       ],
       backgroundColor: [
         "rgba(61,65,63,0.2)"
@@ -288,9 +313,9 @@ HydrogenCalc.fn.drawChart = function() {
     {
       label: "CAPEX",
       data: [
-        self.getVal("BaseCase", "H121"),
-        self.getVal("BaseCase", "I121"),
-        self.getVal("BaseCase", "J121")
+        self.getVal("BaseCase", "K121"),
+        self.getVal("BaseCase", "L121"),
+        self.getVal("BaseCase", "M121")
       ],
       backgroundColor: [
         "rgba(238,96,96,0.2)"
@@ -303,9 +328,9 @@ HydrogenCalc.fn.drawChart = function() {
     {
       label: "Power Export",
       data: [
-        self.getVal("BaseCase", "H120"),
-        self.getVal("BaseCase", "I120"),
-        self.getVal("BaseCase", "J120")
+        self.getVal("BaseCase", "K120"),
+        self.getVal("BaseCase", "L120"),
+        self.getVal("BaseCase", "M120")
       ],
       backgroundColor: "rgba(75,97,182,0.2)",
       borderColor: [
@@ -324,19 +349,19 @@ $("#taxCredit, #carbonPrice, #carbon, #electricity, #gas").keypress(function(e) 
   }
 });
 
-$("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
-  function buildValue(element) {
-    const value = element.val();
-    return value.replace(/^[-+]?[0-9]*[.,]?[0-9]+$/g, "").replace("$", "");
-  }
+function buildValue(element) {
+  const value = element.val();
+  return value.replace(/^[-+]?[0-9]*[.,]?[0-9]+$/g, "").replace("$", "");
+}
 
+$("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
   setTimeout(function() {
     chartOpts.data.datasets = [{
       label: "Power Export",
       data: [
-        parseFloat(buildValue($("#pe1"))),
-        parseFloat(buildValue($("#pe2"))),
-        parseFloat(buildValue($("#pe3")))
+        buildValue($("#pe1")),
+        buildValue($("#pe2")),
+        buildValue($("#pe3"))
       ],
       backgroundColor: "rgba(75,97,182,0.2)",
       borderColor: [
@@ -346,9 +371,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "CAPEX",
       data: [
-        parseFloat(buildValue($("#cap1"))),
-        parseFloat(buildValue($("#cap2"))),
-        parseFloat(buildValue($("#cap3")))
+        buildValue($("#cap1")),
+        buildValue($("#cap2")),
+        buildValue($("#cap3"))
       ],
       backgroundColor: [
         "rgba(238,96,96,0.2)"
@@ -360,9 +385,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "Fixed OPEX",
       data: [
-        parseFloat(buildValue($("#fo1"))),
-        parseFloat(buildValue($("#fo2"))),
-        parseFloat(buildValue($("#fo3")))
+        buildValue($("#fo1")),
+        buildValue($("#fo2")),
+        buildValue($("#fo3"))
       ],
       backgroundColor: [
         "rgba(61,65,63,0.2)"
@@ -374,9 +399,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "Natural Gas",
       data: [
-        parseFloat(buildValue($("#natGas1"))),
-        parseFloat(buildValue($("#natGas2"))),
-        parseFloat(buildValue($("#natGas3")))
+        buildValue($("#natGas1")),
+        buildValue($("#natGas2")),
+        buildValue($("#natGas3"))
       ],
       backgroundColor: [
         "rgb(167,186,227)"
@@ -387,10 +412,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
       borderWidth: 1
     }, {
       label: "Electricity",
-      data: [
-        parseFloat(buildValue($("#el1"))),
-        parseFloat(buildValue($("#el2"))),
-        parseFloat(buildValue($("#el3")))
+      data: [buildValue($("#el1")),
+        buildValue($("#el2")),
+        buildValue($("#el3"))
       ],
       backgroundColor: [
         "rgba(68,134,60,0.2)"
@@ -402,9 +426,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "Water",
       data: [
-        parseFloat(buildValue($("#wat1"))),
-        parseFloat(buildValue($("#wat2"))),
-        parseFloat(buildValue($("#wat3")))
+        buildValue($("#wat1")),
+        buildValue($("#wat2")),
+        buildValue($("#wat3"))
       ],
       backgroundColor: [
         "rgba(66,93,164,0.2)"
@@ -416,9 +440,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "CO2 T&S",
       data: [
-        parseFloat(buildValue($("#co1"))),
-        parseFloat(buildValue($("#co2"))),
-        parseFloat(buildValue($("#co3")))
+        buildValue($("#co1")),
+        buildValue($("#co2")),
+        buildValue($("#co3"))
       ],
       backgroundColor: [
         "rgba(136,98,65,0.2)"
@@ -430,10 +454,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "Carbon Tax",
       data: [
-        parseFloat(buildValue($("#ct1"))),
-        parseFloat(buildValue($("#ct2"))),
-        parseFloat(buildValue($("#ct3")))
-      ],
+        buildValue($("#ct1")),
+        buildValue($("#ct2")),
+        buildValue($("#ct3"))      ],
       backgroundColor: [
         "rgba(173,171,68,0.2)"
       ],
@@ -444,9 +467,9 @@ $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit").change(function() {
     }, {
       label: "Carbon Credit",
       data: [
-        parseFloat(buildValue($("#ccr1"))),
-        parseFloat(buildValue($("#ccr2"))),
-        parseFloat(buildValue($("#ccr3")))
+        buildValue($("#ccr1")),
+        buildValue($("#ccr2")),
+        buildValue($("#ccr3"))
       ],
       backgroundColor: [
         "rgba(25, 9, 232, 0.2)"
@@ -552,7 +575,19 @@ AmmoniaCalc.fn.getDefaultChartOpts = function() {
         }
       }
     },
-    plugins: [ChartDataLabels, topLabels]
+    plugins: [ChartDataLabels, {
+      id: "topLabels",
+      afterDatasetsDraw(chart, args, pluginOpt) {
+        const { ctx, scales: { x, y } } = chart;
+        const totalArray = [buildValue($("#amtotal1")), buildValue($("#amtotal2"))]
+        totalArray.forEach((data, index) => {
+          ctx.font = "bold";
+          ctx.fillStyle = "#808080";
+          ctx.textAlign = "center";
+
+          ctx.fillText(data, x.getPixelForValue(index), y.chart.chartArea.bottom - y.chart.chartArea.height + 6);
+        })
+      }}]
   };
 };
 
@@ -698,8 +733,8 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     chartOpts2.data.datasets = [{
       label: "CAPEX",
       data: [
-        parseFloat(buildValue($("#amcap1"))),
-        parseFloat(buildValue($("#amcap2")))
+        buildValue($("#amcap1")),
+        buildValue($("#amcap2"))
       ],
       backgroundColor: [
         "rgba(238,96,96,0.2)"
@@ -711,8 +746,8 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     }, {
       label: "Fixed OPEX",
       data: [
-        parseFloat(buildValue($("#amfo1"))),
-        parseFloat(buildValue($("#amfo2")))
+        buildValue($("#amfo1")),
+        buildValue($("#amfo2"))
       ],
       backgroundColor: [
         "rgba(61,65,63,0.2)"
@@ -724,8 +759,8 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     }, {
       label: "Natural Gas",
       data: [
-        parseFloat(buildValue($("#amng1"))),
-        parseFloat(buildValue($("#amng2")))
+        buildValue($("#amng1")),
+        buildValue($("#amng2"))
       ],
       backgroundColor: [
         "rgb(167,186,227)"
@@ -737,8 +772,7 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     }, {
       label: "Electricity",
       data: [
-        parseFloat(buildValue($("#amel1"))),
-        parseFloat(buildValue($("#amel2")))
+        buildValue($("#amel1")), buildValue($("#amel2"))
       ],
       backgroundColor: [
         "rgba(68,134,60,0.2)"
@@ -750,8 +784,8 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     }, {
       label: "Water",
       data: [
-        parseFloat(buildValue($("#amwat1"))),
-        parseFloat(buildValue($("#amwat2")))
+        buildValue($("#amwat1")),
+        buildValue($("#amwat2"))
       ],
       backgroundColor: [
         "rgba(66,93,164,0.2)"
@@ -763,8 +797,8 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     }, {
       label: "CO2 T&S",
       data: [
-        parseFloat(buildValue($("#amco1"))),
-        parseFloat(buildValue($("#amco2")))
+        buildValue($("#amco1")),
+        buildValue($("#amco2"))
       ],
       backgroundColor: [
         "rgba(136,98,65,0.2)"
@@ -776,8 +810,8 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     }, {
       label: "Carbon Tax",
       data: [
-        parseFloat(buildValue($("#amct1"))),
-        parseFloat(buildValue($("#amct2")))
+        buildValue($("#amct1")),
+        buildValue($("#amct2"))
       ],
       backgroundColor: [
         "rgba(173,171,68,0.2)"
@@ -789,8 +823,8 @@ $("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm"
     }, {
       label: "Carbon Credit",
       data: [
-        parseFloat(buildValue($("#amccr1"))),
-        parseFloat(buildValue($("#amccr2")))
+        buildValue($("#amccr1")),
+        buildValue($("#amccr2"))
       ],
       backgroundColor: [
         "rgba(25, 9, 232, 0.2)"
@@ -902,7 +936,6 @@ GreenHydrogenCalc.fn.getDefaultChartOpts = function() {
       id: "topLabels",
       afterDatasetsDraw(chart, args, pluginOpt) {
         const { ctx, scales: { x, y } } = chart;
-        console.log(chart)
         chart.data.datasets[0].data.forEach((datapoint, index) => {
           const datasetArray = [];
           chart.data.datasets.forEach((dataset) => {
@@ -919,8 +952,7 @@ GreenHydrogenCalc.fn.getDefaultChartOpts = function() {
           ctx.font = "bold";
           ctx.fillStyle = "#808080";
           ctx.textAlign = "center";
-
-          ctx.fillText(sum.toFixed(1), x.getPixelForValue(index), 45);
+          ctx.fillText(sum.toFixed(1), x.getPixelForValue(index), y.chart.chartArea.bottom - y.chart.chartArea.height + 6);
         });
       }
     }]
@@ -1024,7 +1056,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
     label: "CAPEX",
     data: [
       self3.getVal("NH3PEM", "G89"),
-      self3.getVal("NH3PEM", "H89")
+      self3.getVal("NH3AEL", "C89")
     ],
     backgroundColor: [
       "rgba(238,96,96,0.2)"
@@ -1038,7 +1070,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
       label: "Tax Credit",
       data: [
         self3.getVal("NH3PEM", "G88"),
-        self3.getVal("NH3PEM", "H88")
+        self3.getVal("NH3AEL", "C88")
       ],
       backgroundColor: [
         "rgba(173,171,68,0.2)"
@@ -1052,7 +1084,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
       label: "Fixed OPEX",
       data: [
         self3.getVal("NH3PEM", "G87"),
-        self3.getVal("NH3PEM", "H87")
+        self3.getVal("NH3AEL", "C87")
       ],
       backgroundColor: [
         "rgba(61,65,63,0.2)"
@@ -1066,7 +1098,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
       label: "Water",
       data: [
         self3.getVal("NH3PEM", "G86"),
-        self3.getVal("NH3PEM", "H86")
+        self3.getVal("NH3AEL", "C86")
       ],
       backgroundColor: [
         "rgba(66,93,164,0.2)"
@@ -1080,7 +1112,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
       label: "Electricity",
       data: [
         self3.getVal("NH3PEM", "G85"),
-        self3.getVal("NH3PEM", "H85")
+        self3.getVal("NH3AEL", "C85")
       ],
       backgroundColor: [
         "rgba(68,134,60,0.2)"
