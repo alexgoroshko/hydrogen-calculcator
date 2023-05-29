@@ -1041,9 +1041,12 @@ GreenHydrogenCalc.fn.getVal = function(sheet, addr) {
   return this.sheets[sheet ?? "NH3PEM"].cells[addr] ? this.sheets[sheet].cells[addr].getValue() : 0;
 };
 
+let dashboard3 = null;
 
 GreenHydrogenCalc.fn.drawChart = function() {
   self3 = this;
+  dashboard3 = self3.sheets['Dashboard3']
+
   chartOpts3 = self3.getDefaultChartOpts();
   chartOpts4 = self3.getDefaultChartOpts();
   chartOpts3.options.scales.y.title = {
@@ -1242,6 +1245,14 @@ $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit, 
     $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit, #capFacGr").blur();
   }
 });
+
+$("#capFacGr").change(function(){
+  const newValue = $("#capFacGr").val().replace('%', "").replace(" ", "") / 100;
+  dashboard3.getCell('G9').setValue(newValue)
+  $("#capFacGr").blur();
+})
+
+
 
 $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit, #capFacGr").change(function() {
   setTimeout(function() {
