@@ -68,10 +68,11 @@ function formulaParse(formula, sheetNames) {
 function splitName(name) {
   return name.split(" ").join("");
 }
-
+let dashboard = null;
 HydrogenCalc.fn.init = async function() {
   $("#body").css("overflow", "hidden");
   self = this;
+
   const f = await fetch("https://docs.google.com/spreadsheets/d/1fdP3vMapCDwfEC7fRxkBpzD5ODnhXEwH79U8a7RU1Ic/export?format=xlsx");
 
   const a = await f.arrayBuffer();
@@ -79,14 +80,27 @@ HydrogenCalc.fn.init = async function() {
   if (wb) {
     hiddenLoader();
   }
+
   const checkboxDataValueTaxCr = wb.Sheets["Dashboard"]["G15"].v;
-  if ((checkboxDataValueTaxCr == "Yes" && $("#taxCredit").val() != "on") || checkboxDataValueTaxCr && $("#taxCredit").val() != "off") {
+  if ((checkboxDataValueTaxCr == "Yes" && !$("#taxCredit").prop('checked')) || (checkboxDataValueTaxCr && $("#taxCredit").prop('checked'))) {
     $("#taxCredit").click();
   }
   const checkboxDataValueEl = wb.Sheets["Dashboard"]["G8"].v;
-  if ((checkboxDataValueEl == "Yes" && $("#electricityExport").val() != "on") || checkboxDataValueEl && $("#electricityExport").val() != "off") {
+  if ((checkboxDataValueEl == "Yes" && !$("#electricityExport").prop('checked')) || (checkboxDataValueEl && $("#electricityExport").prop('checked'))) {
     $("#electricityExport").click();
   }
+  const checkboxDataValueGas = wb.Sheets["Dashboard"]["G11"].v;
+  $("#gasVis").val(checkboxDataValueGas)
+
+  const checkboxDataValueelectricity = wb.Sheets["Dashboard"]["G12"].v;
+  $("#electricityVis").val(checkboxDataValueelectricity)
+
+  const checkboxDataValueCarbon = wb.Sheets["Dashboard"]["G13"].v;
+  $("#carbonVis").val(checkboxDataValueCarbon)
+
+  const checkboxDataValueCarbonPrice = wb.Sheets["Dashboard"]["G14"].v;
+  $("#carbonPriceVis").val(checkboxDataValueCarbonPrice)
+
 
   const hydrogenData = {};
   Object.keys(wb.Sheets).forEach(name => {
@@ -215,6 +229,7 @@ HydrogenCalc.fn.getVal = function(sheet, addr) {
 
 HydrogenCalc.fn.drawChart = function() {
   self = this;
+  dashboard = self.sheets['Dashboard']
   chartOpts = self.getDefaultChartOpts();
   chartOpts.data.datasets = [{
     label: "Carbon Credit",
@@ -373,12 +388,41 @@ $("#taxCredit, #electricityExport, #taxCreditAm, #elExportAm, #ptcTaxCredit").cl
   }
 });
 
-
 $("#taxCredit, #carbonPrice, #carbon, #electricity, #gas, #electricityExport").keypress(function(e) {
   if (e.which == 13) {
     $("#taxCredit, #carbonPrice, #carbon, #electricity, #gas, #electricityExport").blur();
   }
 });
+
+$("#gasVis").change(function(){
+  self.sheets['Dashboard'].getCell("G11").setValue($("#gasVis").val() * 1)
+  $("#gas").blur();
+  elExportClick();
+})
+
+$("#electricityVis").change(function(){
+  self.sheets['Dashboard'].getCell("G12").setValue($("#electricityVis").val() * 1)
+  $("#electricity").blur();
+  elExportClick();
+})
+
+$("#carbonVis").change(function(){
+  self.sheets['Dashboard'].getCell("G13").setValue($("#carbonVis").val() * 1)
+  $("#carbon").blur();
+  elExportClick();
+})
+
+$("#carbonPriceVis").change(function(){
+  self.sheets['Dashboard'].getCell("G14").setValue($("#carbonPriceVis").val() * 1)
+  $("#carbonPrice").blur();
+  elExportClick();
+})
+
+function elExportClick(){
+  $("#electricityExport").click();
+  $("#electricityExport").click();
+}
+
 
 function buildValue(element) {
   const value = element.val();
@@ -538,11 +582,11 @@ AmmoniaCalc.fn.init = async function() {
   const wb = this.xlsx.read(a, { cellFormula: true, cellNF: true });
 
   const checkboxDataValueTaxCreditAm = wb.Sheets["Dashboard2"]["G12"].v;
-  if ((checkboxDataValueTaxCreditAm == "Yes" && $("#taxCreditAm").val() != "on") || checkboxDataValueTaxCreditAm && $("#taxCreditAm").val() != "off") {
+  if ((checkboxDataValueTaxCreditAm == "Yes" && !$("#taxCreditAm").prop('checked')) || (checkboxDataValueTaxCreditAm && $("#taxCreditAm").prop('checked'))) {
     $("#taxCreditAm").click();
   }
   const checkboxDataValueElExportAm = wb.Sheets["Dashboard2"]["G13"].v;
-  if ((checkboxDataValueElExportAm == "Yes" && $("#elExportAm").val() != "on") || checkboxDataValueElExportAm && $("#elExportAm").val() != "off") {
+  if ((checkboxDataValueElExportAm == "Yes" && !$("#elExportAm").prop('checked')) || (checkboxDataValueElExportAm && $("#elExportAm").prop('checked'))) {
     $("#elExportAm").click();
   }
 
@@ -932,7 +976,7 @@ GreenHydrogenCalc.fn.init = async function() {
   }
 
   const checkboxDataValuePtcTaxCredit = wb.Sheets["Dashboard3"]["G13"].v;
-  if ((checkboxDataValuePtcTaxCredit == "Yes" && $("#ptcTaxCredit").val() != "on") || checkboxDataValuePtcTaxCredit && $("#ptcTaxCredit").val() != "off") {
+  if ((checkboxDataValuePtcTaxCredit == "Yes" && !$("#ptcTaxCredit").prop('checked')) || (checkboxDataValuePtcTaxCredit == "No" && $("#ptcTaxCredit").prop('checked'))) {
     $("#ptcTaxCredit").click();
   }
 
@@ -1239,7 +1283,6 @@ GreenHydrogenCalc.fn.drawChart = function() {
   this.chart4 = new Chart($("#chart_container4")[0], chartOpts4);
 };
 
-
 $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit, #capFacGr").keypress(function(e) {
   if (e.which == 13) {
     $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit, #capFacGr").blur();
@@ -1251,7 +1294,6 @@ $("#capFacGr").change(function(){
   dashboard3.getCell('G9').setValue(newValue)
   $("#capFacGr").blur();
 })
-
 
 
 $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit, #capFacGr").change(function() {
