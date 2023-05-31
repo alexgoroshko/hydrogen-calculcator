@@ -149,49 +149,6 @@
                                    data-cell="S10">
                         </div>
                     </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">Energy Efficiency</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K11">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="O11">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="S11">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">CO2 Intensity (kg/kg H2)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K12">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="O12">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="S12">
-
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">LCA Emissions (kg CO2e/kg H2)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" data-cell="K13">
-                            <input type="text" class="form-control form-control-sm text-center" data-cell="O13">
-                            <input type="text" class="form-control form-control-sm text-center" data-cell="S13">
-
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">Carbon Abatement Cost (USD/ton)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K14">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="O14">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="S14">
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -463,37 +420,49 @@
                 </div>
             </div>
             <div class="row mt-3" style="display: flex; justify-content: center;">
-                <div class="col-md-4 p-4">
+                <div class="col-md-4 p-4" style="width: 50%">
                     <h5 class="bg-secondary text-white text-center p-1 rounded">Input</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" for="">Natural Gas Price (USD/MMBTU)</label>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control form-control-sm" id="gasAm" data-cell="G8">
+                        <label class="col-md-8" style="width: 50%" for="">Natural Gas Price (USD/MMBTU)</label>
+                        <div class="col-md-4" style="width: 50%">
+                            <div style="display: flex">
+                                <input type="range" min="0" max="100" id="gasAmVis">
+                                <input type="text" disabled class="form-control form-control-sm" id="gasAm" data-cell="G8">
+                            </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" for="">Electricity Price (USD/MWh)</label>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control form-control-sm" id="electricityAm"
-                                   data-cell="G9">
+                        <label class="col-md-8"  style="width: 50%" for="">Electricity Price (USD/MWh)</label>
+                        <div class="col-md-4"  style="width: 50%">
+                            <div style="display: flex">
+                                <input type="range" min="0" max="1000" id="electricityAmVis">
+                                <input type="text" class="form-control form-control-sm" disabled id="electricityAm"
+                                       data-cell="G9">
+                            </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" for="">Carbon T&S (USD/ton)</label>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control form-control-sm" id="carbonAm" data-cell="G10">
+                        <label class="col-md-8"  style="width: 50%" for="">Carbon T&S (USD/ton)</label>
+                        <div class="col-md-4"  style="width: 50%">
+                            <div style="display: flex">
+                                <input type="range" min="0" max="500" id="carbonAmVis">
+                                <input type="text" class="form-control form-control-sm" disabled id="carbonAm" data-cell="G10">
+                            </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" for="">Carbon Price (USD/ton)</label>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control form-control-sm" id="carbonPriceAm"
-                                   data-cell="G11">
+                        <label class="col-md-8"  style="width: 50%" for="">Carbon Price (USD/ton)</label>
+                        <div class="col-md-4"  style="width: 50%">
+                            <div style="display: flex">
+                                <input type="range" min="0" max="1000" id="carbonPriceAmVis">
+                                <input type="text" class="form-control form-control-sm" disabled id="carbonPriceAm"
+                                       data-cell="G11">
+                            </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" for="">45Q Tax Credit</label>
-                        <div class="col-md-4" style="display: flex; align-items: center;">
+                        <label class="col-md-8" style="width: 50%" for="">45Q Tax Credit</label>
+                        <div class="col-md-4" style="width: 50%">
                             <label class="switch">
                                 <input type="checkbox" id="taxCreditAm" data-cell="G12" class="switch-input">
                                 <span class="switch-label" data-off="No" data-on="Yes"></span>
@@ -502,8 +471,8 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" for="">Electricity Export</label>
-                        <div class="col-md-4" style="display: flex; align-items: center;">
+                        <label class="col-md-8" style="width: 50%" for="">Electricity Export</label>
+                        <div class="col-md-4" style="width: 50%">
                             <label class="switch">
                                 <input type="checkbox" id="elExportAm" data-cell="G13" class="switch-input">
                                 <span class="switch-label" data-off="No" data-on="Yes"></span>
@@ -752,42 +721,58 @@
                 </div>
             </div>
             <div class="row mt-3" style="display: flex; justify-content: center;">
-                <div class="col-md-4 p-4">
+                <div class="col-md-4 p-4" style="width: 50%">
                     <h5 class="bg-success text-white text-center p-1 rounded">Electrolyzer Input</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" for="">Capacity Factor</label>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control form-control-sm" id="capFacGr" data-cell="G9">
+                        <label class="col-md-8" style="width: 50%" for="">Capacity Factor</label>
+                        <div class="col-md-4" style="width: 50%">
+                            <div style="display: flex">
+                                <input type="range" step="0.01" min="0" max="1" id="capFacGrVis">
+                                <input type="text" disabled class="form-control form-control-sm"  id="capFacGr" data-cell="G9">
+                            </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" for="">Electricity Price (USD/MWh)</label>
-                        <div class="col-md-4">
-                            <input type="text" class="form-control form-control-sm" id="electricityGr"
-                                   data-cell="G10">
+                        <label class="col-md-8" style="width: 50%" for="">Electricity Price (USD/MWh)</label>
+                        <div class="col-md-4" style="width: 50%">
+                            <div style="display: flex">
+                                <input type="range" min="0" max="1000" id="electricityGrVis">
+                                <input type="text" disabled class="form-control form-control-sm" id="electricityGr"
+                                       data-cell="G10">
+                            </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" for="">CAPEX Assumptions</label>
-                        <div class="col-md-4">
-                            <select class="form-control form-control-sm" id="capexGr" data-cell="G11">
+                        <label class="col-md-8" style="width: 50%" for="">CAPEX Assumptions</label>
+                        <div class="col-md-4" style="width: 50%">
+                            <select style="display: none" class="form-control form-control-sm" id="capexGr" data-cell="G11">
                                 <option value="Low">Low</option>
                                 <option value="High">High</option>
                             </select>
+                            <label class="switch">
+                                <input type="checkbox" id="capexGrVis" class="switch-input">
+                                <span class="switch-label" data-off="Low" data-on="High"></span>
+                                <span class="switch-handle"></span>
+                            </label>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" for="">Electrolyzer Efficiency</label>
-                        <div class="col-md-4">
-                            <select class="form-control form-control-sm" id="electrolyzerEfGr" data-cell="G12">
+                        <label class="col-md-8" style="width: 50%" for="">Electrolyzer Efficiency</label>
+                        <div class="col-md-4" style="width: 50%">
+                            <select class="form-control form-control-sm" style="display: none" id="electrolyzerEfGr" data-cell="G12">
                                 <option value="Low">Low</option>
                                 <option value="High">High</option>
                             </select>
+                            <label class="switch">
+                                <input type="checkbox" id="electrolyzerEfGrVis" class="switch-input">
+                                <span class="switch-label" data-off="Low" data-on="High"></span>
+                                <span class="switch-handle"></span>
+                            </label>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" for="">PTC Tax Credit</label>
-                        <div class="col-md-4" style="display: flex; align-items: center;">
+                        <label class="col-md-8" style="width: 50%" for="">PTC Tax Credit</label>
+                        <div class="col-md-4" style="width: 50%" style="display: flex; align-items: center;">
                             <label class="switch">
                                 <input type="checkbox" id="ptcTaxCredit" data-cell="G13" class="switch-input">
                                 <span class="switch-label" data-off="No" data-on="Yes"></span>
