@@ -102,7 +102,7 @@ main {
     position: relative;
     display: inline-block;
     vertical-align: top;
-    width: 70px;
+    width: 80px;
     height: 30px;
     padding: 3px;
     background-color: white;
@@ -162,7 +162,7 @@ main {
     opacity: 0;
 }
 .switch-input:checked ~ .switch-label {
-    background: #34495E;
+    background: #6c757d;
 }
 .switch-input:checked ~ .switch-label:before {
     opacity: 0;
@@ -209,16 +209,61 @@ main {
 
 
 .switch-input:checked ~ .switch-handle {
-    background:#1abc9c;
-    left: 45px;
+    background:#ffffff;
+    left: 50px;
     -moz-box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
     box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 .switch-input:checked ~	.switch-handle:before{
-    background:#1abc9c;
+    background:#ffffff;
 }
 .switch-green > .switch-input:checked ~ .switch-label {
     background: #4fb845;
+}
+input[type="range"] {
+    accent-color: #6c757d;
+    margin-right: 3px;
+}
+
+.p-8 {
+    padding-bottom: 2rem;
+}
+
+@media (min-width: 700px) {
+    #menu {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around
+    }
+
+    .input_wr {
+        width: 50%;
+    }
+}
+
+@media (max-width: 700px) {
+    #menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav div {
+        margin-bottom: 2px;
+    }
+
+    .input_wr {
+        width: 90%;
+    }
+}
+
+
+@media (max-width: 512px) {
+    .input_range_wr {
+        display: flex;
+        flex-direction: column;
+    }
 }
