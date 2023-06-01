@@ -90,6 +90,7 @@ HydrogenCalc.fn.init = async function() {
   if ((checkboxDataValueEl == "Yes" && !$("#electricityExport").prop("checked")) || (checkboxDataValueEl && $("#electricityExport").prop("checked"))) {
     $("#electricityExport").click();
   }
+
   const checkboxDataValueGas = wb.Sheets["Dashboard"]["G11"].v;
   $("#gasVis").val(checkboxDataValueGas);
 
@@ -436,146 +437,148 @@ function buildValue(element) {
 }
 
 function buildNewCanvasHydrogenCalc() {
-  setTimeout(function() {
-    chartOpts.data.datasets = [{
-      label: "Carbon Credit",
-      data: [
-        buildValue($("#ccr1")),
-        buildValue($("#ccr2")),
-        buildValue($("#ccr3"))
-      ],
-      backgroundColor: [
-        "rgba(25, 9, 232, 0.2)"
-      ],
-      borderColor: [
-        "rgba(25, 9, 232, 1)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Carbon Tax",
-      data: [
-        buildValue($("#ct1")),
-        buildValue($("#ct2")),
-        buildValue($("#ct3"))],
-      backgroundColor: [
-        "rgba(173,171,68,0.2)"
-      ],
-      borderColor: [
-        "rgb(245,237,3)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "CO2 T&S",
-      data: [
-        buildValue($("#co1")),
-        buildValue($("#co2")),
-        buildValue($("#co3"))
-      ],
-      backgroundColor: [
-        "rgba(136,98,65,0.2)"
-      ],
-      borderColor: [
-        "rgb(241,133,3)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Water",
-      data: [
-        buildValue($("#wat1")),
-        buildValue($("#wat2")),
-        buildValue($("#wat3"))
-      ],
-      backgroundColor: [
-        "rgba(66,93,164,0.2)"
-      ],
-      borderColor: [
-        "rgb(14,34,243)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Electricity",
-      data: [buildValue($("#el1")),
-        buildValue($("#el2")),
-        buildValue($("#el3"))
-      ],
-      backgroundColor: [
-        "rgba(68,134,60,0.2)"
-      ],
-      borderColor: [
-        "rgb(14,227,7)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Natural Gas",
-      data: [
-        buildValue($("#natGas1")),
-        buildValue($("#natGas2")),
-        buildValue($("#natGas3"))
-      ],
-      backgroundColor: [
-        "rgb(167,186,227)"
-      ],
-      borderColor: [
-        "rgb(7,77,227)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Fixed OPEX",
-      data: [
-        buildValue($("#fo1")),
-        buildValue($("#fo2")),
-        buildValue($("#fo3"))
-      ],
-      backgroundColor: [
-        "rgba(61,65,63,0.2)"
-      ],
-      borderColor: [
-        "rgb(44,43,34)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "CAPEX",
-      data: [
-        buildValue($("#cap1")),
-        buildValue($("#cap2")),
-        buildValue($("#cap3"))
-      ],
-      backgroundColor: [
-        "rgba(238,96,96,0.2)"
-      ],
-      borderColor: [
-        "rgb(227,5,43)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Power Export",
-      data: [
-        buildValue($("#pe1")),
-        buildValue($("#pe2")),
-        buildValue($("#pe3"))
-      ],
-      backgroundColor: "rgba(75,97,182,0.2)",
-      borderColor: [
-        "rgb(72,15,217)"
-      ],
-      borderWidth: 1
-    },
-      {
-        label: "",
-        data: [0, 0, 0],
+  if(chartOpts){
+    setTimeout(function() {
+      chartOpts.data.datasets = [{
+        label: "Carbon Credit",
+        data: [
+          buildValue($("#ccr1")),
+          buildValue($("#ccr2")),
+          buildValue($("#ccr3"))
+        ],
         backgroundColor: [
-          "rgba(68,134,60,0)"
+          "rgba(25, 9, 232, 0.2)"
         ],
         borderColor: [
-          "rgba(14,227,7,0)"
+          "rgba(25, 9, 232, 1)"
         ],
         borderWidth: 1
-      }
-    ];
-    $("#canvas_wr").html(""); //remove canvas from container
-    $("#canvas_wr").html("   <canvas id=\"chart_container\" height=\"200px\"></canvas>"); //add it back to the container
-    this.chart = new Chart($("#chart_container")[0], chartOpts);
-  }, 3000);
+      }, {
+        label: "Carbon Tax",
+        data: [
+          buildValue($("#ct1")),
+          buildValue($("#ct2")),
+          buildValue($("#ct3"))],
+        backgroundColor: [
+          "rgba(173,171,68,0.2)"
+        ],
+        borderColor: [
+          "rgb(245,237,3)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "CO2 T&S",
+        data: [
+          buildValue($("#co1")),
+          buildValue($("#co2")),
+          buildValue($("#co3"))
+        ],
+        backgroundColor: [
+          "rgba(136,98,65,0.2)"
+        ],
+        borderColor: [
+          "rgb(241,133,3)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Water",
+        data: [
+          buildValue($("#wat1")),
+          buildValue($("#wat2")),
+          buildValue($("#wat3"))
+        ],
+        backgroundColor: [
+          "rgba(66,93,164,0.2)"
+        ],
+        borderColor: [
+          "rgb(14,34,243)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Electricity",
+        data: [buildValue($("#el1")),
+          buildValue($("#el2")),
+          buildValue($("#el3"))
+        ],
+        backgroundColor: [
+          "rgba(68,134,60,0.2)"
+        ],
+        borderColor: [
+          "rgb(14,227,7)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Natural Gas",
+        data: [
+          buildValue($("#natGas1")),
+          buildValue($("#natGas2")),
+          buildValue($("#natGas3"))
+        ],
+        backgroundColor: [
+          "rgb(167,186,227)"
+        ],
+        borderColor: [
+          "rgb(7,77,227)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Fixed OPEX",
+        data: [
+          buildValue($("#fo1")),
+          buildValue($("#fo2")),
+          buildValue($("#fo3"))
+        ],
+        backgroundColor: [
+          "rgba(61,65,63,0.2)"
+        ],
+        borderColor: [
+          "rgb(44,43,34)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "CAPEX",
+        data: [
+          buildValue($("#cap1")),
+          buildValue($("#cap2")),
+          buildValue($("#cap3"))
+        ],
+        backgroundColor: [
+          "rgba(238,96,96,0.2)"
+        ],
+        borderColor: [
+          "rgb(227,5,43)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Power Export",
+        data: [
+          buildValue($("#pe1")),
+          buildValue($("#pe2")),
+          buildValue($("#pe3"))
+        ],
+        backgroundColor: "rgba(75,97,182,0.2)",
+        borderColor: [
+          "rgb(72,15,217)"
+        ],
+        borderWidth: 1
+      },
+        {
+          label: "",
+          data: [0, 0, 0],
+          backgroundColor: [
+            "rgba(68,134,60,0)"
+          ],
+          borderColor: [
+            "rgba(14,227,7,0)"
+          ],
+          borderWidth: 1
+        }
+      ];
+      $("#canvas_wr").html(""); //remove canvas from container
+      $("#canvas_wr").html("   <canvas id=\"chart_container\" height=\"200px\"></canvas>"); //add it back to the container
+      this.chart = new Chart($("#chart_container")[0], chartOpts);
+    }, 3000);
+  }
 }
 
 $("#gas, #electricity, #carbon, #carbonPrice, #taxCredit, #electricityExport").change(function() {
@@ -849,126 +852,129 @@ AmmoniaCalc.fn.drawChart = function() {
 };
 
 function buildNewCanvasAmmoniaCalc() {
-  setTimeout(function() {
-    chartOpts2.data.datasets = [{
-      label: "CAPEX",
-      data: [
-        buildValue($("#amcap1")),
-        buildValue($("#amcap2"))
-      ],
-      backgroundColor: [
-        "rgba(238,96,96,0.2)"
-      ],
-      borderColor: [
-        "rgb(227,5,43)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Fixed OPEX",
-      data: [
-        buildValue($("#amfo1")),
-        buildValue($("#amfo2"))
-      ],
-      backgroundColor: [
-        "rgba(61,65,63,0.2)"
-      ],
-      borderColor: [
-        "rgb(44,43,34)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Natural Gas",
-      data: [
-        buildValue($("#amng1")),
-        buildValue($("#amng2"))
-      ],
-      backgroundColor: [
-        "rgb(167,186,227)"
-      ],
-      borderColor: [
-        "rgb(7,77,227)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Electricity",
-      data: [
-        buildValue($("#amel1")), buildValue($("#amel2"))
-      ],
-      backgroundColor: [
-        "rgba(68,134,60,0.2)"
-      ],
-      borderColor: [
-        "rgb(14,227,7)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Water",
-      data: [
-        buildValue($("#amwat1")),
-        buildValue($("#amwat2"))
-      ],
-      backgroundColor: [
-        "rgba(66,93,164,0.2)"
-      ],
-      borderColor: [
-        "rgb(14,34,243)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "CO2 T&S",
-      data: [
-        buildValue($("#amco1")),
-        buildValue($("#amco2"))
-      ],
-      backgroundColor: [
-        "rgba(136,98,65,0.2)"
-      ],
-      borderColor: [
-        "rgb(241,133,3)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Carbon Tax",
-      data: [
-        buildValue($("#amct1")),
-        buildValue($("#amct2"))
-      ],
-      backgroundColor: [
-        "rgba(173,171,68,0.2)"
-      ],
-      borderColor: [
-        "rgb(245,237,3)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Carbon Credit",
-      data: [
-        buildValue($("#amccr1")),
-        buildValue($("#amccr2"))
-      ],
-      backgroundColor: [
-        "rgba(25, 9, 232, 0.2)"
-      ],
-      borderColor: [
-        "rgba(25, 9, 232, 1)"
-      ],
-      borderWidth: 1
-    },
-      {
-        label: "",
-        data: [0, 0, 0],
+  if(chartOpts2){
+    setTimeout(function() {
+      chartOpts2.data.datasets = [{
+        label: "CAPEX",
+        data: [
+          buildValue($("#amcap1")),
+          buildValue($("#amcap2"))
+        ],
         backgroundColor: [
-          "rgba(68,134,60,0)"
+          "rgba(238,96,96,0.2)"
         ],
         borderColor: [
-          "rgba(14,227,7,0)"
+          "rgb(227,5,43)"
         ],
         borderWidth: 1
-      }];
-    $("#canvas_wr2").html(""); //remove canvas from container
-    $("#canvas_wr2").html("   <canvas id=\"chart_container2\" height=\"200px\"></canvas>"); //add it back to the container
-    this.chart2 = new Chart($("#chart_container2")[0], chartOpts2);
-  }, 3000);
+      }, {
+        label: "Fixed OPEX",
+        data: [
+          buildValue($("#amfo1")),
+          buildValue($("#amfo2"))
+        ],
+        backgroundColor: [
+          "rgba(61,65,63,0.2)"
+        ],
+        borderColor: [
+          "rgb(44,43,34)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Natural Gas",
+        data: [
+          buildValue($("#amng1")),
+          buildValue($("#amng2"))
+        ],
+        backgroundColor: [
+          "rgb(167,186,227)"
+        ],
+        borderColor: [
+          "rgb(7,77,227)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Electricity",
+        data: [
+          buildValue($("#amel1")), buildValue($("#amel2"))
+        ],
+        backgroundColor: [
+          "rgba(68,134,60,0.2)"
+        ],
+        borderColor: [
+          "rgb(14,227,7)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Water",
+        data: [
+          buildValue($("#amwat1")),
+          buildValue($("#amwat2"))
+        ],
+        backgroundColor: [
+          "rgba(66,93,164,0.2)"
+        ],
+        borderColor: [
+          "rgb(14,34,243)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "CO2 T&S",
+        data: [
+          buildValue($("#amco1")),
+          buildValue($("#amco2"))
+        ],
+        backgroundColor: [
+          "rgba(136,98,65,0.2)"
+        ],
+        borderColor: [
+          "rgb(241,133,3)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Carbon Tax",
+        data: [
+          buildValue($("#amct1")),
+          buildValue($("#amct2"))
+        ],
+        backgroundColor: [
+          "rgba(173,171,68,0.2)"
+        ],
+        borderColor: [
+          "rgb(245,237,3)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Carbon Credit",
+        data: [
+          buildValue($("#amccr1")),
+          buildValue($("#amccr2"))
+        ],
+        backgroundColor: [
+          "rgba(25, 9, 232, 0.2)"
+        ],
+        borderColor: [
+          "rgba(25, 9, 232, 1)"
+        ],
+        borderWidth: 1
+      },
+        {
+          label: "",
+          data: [0, 0, 0],
+          backgroundColor: [
+            "rgba(68,134,60,0)"
+          ],
+          borderColor: [
+            "rgba(14,227,7,0)"
+          ],
+          borderWidth: 1
+        }];
+      $("#canvas_wr2").html(""); //remove canvas from container
+      $("#canvas_wr2").html("   <canvas id=\"chart_container2\" height=\"200px\"></canvas>"); //add it back to the container
+      this.chart2 = new Chart($("#chart_container2")[0], chartOpts2);
+    }, 3000);
+
+  }
 }
 
 function calculateAmmoniaCalc() {
@@ -1358,183 +1364,186 @@ GreenHydrogenCalc.fn.drawChart = function() {
 };
 
 function buildNewCanvasGreenCalc() {
-  setTimeout(function() {
-    chartOpts3.data.datasets = [{
-      label: "CAPEX",
-      data: [
-        buildValue($("#gr1cap1")),
-        buildValue($("#gr1cap2")),
-        buildValue($("#gr1cap3"))
-      ],
-      backgroundColor: [
-        "rgba(238,96,96,0.2)"
-      ],
-      borderColor: [
-        "rgb(227,5,43)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Fixed OPEX",
-      data: [
-        buildValue($("#gr1fo1")),
-        buildValue($("#gr1fo2")),
-        buildValue($("#gr1fo3"))
-      ],
-      backgroundColor: [
-        "rgba(61,65,63,0.2)"
-      ],
-      borderColor: [
-        "rgb(44,43,34)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Electricity",
-      data: [
-        buildValue($("#gr1el1")),
-        buildValue($("#gr1el2")),
-        buildValue($("#gr1el3"))
-      ],
-      backgroundColor: [
-        "rgba(68,134,60,0.2)"
-      ],
-      borderColor: [
-        "rgb(14,227,7)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Water",
-      data: [
-        buildValue($("#gr1wat1")),
-        buildValue($("#gr1wat2")),
-        buildValue($("#gr1wat3"))
-      ],
-      backgroundColor: [
-        "rgba(66,93,164,0.2)"
-      ],
-      borderColor: [
-        "rgb(14,34,243)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Tax Credit",
-      data: [
-        buildValue($("#gr1TaxCr1")),
-        buildValue($("#gr1TaxCr2")),
-        buildValue($("#gr1TaxCr3"))
-      ],
-      backgroundColor: [
-        "rgba(25, 9, 232, 0.2)"
-      ],
-      borderColor: [
-        "rgba(25, 9, 232, 1)"
-      ],
-      borderWidth: 1
-    },
-      {
-        label: "",
-        data: [0, 0, 0],
+  if(chartOpts3){
+    setTimeout(function() {
+      chartOpts3.data.datasets = [{
+        label: "CAPEX",
+        data: [
+          buildValue($("#gr1cap1")),
+          buildValue($("#gr1cap2")),
+          buildValue($("#gr1cap3"))
+        ],
         backgroundColor: [
-          "rgba(68,134,60,0)"
+          "rgba(238,96,96,0.2)"
         ],
         borderColor: [
-          "rgba(14,227,7,0)"
+          "rgb(227,5,43)"
         ],
         borderWidth: 1
-      }
-    ];
-
-    chartOpts4.data.datasets = [{
-      label: "CAPEX",
-      data: [
-        buildValue($("#gr2cap1")),
-        buildValue($("#gr2cap2")),
-        buildValue($("#gr2cap3"))
-      ],
-      backgroundColor: [
-        "rgba(238,96,96,0.2)"
-      ],
-      borderColor: [
-        "rgb(227,5,43)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Fixed OPEX",
-      data: [
-        buildValue($("#gr2fo1")),
-        buildValue($("#gr2fo2")),
-        buildValue($("#gr2fo3"))
-      ],
-      backgroundColor: [
-        "rgba(61,65,63,0.2)"
-      ],
-      borderColor: [
-        "rgb(44,43,34)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Electricity",
-      data: [
-        buildValue($("#gr2el1")),
-        buildValue($("#gr2el2")),
-        buildValue($("#gr2el3"))
-      ],
-      backgroundColor: [
-        "rgba(68,134,60,0.2)"
-      ],
-      borderColor: [
-        "rgb(14,227,7)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Water",
-      data: [
-        buildValue($("#gr2wat1")),
-        buildValue($("#gr2wat2")),
-        buildValue($("#gr2wat3"))
-      ],
-      backgroundColor: [
-        "rgba(66,93,164,0.2)"
-      ],
-      borderColor: [
-        "rgb(14,34,243)"
-      ],
-      borderWidth: 1
-    }, {
-      label: "Tax Credit",
-      data: [
-        buildValue($("#gr2TaxCr1")),
-        buildValue($("#gr2TaxCr2")),
-        buildValue($("#gr2TaxCr3"))
-      ],
-      backgroundColor: [
-        "rgba(25, 9, 232, 0.2)"
-      ],
-      borderColor: [
-        "rgba(25, 9, 232, 1)"
-      ],
-      borderWidth: 1
-    },
-      {
-        label: "",
-        data: [0, 0, 0],
+      }, {
+        label: "Fixed OPEX",
+        data: [
+          buildValue($("#gr1fo1")),
+          buildValue($("#gr1fo2")),
+          buildValue($("#gr1fo3"))
+        ],
         backgroundColor: [
-          "rgba(68,134,60,0)"
+          "rgba(61,65,63,0.2)"
         ],
         borderColor: [
-          "rgba(14,227,7,0)"
+          "rgb(44,43,34)"
         ],
         borderWidth: 1
-      }
-    ];
+      }, {
+        label: "Electricity",
+        data: [
+          buildValue($("#gr1el1")),
+          buildValue($("#gr1el2")),
+          buildValue($("#gr1el3"))
+        ],
+        backgroundColor: [
+          "rgba(68,134,60,0.2)"
+        ],
+        borderColor: [
+          "rgb(14,227,7)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Water",
+        data: [
+          buildValue($("#gr1wat1")),
+          buildValue($("#gr1wat2")),
+          buildValue($("#gr1wat3"))
+        ],
+        backgroundColor: [
+          "rgba(66,93,164,0.2)"
+        ],
+        borderColor: [
+          "rgb(14,34,243)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Tax Credit",
+        data: [
+          buildValue($("#gr1TaxCr1")),
+          buildValue($("#gr1TaxCr2")),
+          buildValue($("#gr1TaxCr3"))
+        ],
+        backgroundColor: [
+          "rgba(25, 9, 232, 0.2)"
+        ],
+        borderColor: [
+          "rgba(25, 9, 232, 1)"
+        ],
+        borderWidth: 1
+      },
+        {
+          label: "",
+          data: [0, 0, 0],
+          backgroundColor: [
+            "rgba(68,134,60,0)"
+          ],
+          borderColor: [
+            "rgba(14,227,7,0)"
+          ],
+          borderWidth: 1
+        }
+      ];
 
-    $("#canvas_wr3").html(""); //remove canvas from container
-    $("#canvas_wr3").html("   <canvas id=\"chart_container3\" height=\"200px\"></canvas>"); //add it back to the container
-    this.chart3 = new Chart($("#chart_container3")[0], chartOpts3);
+      chartOpts4.data.datasets = [{
+        label: "CAPEX",
+        data: [
+          buildValue($("#gr2cap1")),
+          buildValue($("#gr2cap2")),
+          buildValue($("#gr2cap3"))
+        ],
+        backgroundColor: [
+          "rgba(238,96,96,0.2)"
+        ],
+        borderColor: [
+          "rgb(227,5,43)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Fixed OPEX",
+        data: [
+          buildValue($("#gr2fo1")),
+          buildValue($("#gr2fo2")),
+          buildValue($("#gr2fo3"))
+        ],
+        backgroundColor: [
+          "rgba(61,65,63,0.2)"
+        ],
+        borderColor: [
+          "rgb(44,43,34)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Electricity",
+        data: [
+          buildValue($("#gr2el1")),
+          buildValue($("#gr2el2")),
+          buildValue($("#gr2el3"))
+        ],
+        backgroundColor: [
+          "rgba(68,134,60,0.2)"
+        ],
+        borderColor: [
+          "rgb(14,227,7)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Water",
+        data: [
+          buildValue($("#gr2wat1")),
+          buildValue($("#gr2wat2")),
+          buildValue($("#gr2wat3"))
+        ],
+        backgroundColor: [
+          "rgba(66,93,164,0.2)"
+        ],
+        borderColor: [
+          "rgb(14,34,243)"
+        ],
+        borderWidth: 1
+      }, {
+        label: "Tax Credit",
+        data: [
+          buildValue($("#gr2TaxCr1")),
+          buildValue($("#gr2TaxCr2")),
+          buildValue($("#gr2TaxCr3"))
+        ],
+        backgroundColor: [
+          "rgba(25, 9, 232, 0.2)"
+        ],
+        borderColor: [
+          "rgba(25, 9, 232, 1)"
+        ],
+        borderWidth: 1
+      },
+        {
+          label: "",
+          data: [0, 0, 0],
+          backgroundColor: [
+            "rgba(68,134,60,0)"
+          ],
+          borderColor: [
+            "rgba(14,227,7,0)"
+          ],
+          borderWidth: 1
+        }
+      ];
 
-    $("#canvas_wr4").html(""); //remove canvas from container
-    $("#canvas_wr4").html("   <canvas id=\"chart_container4\" height=\"200px\"></canvas>"); //add it back to the container
-    this.chart4 = new Chart($("#chart_container4")[0], chartOpts4);
-  }, 3000);
+      $("#canvas_wr3").html(""); //remove canvas from container
+      $("#canvas_wr3").html("   <canvas id=\"chart_container3\" height=\"200px\"></canvas>"); //add it back to the container
+      this.chart3 = new Chart($("#chart_container3")[0], chartOpts3);
+
+      $("#canvas_wr4").html(""); //remove canvas from container
+      $("#canvas_wr4").html("   <canvas id=\"chart_container4\" height=\"200px\"></canvas>"); //add it back to the container
+      this.chart4 = new Chart($("#chart_container4")[0], chartOpts4);
+    }, 3000);
+
+  }
 }
 
 function calculateGreenCalc() {
