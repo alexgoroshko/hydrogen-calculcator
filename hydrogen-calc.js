@@ -52,9 +52,15 @@ let chartOpts2;
 let chartOpts3;
 let chartOpts4;
 
+function hiddenLoader() {
+  setTimeout(function() {
+    getElById("loaderMain").style = "display: none";
+    getElById("body").style.overflow = "auto"
+  }, 2000);
+}
+
 function formulaParse(formula, sheetNames) {
   let cleanFormula = formula.split("$").join("");
-
   //Removing spaces in sheet names
   sheetNames.forEach(sheetName => {
     cleanFormula = cleanFormula.split(sheetName).join(`#${sheetName.split(" ").join("")}`);
@@ -69,9 +75,23 @@ function splitName(name) {
   return name.split(" ").join("");
 }
 
+function setAttrValue(element, value) {
+  element.value = value
+  // element.setAttribute("value", value);
+}
+
+function getElById(id) {
+  return document.getElementById(id);
+}
+
+function buildValue(element) {
+  const value = element.value;
+  return value?.replace(/^[-+]?[0-9]*[.,]?[0-9]+$/g, "").replace("$", "").replace(",", "");
+}
+
 let dashboard = null;
 HydrogenCalc.fn.init = async function() {
-  $("#body").css("overflow", "hidden");
+  getElById("body").style.overflow = "hidden";
   self = this;
 
   const f = await fetch("https://docs.google.com/spreadsheets/d/1fdP3vMapCDwfEC7fRxkBpzD5ODnhXEwH79U8a7RU1Ic/export?format=xlsx");
@@ -81,27 +101,35 @@ HydrogenCalc.fn.init = async function() {
   if (wb) {
     hiddenLoader();
   }
-
+  const taxCreditEl = getElById("taxCredit");
   const checkboxDataValueTaxCr = wb.Sheets["Dashboard"]["G15"].v;
-  if ((checkboxDataValueTaxCr == "Yes" && !$("#taxCredit").prop("checked")) || (checkboxDataValueTaxCr && $("#taxCredit").prop("checked"))) {
-    $("#taxCredit").click();
+  if ((checkboxDataValueTaxCr == "Yes" && !taxCreditEl.checked) || (checkboxDataValueTaxCr && taxCreditEl.checked)) {
+    taxCreditEl.click();
   }
+  const electricityExportEl = getElById("electricityExport");
   const checkboxDataValueEl = wb.Sheets["Dashboard"]["G8"].v;
-  if ((checkboxDataValueEl == "Yes" && !$("#electricityExport").prop("checked")) || (checkboxDataValueEl && $("#electricityExport").prop("checked"))) {
-    $("#electricityExport").click();
+  if ((checkboxDataValueEl == "Yes" && !electricityExportEl.checked) || (checkboxDataValueEl && electricityExportEl.checked)) {
+    electricityExportEl.click();
   }
 
+  const gasVisEl = getElById("gasVis");
   const checkboxDataValueGas = wb.Sheets["Dashboard"]["G11"].v;
-  $("#gasVis").val(checkboxDataValueGas);
+  setAttrValue(gasVisEl, checkboxDataValueGas);
 
-  const checkboxDataValueelectricity = wb.Sheets["Dashboard"]["G12"].v;
-  $("#electricityVis").val(checkboxDataValueelectricity);
 
+  const electricityVisEl = getElById("electricityVis");
+  const checkboxDataValueElectricity = wb.Sheets["Dashboard"]["G12"].v;
+  setAttrValue(electricityVisEl, checkboxDataValueElectricity);
+
+
+  const carbonVisEl = getElById("carbonVis");
   const checkboxDataValueCarbon = wb.Sheets["Dashboard"]["G13"].v;
-  $("#carbonVis").val(checkboxDataValueCarbon);
+  setAttrValue(carbonVisEl, checkboxDataValueCarbon);
 
+
+  const carbonPriceVisEl = getElById("carbonPriceVis");
   const checkboxDataValueCarbonPrice = wb.Sheets["Dashboard"]["G14"].v;
-  $("#carbonPriceVis").val(checkboxDataValueCarbonPrice);
+  setAttrValue(carbonPriceVisEl, checkboxDataValueCarbonPrice);
 
 
   const hydrogenData = {};
@@ -152,32 +180,6 @@ HydrogenCalc.fn.init = async function() {
   }, 2000);
 };
 
-const topLabels = {
-  id: "topLabels",
-  afterDatasetsDraw(chart, args, pluginOpt) {
-    const { ctx, scales: { x, y } } = chart;
-    chart.data.datasets[0].data.forEach((datapoint, index) => {
-      const datasetArray = [];
-      chart.data.datasets.forEach((dataset) => {
-        if (dataset.data[index] != undefined && !isNaN(dataset.data[index])) {
-          datasetArray.push(dataset.data[index]);
-        }
-      });
-
-      function totalSum(total, values) {
-        return total + values;
-      }
-
-      let sum = datasetArray.reduce(totalSum, 0);
-      ctx.font = "bold";
-      ctx.fillStyle = "#808080";
-      ctx.textAlign = "center";
-
-      ctx.fillText(sum.toFixed(1), x.getPixelForValue(index), 75);
-    });
-  }
-};
-
 HydrogenCalc.fn.getDefaultChartOpts = function() {
   return {
     type: "bar",
@@ -211,7 +213,7 @@ HydrogenCalc.fn.getDefaultChartOpts = function() {
       afterDatasetsDraw(chart, args, pluginOpt) {
         const { ctx, scales: { x, y } } = chart;
         chart.data.datasets[0].data.forEach((datapoint, index) => {
-          const totalArray = [buildValue($("#total1")), buildValue($("#total2")), buildValue($("#total3"))];
+          const totalArray = [buildValue(getElById("total1")), buildValue(getElById("total2")), buildValue(getElById("total3"))];
           totalArray.forEach((data, index) => {
             ctx.font = "bold";
             ctx.fillStyle = "#808080";
@@ -382,19 +384,27 @@ HydrogenCalc.fn.drawChart = function() {
   this.chart = new Chart($("#chart_container")[0], chartOpts);
 };
 
-$("#taxCredit, #electricityExport, #taxCreditAm, #elExportAm, #ptcTaxCredit").click(function() {
-  if ($(this).prop("checked") == true) {
-    $(this).val("Yes");
-  } else if ($(this).prop("checked") == false) {
-    $(this).val("No");
-  }
-});
 
-$("#taxCredit, #carbonPrice, #carbon, #electricity, #gas, #electricityExport").keypress(function(e) {
-  if (e.which == 13) {
-    $("#taxCredit, #carbonPrice, #carbon, #electricity, #gas, #electricityExport").blur();
-  }
-});
+let yesNoInputs = document.querySelectorAll('.yesNoInputs');
+yesNoInputs.forEach((el)=>{
+  el.addEventListener('click', function(){
+    if(el.checked){
+      setAttrValue(el, "Yes")
+    } else {
+      setAttrValue(el, "No")
+    }
+  })
+})
+
+let blueHydrogenInputEl = document.querySelectorAll(".blueHydrogenInput");
+blueHydrogenInputEl.forEach((el)=> {
+  el.addEventListener('change', buildNewCanvasHydrogenCalc)
+  el.addEventListener("keypress", function(e) {
+    if (e.which == 13) {
+      el.blur();
+    }
+  })
+})
 
 function calculateHydrogenCalc() {
   $("#Assumptions").calx("getSheet").calculate();
@@ -405,46 +415,39 @@ function calculateHydrogenCalc() {
   buildNewCanvasHydrogenCalc();
 }
 
-
-$("#gasVis").change(function() {
-  self.sheets["Dashboard"].getCell("G11").setValue($("#gasVis").val() * 1);
-  $("#gas").blur();
+getElById("gasVis").addEventListener("change", function(){
+  self.sheets["Dashboard"].getCell("G11").setValue(getElById("gasVis").value * 1);
+  getElById("gas").blur();
   calculateHydrogenCalc();
-});
+})
 
-$("#electricityVis").change(function() {
-  self.sheets["Dashboard"].getCell("G12").setValue($("#electricityVis").val() * 1);
-  $("#electricity").blur();
+getElById("electricityVis").addEventListener("change", function() {
+  self.sheets["Dashboard"].getCell("G12").setValue(getElById("electricityVis").value * 1);
+  getElById("electricity").blur();
   calculateHydrogenCalc();
-});
+})
 
-$("#carbonVis").change(function() {
-  self.sheets["Dashboard"].getCell("G13").setValue($("#carbonVis").val() * 1);
-  $("#carbon").blur();
+getElById("carbonVis").addEventListener("change", function() {
+  self.sheets["Dashboard"].getCell("G13").setValue(getElById("carbonVis").value * 1);
+  getElById("carbon").blur();
   calculateHydrogenCalc();
-});
+})
 
-$("#carbonPriceVis").change(function() {
-  self.sheets["Dashboard"].getCell("G14").setValue($("#carbonPriceVis").val() * 1);
-  $("#carbonPrice").blur();
+getElById("carbonPriceVis").addEventListener("change", function() {
+  self.sheets["Dashboard"].getCell("G14").setValue(getElById("carbonPriceVis").value * 1);
+  getElById("carbonPrice").blur();
   calculateHydrogenCalc();
-});
-
-
-function buildValue(element) {
-  const value = element.val();
-  return value.replace(/^[-+]?[0-9]*[.,]?[0-9]+$/g, "").replace("$", "").replace(",", "");
-}
+})
 
 function buildNewCanvasHydrogenCalc() {
-  if(chartOpts){
+  if (chartOpts) {
     setTimeout(function() {
       chartOpts.data.datasets = [{
         label: "Carbon Credit",
         data: [
-          buildValue($("#ccr1")),
-          buildValue($("#ccr2")),
-          buildValue($("#ccr3"))
+          buildValue(getElById("ccr1")),
+          buildValue(getElById("ccr2")),
+          buildValue(getElById("ccr2"))
         ],
         backgroundColor: [
           "rgba(25, 9, 232, 0.2)"
@@ -456,9 +459,9 @@ function buildNewCanvasHydrogenCalc() {
       }, {
         label: "Carbon Tax",
         data: [
-          buildValue($("#ct1")),
-          buildValue($("#ct2")),
-          buildValue($("#ct3"))],
+          buildValue(getElById("ct1")),
+          buildValue(getElById("ct2")),
+          buildValue(getElById("ct3"))],
         backgroundColor: [
           "rgba(173,171,68,0.2)"
         ],
@@ -469,9 +472,9 @@ function buildNewCanvasHydrogenCalc() {
       }, {
         label: "CO2 T&S",
         data: [
-          buildValue($("#co1")),
-          buildValue($("#co2")),
-          buildValue($("#co3"))
+          buildValue(getElById("co1")),
+          buildValue(getElById("co2")),
+          buildValue(getElById("co3"))
         ],
         backgroundColor: [
           "rgba(136,98,65,0.2)"
@@ -483,9 +486,9 @@ function buildNewCanvasHydrogenCalc() {
       }, {
         label: "Water",
         data: [
-          buildValue($("#wat1")),
-          buildValue($("#wat2")),
-          buildValue($("#wat3"))
+          buildValue(getElById("wat1")),
+          buildValue(getElById("wat2")),
+          buildValue(getElById("wat3"))
         ],
         backgroundColor: [
           "rgba(66,93,164,0.2)"
@@ -496,9 +499,10 @@ function buildNewCanvasHydrogenCalc() {
         borderWidth: 1
       }, {
         label: "Electricity",
-        data: [buildValue($("#el1")),
-          buildValue($("#el2")),
-          buildValue($("#el3"))
+        data: [
+          buildValue(getElById("el1")),
+          buildValue(getElById("el2")),
+          buildValue(getElById("el3"))
         ],
         backgroundColor: [
           "rgba(68,134,60,0.2)"
@@ -510,9 +514,9 @@ function buildNewCanvasHydrogenCalc() {
       }, {
         label: "Natural Gas",
         data: [
-          buildValue($("#natGas1")),
-          buildValue($("#natGas2")),
-          buildValue($("#natGas3"))
+          buildValue(getElById("natGas1")),
+          buildValue(getElById("natGas2")),
+          buildValue(getElById("natGas3"))
         ],
         backgroundColor: [
           "rgb(167,186,227)"
@@ -524,9 +528,9 @@ function buildNewCanvasHydrogenCalc() {
       }, {
         label: "Fixed OPEX",
         data: [
-          buildValue($("#fo1")),
-          buildValue($("#fo2")),
-          buildValue($("#fo3"))
+          buildValue(getElById("fo1")),
+          buildValue(getElById("fo2")),
+          buildValue(getElById("fo3"))
         ],
         backgroundColor: [
           "rgba(61,65,63,0.2)"
@@ -538,9 +542,9 @@ function buildNewCanvasHydrogenCalc() {
       }, {
         label: "CAPEX",
         data: [
-          buildValue($("#cap1")),
-          buildValue($("#cap2")),
-          buildValue($("#cap3"))
+          buildValue(getElById("cap1")),
+          buildValue(getElById("cap2")),
+          buildValue(getElById("cap3"))
         ],
         backgroundColor: [
           "rgba(238,96,96,0.2)"
@@ -552,9 +556,9 @@ function buildNewCanvasHydrogenCalc() {
       }, {
         label: "Power Export",
         data: [
-          buildValue($("#pe1")),
-          buildValue($("#pe2")),
-          buildValue($("#pe3"))
+          buildValue(getElById("pe1")),
+          buildValue(getElById("pe2")),
+          buildValue(getElById("pe3"))
         ],
         backgroundColor: "rgba(75,97,182,0.2)",
         borderColor: [
@@ -574,16 +578,12 @@ function buildNewCanvasHydrogenCalc() {
           borderWidth: 1
         }
       ];
-      $("#canvas_wr").html(""); //remove canvas from container
-      $("#canvas_wr").html("   <canvas id=\"chart_container\" height=\"200px\"></canvas>"); //add it back to the container
-      this.chart = new Chart($("#chart_container")[0], chartOpts);
+      getElById("canvas_wr").innerHTML = "";
+      getElById("canvas_wr").innerHTML = "<canvas id=\"chart_container\" height=\"200px\"></canvas>";
+      this.chart = new Chart(getElById("chart_container"), chartOpts);
     }, 3000);
   }
 }
-
-$("#gas, #electricity, #carbon, #carbonPrice, #taxCredit, #electricityExport").change(function() {
-  buildNewCanvasHydrogenCalc();
-});
 
 
 //AMMONIA CALC ________________________________________________________________________________________________________
@@ -593,32 +593,40 @@ AmmoniaCalc.fn.init = async function() {
   const f = await fetch("https://docs.google.com/spreadsheets/d/136gX-lPlD2fMbYbxCJmtu_f762j5SfbAuUohJT_MdkU/export?format=xlsx");
   const a = await f.arrayBuffer();
   const wb = this.xlsx.read(a, { cellFormula: true, cellNF: true });
+  getElById("body").style.overflow = "hidden";
 
-  const checkboxDataValueTaxCreditAm = wb.Sheets["Dashboard2"]["G12"].v;
-  if ((checkboxDataValueTaxCreditAm == "Yes" && !$("#taxCreditAm").prop("checked")) || (checkboxDataValueTaxCreditAm && $("#taxCreditAm").prop("checked"))) {
-    $("#taxCreditAm").click();
-  }
-  const checkboxDataValueElExportAm = wb.Sheets["Dashboard2"]["G13"].v;
-  if ((checkboxDataValueElExportAm == "Yes" && !$("#elExportAm").prop("checked")) || (checkboxDataValueElExportAm && $("#elExportAm").prop("checked"))) {
-    $("#elExportAm").click();
-  }
-
-  const checkboxDataValueGasAm = wb.Sheets["Dashboard2"]["G8"].v;
-  $("#gasAmVis").val(checkboxDataValueGasAm);
-
-  const checkboxDataValueelectricityAm = wb.Sheets["Dashboard2"]["G9"].v;
-  $("#electricityAmVis").val(checkboxDataValueelectricityAm);
-
-  const checkboxDataValueCarbonAm = wb.Sheets["Dashboard2"]["G10"].v;
-  $("#carbonAmVis").val(checkboxDataValueCarbonAm);
-
-  const checkboxDataValueCarbonPriceAm = wb.Sheets["Dashboard2"]["G11"].v;
-  $("#carbonPriceAmVis").val(checkboxDataValueCarbonPriceAm);
-
-  $("#body").css("overflow", "hidden");
   if (wb) {
     hiddenLoader();
   }
+
+  const taxCreditAmEl = getElById("taxCreditAm");
+  const checkboxDataValueTaxCreditAm = wb.Sheets["Dashboard2"]["G12"].v;
+  if ((checkboxDataValueTaxCreditAm == "Yes" && !taxCreditAmEl.checked) || (checkboxDataValueTaxCreditAm && taxCreditAmEl.checked)) {
+    taxCreditAmEl.click();
+  }
+
+  const elExportAmEl = getElById("elExportAm");
+  const checkboxDataValueElExportAm = wb.Sheets["Dashboard2"]["G13"].v;
+  if ((checkboxDataValueElExportAm == "Yes" && !elExportAmEl.checked) || (checkboxDataValueElExportAm && elExportAmEl.checked)) {
+    elExportAmEl.click();
+  }
+
+  const gasAmVisEl = getElById("gasAmVis");
+  const checkboxDataValueGasAm = wb.Sheets["Dashboard2"]["G8"].v;
+  setAttrValue(gasAmVisEl, checkboxDataValueGasAm);
+
+  const electricityAmVisEl = getElById("electricityAmVis");
+  const checkboxDataValueElectricityAm = wb.Sheets["Dashboard2"]["G9"].v;
+  setAttrValue(electricityAmVisEl, checkboxDataValueElectricityAm);
+
+  const carbonAmVisEl = getElById("carbonAmVis");
+  const checkboxDataValueCarbonAm = wb.Sheets["Dashboard2"]["G10"].v;
+  setAttrValue(carbonAmVisEl, checkboxDataValueCarbonAm);
+
+  const carbonPriceAmVisEl = getElById("carbonPriceAmVis");
+  const checkboxDataValueCarbonPriceAm = wb.Sheets["Dashboard2"]["G11"].v;
+  setAttrValue(carbonPriceAmVisEl, checkboxDataValueCarbonPriceAm);
+
   const ammoniaData = {};
   Object.keys(wb.Sheets).forEach(name => {
     Object.keys(wb.Sheets[name]).forEach(cell => {
@@ -701,7 +709,7 @@ AmmoniaCalc.fn.getDefaultChartOpts = function() {
       afterDatasetsDraw(chart, args, pluginOpt) {
         const { ctx, scales: { x, y } } = chart;
         chart.data.datasets[0].data.forEach((datapoint, index) => {
-          const totalArray = [buildValue($("#amtotal1")), buildValue($("#amtotal2"))];
+          const totalArray = [buildValue(getElById("amtotal1")), buildValue(getElById("amtotal2"))];
           totalArray.forEach((data, index) => {
             ctx.font = "bold";
             ctx.fillStyle = "#808080";
@@ -848,17 +856,17 @@ AmmoniaCalc.fn.drawChart = function() {
     }
   ];
 
-  this.chart2 = new Chart($("#chart_container2")[0], chartOpts2);
+  this.chart2 = new Chart(getElById("chart_container2"), chartOpts2);
 };
 
 function buildNewCanvasAmmoniaCalc() {
-  if(chartOpts2){
+  if (chartOpts2) {
     setTimeout(function() {
       chartOpts2.data.datasets = [{
         label: "CAPEX",
         data: [
-          buildValue($("#amcap1")),
-          buildValue($("#amcap2"))
+          buildValue(getElById("amcap1")),
+          buildValue(getElById("amcap2"))
         ],
         backgroundColor: [
           "rgba(238,96,96,0.2)"
@@ -870,8 +878,8 @@ function buildNewCanvasAmmoniaCalc() {
       }, {
         label: "Fixed OPEX",
         data: [
-          buildValue($("#amfo1")),
-          buildValue($("#amfo2"))
+          buildValue(getElById("amfo1")),
+          buildValue(getElById("amfo2"))
         ],
         backgroundColor: [
           "rgba(61,65,63,0.2)"
@@ -883,8 +891,8 @@ function buildNewCanvasAmmoniaCalc() {
       }, {
         label: "Natural Gas",
         data: [
-          buildValue($("#amng1")),
-          buildValue($("#amng2"))
+          buildValue(getElById("amng1")),
+          buildValue(getElById("amng2"))
         ],
         backgroundColor: [
           "rgb(167,186,227)"
@@ -896,7 +904,8 @@ function buildNewCanvasAmmoniaCalc() {
       }, {
         label: "Electricity",
         data: [
-          buildValue($("#amel1")), buildValue($("#amel2"))
+          buildValue(getElById("amel1")),
+          buildValue(getElById("amel2"))
         ],
         backgroundColor: [
           "rgba(68,134,60,0.2)"
@@ -908,8 +917,8 @@ function buildNewCanvasAmmoniaCalc() {
       }, {
         label: "Water",
         data: [
-          buildValue($("#amwat1")),
-          buildValue($("#amwat2"))
+          buildValue(getElById("amwat1")),
+          buildValue(getElById("amwat2"))
         ],
         backgroundColor: [
           "rgba(66,93,164,0.2)"
@@ -921,8 +930,8 @@ function buildNewCanvasAmmoniaCalc() {
       }, {
         label: "CO2 T&S",
         data: [
-          buildValue($("#amco1")),
-          buildValue($("#amco2"))
+          buildValue(getElById("amco1")),
+          buildValue(getElById("amco2"))
         ],
         backgroundColor: [
           "rgba(136,98,65,0.2)"
@@ -934,8 +943,8 @@ function buildNewCanvasAmmoniaCalc() {
       }, {
         label: "Carbon Tax",
         data: [
-          buildValue($("#amct1")),
-          buildValue($("#amct2"))
+          buildValue(getElById("amct1")),
+          buildValue(getElById("amct2"))
         ],
         backgroundColor: [
           "rgba(173,171,68,0.2)"
@@ -947,8 +956,8 @@ function buildNewCanvasAmmoniaCalc() {
       }, {
         label: "Carbon Credit",
         data: [
-          buildValue($("#amccr1")),
-          buildValue($("#amccr2"))
+          buildValue(getElById("amccr1")),
+          buildValue(getElById("amccr2"))
         ],
         backgroundColor: [
           "rgba(25, 9, 232, 0.2)"
@@ -971,7 +980,7 @@ function buildNewCanvasAmmoniaCalc() {
         }];
       $("#canvas_wr2").html(""); //remove canvas from container
       $("#canvas_wr2").html("   <canvas id=\"chart_container2\" height=\"200px\"></canvas>"); //add it back to the container
-      this.chart2 = new Chart($("#chart_container2")[0], chartOpts2);
+      this.chart2 = new Chart(getElById("chart_container2"), chartOpts2);
     }, 3000);
 
   }
@@ -985,73 +994,67 @@ function calculateAmmoniaCalc() {
   buildNewCanvasAmmoniaCalc();
 }
 
-
-$("#gasAmVis").change(function() {
-  self2.sheets["Dashboard2"].getCell("G8").setValue($("#gasAmVis").val() * 1);
-  $("#gasAm").blur();
+getElById("gasAmVis").addEventListener("change", function() {
+  self2.sheets["Dashboard2"].getCell("G8").setValue(getElById("gasAmVis").value * 1);
+  getElById("gasAm").blur();
   calculateAmmoniaCalc();
-});
+})
 
-$("#electricityAmVis").change(function() {
-  self2.sheets["Dashboard2"].getCell("G9").setValue($("#electricityAmVis").val() * 1);
-  $("#electricityAm").blur();
+getElById("electricityAmVis").addEventListener("change", function() {
+  self2.sheets["Dashboard2"].getCell("G9").setValue(getElById("electricityAmVis").value * 1);
+  getElById("electricityAm").blur();
   calculateAmmoniaCalc();
-});
+})
 
-$("#carbonAmVis").change(function() {
-  self2.sheets["Dashboard2"].getCell("G10").setValue($("#carbonAmVis").val() * 1);
-  $("#carbonAm").blur();
+getElById("carbonAmVis").addEventListener("change", function() {
+  self2.sheets["Dashboard2"].getCell("G10").setValue(getElById("carbonAmVis").value * 1);
+  getElById("carbonAm").blur();
   calculateAmmoniaCalc();
-});
+})
 
-$("#carbonPriceAmVis").change(function() {
-  self2.sheets["Dashboard2"].getCell("G11").setValue($("#carbonPriceAmVis").val() * 1);
-  $("#carbonPriceAm").blur();
+getElById("carbonPriceAmVis").addEventListener("change", function() {
+  self2.sheets["Dashboard2"].getCell("G11").setValue(getElById("carbonPriceAmVis").value * 1);
+  getElById("carbonPriceAm").blur();
   calculateAmmoniaCalc();
-});
+})
 
-$("#taxCreditAm, #carbonPriceAm, #carbonAm, #electricityAm, #gasAm, #elExportAm").keypress(function(e) {
-  if (e.which == 13) {
-    $("#taxCreditAm, #carbonPriceAm, #carbonAm, #electricityAm, #gasAm, #elExportAm").blur();
-  }
-});
-
-
-$("#gasAm, #electricityAm, #carbonAm, #carbonPriceAm, #taxCreditAm, #elExportAm").change(function() {
-  buildNewCanvasAmmoniaCalc();
-});
+let blueAmmoniaInputEl = document.querySelectorAll(".blueAmmoniaInput");
+blueAmmoniaInputEl.forEach((el)=> {
+  el.addEventListener('change', buildNewCanvasAmmoniaCalc)
+  el.addEventListener("keypress", function(e) {
+    if (e.which == 13) {
+      el.blur();
+    }
+  })
+})
 
 
 //GREEN CALC ________________________________________________________________________________________________________
 
-function hiddenLoader() {
-  setTimeout(function() {
-    $("#loaderMain").css("display", "none");
-    $("#body").css("overflow", "auto");
-  }, 2000);
-}
 
 GreenHydrogenCalc.fn.init = async function() {
   self3 = this;
   const f = await fetch("https://docs.google.com/spreadsheets/d/1paA9TsCHSWwIubKrXfDPVpdFjJicI2BcQsyhIp60vt0/export?format=xlsx");
   const a = await f.arrayBuffer();
   const wb = this.xlsx.read(a, { cellFormula: true, cellNF: true });
-  $("#body").css("overflow", "hidden");
+  getElById("body").style.overflow = "hidden";
   if (wb) {
     hiddenLoader();
   }
 
+  const ptcTaxCreditEl = getElById("ptcTaxCredit");
   const checkboxDataValuePtcTaxCredit = wb.Sheets["Dashboard3"]["G13"].v;
-  if ((checkboxDataValuePtcTaxCredit == "Yes" && !$("#ptcTaxCredit").prop("checked")) || (checkboxDataValuePtcTaxCredit == "No" && $("#ptcTaxCredit").prop("checked"))) {
-    $("#ptcTaxCredit").click();
+  if ((checkboxDataValuePtcTaxCredit == "Yes" && !ptcTaxCreditEl.checked) || (checkboxDataValuePtcTaxCredit == "No" && ptcTaxCreditEl.checked)) {
+    ptcTaxCreditEl.click();
   }
 
-
+  const capFacGrVisEl = getElById("capFacGrVis");
   const checkboxDataValueCapFac = wb.Sheets["Dashboard3"]["G9"].v;
-  $("#capFacGrVis").val(checkboxDataValueCapFac);
+  setAttrValue(capFacGrVisEl, checkboxDataValueCapFac);
 
+  const electricityGrVisEl = getElById("electricityGrVis");
   const checkboxDataValueElectricityGr = wb.Sheets["Dashboard3"]["G10"].v;
-  $("#electricityGrVis").val(checkboxDataValueElectricityGr);
+  setAttrValue(electricityGrVisEl, checkboxDataValueElectricityGr);
 
   const greenHydrogenData = {};
   Object.keys(wb.Sheets).forEach(name => {
@@ -1094,13 +1097,13 @@ GreenHydrogenCalc.fn.init = async function() {
   });
 
   const checkboxDataValueElectrolyzerEfficiency = wb.Sheets["Dashboard3"]["G12"].v;
-  if(checkboxDataValueElectrolyzerEfficiency == 'High'){
-    $("#electrolyzerEfGrVis").prop('checked', true)
+  if (checkboxDataValueElectrolyzerEfficiency == "High") {
+    getElById("electrolyzerEfGrVis").setAttribute("checked", "checked")
   }
 
   const checkboxDataValueCapexGr = wb.Sheets["Dashboard3"]["G11"].v;
-  if(checkboxDataValueCapexGr == 'High'){
-    $("#capexGrVis").prop('checked', true)
+  if (checkboxDataValueCapexGr == "High") {
+    getElById("capexGrVis").setAttribute("checked", "checked")
   }
 
 
@@ -1143,9 +1146,9 @@ GreenHydrogenCalc.fn.getDefaultChartOpts = function() {
         const { ctx, scales: { x, y } } = chart;
         let totalArray = [];
         if (chart.canvas.id == "chart_container3") {
-          totalArray = [buildValue($("#gr1total1")), buildValue($("#gr1total2")), buildValue($("#gr1total3"))];
+          totalArray = [buildValue(getElById("gr1total1")), buildValue(getElById("gr1total2")), buildValue(getElById("gr1total3"))];
         } else if (chart.canvas.id == "chart_container4") {
-          totalArray = [buildValue($("#gr2total1")), buildValue($("#gr2total2")), buildValue($("#gr2total3"))];
+          totalArray = [buildValue(getElById("gr2total1")), buildValue(getElById("gr2total2")), buildValue(getElById("gr2total3"))];
         }
         chart.data.datasets[0].data.forEach((datapoint, index) => {
           totalArray.forEach((data, index) => {
@@ -1270,7 +1273,7 @@ GreenHydrogenCalc.fn.drawChart = function() {
     }
   ];
 
-  this.chart3 = new Chart($("#chart_container3")[0], chartOpts3);
+  this.chart3 = new Chart(getElById("chart_container3"), chartOpts3);
 
   chartOpts4.data.datasets = [{
     label: "CAPEX",
@@ -1360,18 +1363,18 @@ GreenHydrogenCalc.fn.drawChart = function() {
     }
   ];
 
-  this.chart4 = new Chart($("#chart_container4")[0], chartOpts4);
+  this.chart4 = new Chart(getElById("chart_container4"), chartOpts4);
 };
 
 function buildNewCanvasGreenCalc() {
-  if(chartOpts3){
+  if (chartOpts3) {
     setTimeout(function() {
       chartOpts3.data.datasets = [{
         label: "CAPEX",
         data: [
-          buildValue($("#gr1cap1")),
-          buildValue($("#gr1cap2")),
-          buildValue($("#gr1cap3"))
+          buildValue(getElById("gr1cap1")),
+          buildValue(getElById("gr1cap2")),
+          buildValue(getElById("gr1cap3"))
         ],
         backgroundColor: [
           "rgba(238,96,96,0.2)"
@@ -1383,9 +1386,9 @@ function buildNewCanvasGreenCalc() {
       }, {
         label: "Fixed OPEX",
         data: [
-          buildValue($("#gr1fo1")),
-          buildValue($("#gr1fo2")),
-          buildValue($("#gr1fo3"))
+          buildValue(getElById("gr1fo1")),
+          buildValue(getElById("gr1fo2")),
+          buildValue(getElById("gr1fo3"))
         ],
         backgroundColor: [
           "rgba(61,65,63,0.2)"
@@ -1397,9 +1400,9 @@ function buildNewCanvasGreenCalc() {
       }, {
         label: "Electricity",
         data: [
-          buildValue($("#gr1el1")),
-          buildValue($("#gr1el2")),
-          buildValue($("#gr1el3"))
+          buildValue(getElById("gr1el1")),
+          buildValue(getElById("gr1el2")),
+          buildValue(getElById("gr1el3"))
         ],
         backgroundColor: [
           "rgba(68,134,60,0.2)"
@@ -1411,9 +1414,9 @@ function buildNewCanvasGreenCalc() {
       }, {
         label: "Water",
         data: [
-          buildValue($("#gr1wat1")),
-          buildValue($("#gr1wat2")),
-          buildValue($("#gr1wat3"))
+          buildValue(getElById("gr1wat1")),
+          buildValue(getElById("gr1wat2")),
+          buildValue(getElById("gr1wat3"))
         ],
         backgroundColor: [
           "rgba(66,93,164,0.2)"
@@ -1425,9 +1428,9 @@ function buildNewCanvasGreenCalc() {
       }, {
         label: "Tax Credit",
         data: [
-          buildValue($("#gr1TaxCr1")),
-          buildValue($("#gr1TaxCr2")),
-          buildValue($("#gr1TaxCr3"))
+          buildValue(getElById("gr1TaxCr1")),
+          buildValue(getElById("gr1TaxCr2")),
+          buildValue(getElById("gr1TaxCr3"))
         ],
         backgroundColor: [
           "rgba(25, 9, 232, 0.2)"
@@ -1453,9 +1456,9 @@ function buildNewCanvasGreenCalc() {
       chartOpts4.data.datasets = [{
         label: "CAPEX",
         data: [
-          buildValue($("#gr2cap1")),
-          buildValue($("#gr2cap2")),
-          buildValue($("#gr2cap3"))
+          buildValue(getElById("gr2cap1")),
+          buildValue(getElById("gr2cap2")),
+          buildValue(getElById("gr2cap3"))
         ],
         backgroundColor: [
           "rgba(238,96,96,0.2)"
@@ -1467,9 +1470,9 @@ function buildNewCanvasGreenCalc() {
       }, {
         label: "Fixed OPEX",
         data: [
-          buildValue($("#gr2fo1")),
-          buildValue($("#gr2fo2")),
-          buildValue($("#gr2fo3"))
+          buildValue(getElById("gr2fo1")),
+          buildValue(getElById("gr2fo2")),
+          buildValue(getElById("gr2fo3"))
         ],
         backgroundColor: [
           "rgba(61,65,63,0.2)"
@@ -1481,9 +1484,9 @@ function buildNewCanvasGreenCalc() {
       }, {
         label: "Electricity",
         data: [
-          buildValue($("#gr2el1")),
-          buildValue($("#gr2el2")),
-          buildValue($("#gr2el3"))
+          buildValue(getElById("gr2el1")),
+          buildValue(getElById("gr2el2")),
+          buildValue(getElById("gr2el3"))
         ],
         backgroundColor: [
           "rgba(68,134,60,0.2)"
@@ -1495,9 +1498,9 @@ function buildNewCanvasGreenCalc() {
       }, {
         label: "Water",
         data: [
-          buildValue($("#gr2wat1")),
-          buildValue($("#gr2wat2")),
-          buildValue($("#gr2wat3"))
+          buildValue(getElById("gr2wat1")),
+          buildValue(getElById("gr2wat2")),
+          buildValue(getElById("gr2wat3"))
         ],
         backgroundColor: [
           "rgba(66,93,164,0.2)"
@@ -1509,9 +1512,9 @@ function buildNewCanvasGreenCalc() {
       }, {
         label: "Tax Credit",
         data: [
-          buildValue($("#gr2TaxCr1")),
-          buildValue($("#gr2TaxCr2")),
-          buildValue($("#gr2TaxCr3"))
+          buildValue(getElById("gr2TaxCr1")),
+          buildValue(getElById("gr2TaxCr2")),
+          buildValue(getElById("gr2TaxCr3"))
         ],
         backgroundColor: [
           "rgba(25, 9, 232, 0.2)"
@@ -1534,13 +1537,13 @@ function buildNewCanvasGreenCalc() {
         }
       ];
 
-      $("#canvas_wr3").html(""); //remove canvas from container
-      $("#canvas_wr3").html("   <canvas id=\"chart_container3\" height=\"200px\"></canvas>"); //add it back to the container
-      this.chart3 = new Chart($("#chart_container3")[0], chartOpts3);
+      getElById("canvas_wr3").innerHTML = ""; //remove canvas from container
+      getElById("canvas_wr3").innerHTML = "<canvas id=\"chart_container3\" height=\"200px\"></canvas>"; //add it back to the container
+      this.chart3 = new Chart(getElById("chart_container3"), chartOpts3);
 
-      $("#canvas_wr4").html(""); //remove canvas from container
-      $("#canvas_wr4").html("   <canvas id=\"chart_container4\" height=\"200px\"></canvas>"); //add it back to the container
-      this.chart4 = new Chart($("#chart_container4")[0], chartOpts4);
+      getElById("canvas_wr4").innerHTML = ""; //remove canvas from container
+      getElById("canvas_wr4").innerHTML = "<canvas id=\"chart_container4\" height=\"200px\"></canvas>"; //add it back to the container
+      this.chart4 = new Chart(getElById("chart_container4"), chartOpts4);
     }, 3000);
 
   }
@@ -1559,63 +1562,58 @@ function calculateGreenCalc() {
   buildNewCanvasGreenCalc();
 }
 
-$("#electrolyzerEfGrVis").change(function() {
-  const select = document.getElementById('electrolyzerEfGr');
-  if($(this).prop("checked") == true){
-    $(this).val("High")
-    select.value = "High"
+const electrolyzerEfGrVisEL = getElById("electrolyzerEfGrVis");
+electrolyzerEfGrVisEL.addEventListener("change",function() {
+  const select = getElById("electrolyzerEfGr");
+  if (electrolyzerEfGrVisEL.checked) {
+    setAttrValue(electrolyzerEfGrVisEL, "High");
+    setAttrValue(select, "High")
     self3.sheets["Dashboard3"].getCell("G12").setValue("High");
-  }
-  else if($(this).prop("checked") == false){
-    $(this).val("Low")
-    select.value = "Low"
+  } else if (!electrolyzerEfGrVisEL.checked) {
+    setAttrValue(electrolyzerEfGrVisEL, "Low");
+    setAttrValue(select, "Low")
     self3.sheets["Dashboard3"].getCell("G12").setValue("Low");
   }
-  $("#Dashboard3").calx("getSheet").getCell("G12").calculate()
+  $("#Dashboard3").calx("getSheet").getCell("G11").calculate();
   calculateGreenCalc();
-});
+})
 
-$("#capexGrVis").change(function() {
-  const select = document.getElementById('capexGr');
-  if($(this).prop("checked") == true){
-    $(this).val("High")
-    select.value = "High"
+const capexGrVisEL = getElById("capexGrVis");
+capexGrVisEL.addEventListener("change",function() {
+  const select = getElById("capexGr");
+  if (capexGrVisEL.checked) {
+    setAttrValue(capexGrVisEL, "High");
+    setAttrValue(select, "High")
     self3.sheets["Dashboard3"].getCell("G11").setValue("High");
-  }
-  else if($(this).prop("checked") == false){
-    $(this).val("Low")
-    select.value = "Low"
+  } else if (!capexGrVisEL.checked) {
+    setAttrValue(capexGrVisEL, "Low");
+    setAttrValue(select, "Low")
     self3.sheets["Dashboard3"].getCell("G11").setValue("Low");
   }
-  $("#Dashboard3").calx("getSheet").getCell("G11").calculate()
+  $("#Dashboard3").calx("getSheet").getCell("G11").calculate();
   calculateGreenCalc();
-});
+})
 
-$("#capFacGrVis").change(function() {
-  self3.sheets["Dashboard3"].getCell("G9").setValue($("#capFacGrVis").val() * 1);
-  $("#capFacGr").blur();
+getElById("electricityGrVis").addEventListener("change", function() {
+  self3.sheets["Dashboard3"].getCell("G10").setValue(getElById("electricityGrVis").value * 1);
+  $("#Dashboard3").calx("getSheet").getCell("G10").calculate();
+  getElById("electricityGr").blur();
   calculateGreenCalc();
-});
+})
 
-$("#electricityGrVis").change(function() {
-  self3.sheets["Dashboard3"].getCell("G10").setValue($("#electricityGrVis").val() * 1);
-  $("#electricityGr").blur();
+getElById("capFacGrVis").addEventListener("change", function() {
+  self3.sheets["Dashboard3"].getCell("G9").setValue(getElById("capFacGrVis").value * 1);
+  $("#Dashboard3").calx("getSheet").getCell("G9").calculate();
+  getElById("capFacGr").blur();
   calculateGreenCalc();
-});
+})
 
-$("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit, #capFacGr").keypress(function(e) {
-  if (e.which == 13) {
-    $("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit, #capFacGr").blur();
-  }
-});
-
-$("#capFacGr").change(function() {
-  const newValue = $("#capFacGr").val().replace("%", "").replace(" ", "") / 100;
-  dashboard3.getCell("G9").setValue(newValue);
-  $("#capFacGr").blur();
-});
-
-
-$("#gasGr, #electricityGr, #capexGr, #opexGr, #electrolyzerEfGr, #ptcTaxCredit, #capFacGr").change(function() {
-  buildNewCanvasGreenCalc();
-});
+let greenHydrogenInputEl = document.querySelectorAll(".greenHydrogenInput");
+greenHydrogenInputEl.forEach((el)=> {
+  el.addEventListener('change', buildNewCanvasGreenCalc)
+  el.addEventListener("keypress", function(e) {
+    if (e.which == 13) {
+      el.blur();
+    }
+  })
+})
