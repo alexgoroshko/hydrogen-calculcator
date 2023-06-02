@@ -43,61 +43,61 @@
                 <div class="col-md-4 p-4 input_wr">
                     <h5 class="bg-info text-white text-center p-1 rounded">Input</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">Natural Gas Price (USD/MMBTU)</label>
+                        <label class="col-md-8" style="width: 50%">Natural Gas Price (USD/MMBTU)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="100" id="gasVis">
-                                <input type="text" disabled class="form-control form-control-sm" id="gas" data-cell="G11">
+                                <input type="text" disabled class="form-control form-control-sm blueHydrogenInput" id="gas" data-cell="G11">
                             </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">Electricity Price (USD/MWh)</label>
+                        <label class="col-md-8" style="width: 50%">Electricity Price (USD/MWh)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="1000" id="electricityVis">
-                                <input type="text" class="form-control form-control-sm" disabled id="electricity"
+                                <input type="text" class="form-control form-control-sm blueHydrogenInput" disabled id="electricity"
                                        data-cell="G12">
                             </div>
 
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">Carbon T&S (USD/ton)</label>
+                        <label class="col-md-8" style="width: 50%">Carbon T&S (USD/ton)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="500" id="carbonVis">
-                                <input type="text" class="form-control form-control-sm" disabled id="carbon" data-cell="G13">
+                                <input type="text" class="form-control form-control-sm blueHydrogenInput" disabled id="carbon" data-cell="G13">
                             </div>
 
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">Carbon Price (USD/ton)</label>
+                        <label class="col-md-8" style="width: 50%">Carbon Price (USD/ton)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="1000" id="carbonPriceVis">
-                                <input type="text" class="form-control form-control-sm" disabled id="carbonPrice"
+                                <input type="text" class="form-control form-control-sm blueHydrogenInput" disabled id="carbonPrice"
                                        data-cell="G14">
                             </div>
 
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">45Q Tax Credit</label>
+                        <label class="col-md-8" style="width: 50%">45Q Tax Credit</label>
                         <div class="col-md-4" style="width: 50%" style="display: flex; align-items: center;">
                             <label class="switch">
-                                <input type="checkbox" id="taxCredit" data-cell="G15" class="switch-input">
+                                <input type="checkbox" id="taxCredit" data-cell="G15" class="switch-input yesNoInputs blueHydrogenInput">
                                 <span class="switch-label" data-off="No" data-on="Yes"></span>
                                 <span class="switch-handle"></span>
                             </label>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">Electricity Export</label>
+                        <label class="col-md-8" style="width: 50%">Electricity Export</label>
                         <div class="col-md-4" style="width: 50%" style="display: flex; align-items: center;">
                             <label class="switch">
-                                <input type="checkbox" id="electricityExport" data-cell="G8" class="switch-input">
+                                <input type="checkbox" id="electricityExport" data-cell="G8" class="switch-input yesNoInputs blueHydrogenInput">
                                 <span class="switch-label" data-off="No" data-on="Yes"></span>
                                 <span class="switch-handle"></span>
                             </label>
@@ -109,7 +109,7 @@
             <div class="row mt-3" style="display: flex; justify-content: center;">
                 <div class="col-md-8 p-8">
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8"
                              style="display: flex; flex-direction: row; justify-content: space-between;">
                             <h5 class="bg-info text-white text-center p-1 rounded"
@@ -122,7 +122,7 @@
                     </div>
 
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Cost of H2 Production (USD/kg)</label>
+                        <label class="col-md-4">Cost of H2 Production (USD/kg)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled data-cell="K8">
                             <input type="text" class="form-control form-control-sm text-center" disabled data-cell="O8">
@@ -130,7 +130,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Cost of H2 Production (USD/MMBTU)</label>
+                        <label class="col-md-4">Cost of H2 Production (USD/MMBTU)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled data-cell="K9">
                             <input type="text" class="form-control form-control-sm text-center" disabled data-cell="O9">
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Cost of H2 Production (USD/MWh)</label>
+                        <label class="col-md-4">Cost of H2 Production (USD/MWh)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="K10">
@@ -165,76 +165,76 @@
                 <div class="col-md-8 p-8">
                     <h5 class="bg-info text-white text-center p-1 rounded">Chart Data</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled value="Reference Case">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Carbon Credit</label>
+                        <label class="col-md-4">Carbon Credit</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="ccr1" disabled
                                    data-cell="C128">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Carbon Tax</label>
+                        <label class="col-md-4">Carbon Tax</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="ct1" disabled
                                    data-cell="C127">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CO2 T&S</label>
+                        <label class="col-md-4">CO2 T&S</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="co1" disabled
                                    data-cell="C126">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Water</label>
+                        <label class="col-md-4">Water</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="wat1" disabled
                                    data-cell="C125">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Electricity</label>
+                        <label class="col-md-4">Electricity</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="el1" disabled
                                    data-cell="C124">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Natural Gas </label>
+                        <label class="col-md-4">Natural Gas </label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="natGas1" disabled
                                    data-cell="C123">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Fixed OPEX</label>
+                        <label class="col-md-4">Fixed OPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="fo1" disabled
                                    data-cell="C122">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CAPEX</label>
+                        <label class="col-md-4">CAPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="cap1" disabled
                                    data-cell="C121">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Power Export</label>
+                        <label class="col-md-4">Power Export</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="pe1" disabled
                                    data-cell="C120">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Total</label>
+                        <label class="col-md-4">Total</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="total1" disabled
                                    data-cell="C129">
@@ -248,27 +248,27 @@
                 <div class="col-md-8 p-8">
                     <h5 class="bg-info text-white text-center p-1 rounded">Chart Data</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled value="SMR+90%CCS">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Carbon Credit</label>
+                        <label class="col-md-4">Carbon Credit</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="ccr2" disabled
                                    data-cell="C128">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Carbon Tax</label>
+                        <label class="col-md-4">Carbon Tax</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="ct2" disabled
                                    data-cell="C127">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CO2 T&S</label>
+                        <label class="col-md-4">CO2 T&S</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="co2" disabled
                                    data-cell="C126">
@@ -276,49 +276,49 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Water</label>
+                        <label class="col-md-4">Water</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="wat2" disabled
                                    data-cell="C125">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Electricity</label>
+                        <label class="col-md-4">Electricity</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="el2" disabled
                                    data-cell="C124">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Natural Gas </label>
+                        <label class="col-md-4">Natural Gas </label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="natGas2" disabled
                                    data-cell="C123">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Fixed OPEX</label>
+                        <label class="col-md-4">Fixed OPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="fo2" disabled
                                    data-cell="C122">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CAPEX</label>
+                        <label class="col-md-4">CAPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled id="cap2"
                                    data-cell="C121">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Power Export</label>
+                        <label class="col-md-4">Power Export</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="pe2" disabled
                                    data-cell="C120">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Total</label>
+                        <label class="col-md-4">Total</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="total2" disabled
                                    data-cell="C129">
@@ -332,76 +332,76 @@
                 <div class="col-md-8 p-8">
                     <h5 class="bg-info text-white text-center p-1 rounded">Chart Data</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled value="ATR+GHR">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Carbon Credit</label>
+                        <label class="col-md-4">Carbon Credit</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="ccr3" disabled
                                    data-cell="C128">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Carbon Tax</label>
+                        <label class="col-md-4">Carbon Tax</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="ct3" disabled
                                    data-cell="C127">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CO2 T&S</label>
+                        <label class="col-md-4">CO2 T&S</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="co3" disabled
                                    data-cell="C126">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Water</label>
+                        <label class="col-md-4">Water</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="wat3" disabled
                                    data-cell="C125">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Electricity</label>
+                        <label class="col-md-4">Electricity</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="el3" disabled
                                    data-cell="C124">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Natural Gas </label>
+                        <label class="col-md-4">Natural Gas </label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="natGas3" disabled
                                    data-cell="C123">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Fixed OPEX</label>
+                        <label class="col-md-4">Fixed OPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="fo3" disabled
                                    data-cell="C122">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CAPEX</label>
+                        <label class="col-md-4">CAPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled id="cap3"
                                    data-cell="C121">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Power Export</label>
+                        <label class="col-md-4">Power Export</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="pe3" disabled
                                    data-cell="C120">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Total</label>
+                        <label class="col-md-4">Total</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="total3" disabled
                                    data-cell="C129">
@@ -423,58 +423,58 @@
                 <div class="col-md-4 p-4 input_wr">
                     <h5 class="bg-secondary text-white text-center p-1 rounded">Input</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">Natural Gas Price (USD/MMBTU)</label>
+                        <label class="col-md-8" style="width: 50%">Natural Gas Price (USD/MMBTU)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="100" id="gasAmVis">
-                                <input type="text" disabled class="form-control form-control-sm" id="gasAm" data-cell="G8">
+                                <input type="text" disabled class="form-control form-control-sm blueAmmoniaInput" id="gasAm" data-cell="G8">
                             </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8"  style="width: 50%" for="">Electricity Price (USD/MWh)</label>
+                        <label class="col-md-8"  style="width: 50%">Electricity Price (USD/MWh)</label>
                         <div class="col-md-4"  style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="1000" id="electricityAmVis">
-                                <input type="text" class="form-control form-control-sm" disabled id="electricityAm"
+                                <input type="text" class="form-control form-control-sm blueAmmoniaInput" disabled id="electricityAm"
                                        data-cell="G9">
                             </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8"  style="width: 50%" for="">Carbon T&S (USD/ton)</label>
+                        <label class="col-md-8"  style="width: 50%">Carbon T&S (USD/ton)</label>
                         <div class="col-md-4"  style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="500" id="carbonAmVis">
-                                <input type="text" class="form-control form-control-sm" disabled id="carbonAm" data-cell="G10">
+                                <input type="text" class="form-control form-control-sm blueAmmoniaInput" disabled id="carbonAm" data-cell="G10">
                             </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8"  style="width: 50%" for="">Carbon Price (USD/ton)</label>
+                        <label class="col-md-8"  style="width: 50%">Carbon Price (USD/ton)</label>
                         <div class="col-md-4"  style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="1000" id="carbonPriceAmVis">
-                                <input type="text" class="form-control form-control-sm" disabled id="carbonPriceAm"
+                                <input type="text" class="form-control form-control-sm blueAmmoniaInput" disabled id="carbonPriceAm"
                                        data-cell="G11">
                             </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">45Q Tax Credit</label>
+                        <label class="col-md-8" style="width: 50%">45Q Tax Credit</label>
                         <div class="col-md-4" style="width: 50%">
                             <label class="switch">
-                                <input type="checkbox" id="taxCreditAm" data-cell="G12" class="switch-input">
+                                <input type="checkbox" id="taxCreditAm" data-cell="G12" class="switch-input yesNoInputs blueAmmoniaInput">
                                 <span class="switch-label" data-off="No" data-on="Yes"></span>
                                 <span class="switch-handle"></span>
                             </label>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">Electricity Export</label>
+                        <label class="col-md-8" style="width: 50%">Electricity Export</label>
                         <div class="col-md-4" style="width: 50%">
                             <label class="switch">
-                                <input type="checkbox" id="elExportAm" data-cell="G13" class="switch-input">
+                                <input type="checkbox" id="elExportAm" data-cell="G13" class="switch-input yesNoInputs blueAmmoniaInput">
                                 <span class="switch-label" data-off="No" data-on="Yes"></span>
                                 <span class="switch-handle"></span>
                             </label>
@@ -486,7 +486,7 @@
             <div class="row mt-3" style="display: flex; justify-content: center;">
                 <div class="col-md-8 p-8">
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8"
                              style="display: flex; flex-direction: row; justify-content: space-between;">
                             <h5 class="bg-secondary text-white text-center p-1 rounded"
@@ -497,21 +497,21 @@
                     </div>
 
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Cost of NH3 Production (USD/kg)</label>
+                        <label class="col-md-4">Cost of NH3 Production (USD/kg)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled data-cell="K8">
                             <input type="text" class="form-control form-control-sm text-center" disabled data-cell="O8">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Cost of NH3 Production (USD/MMBTU)</label>
+                        <label class="col-md-4">Cost of NH3 Production (USD/MMBTU)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled data-cell="K9">
                             <input type="text" class="form-control form-control-sm text-center" disabled data-cell="O9">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Cost of NH3 Production (USD/MWh)</label>
+                        <label class="col-md-4">Cost of NH3 Production (USD/MWh)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="K10">
@@ -520,7 +520,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">CAPEX (USD/TPA NH3)</label>
+                        <label class="col-md-4">CAPEX (USD/TPA NH3)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="K11">
@@ -529,7 +529,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">NH3 Conversion Efficiency (LHV)</label>
+                        <label class="col-md-4">NH3 Conversion Efficiency (LHV)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="K12">
@@ -539,7 +539,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">CO2 Capture Rate</label>
+                        <label class="col-md-4">CO2 Capture Rate</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="K13">
@@ -563,69 +563,69 @@
                 <div class="col-md-8 p-8">
                     <h5 class="bg-secondary text-white text-center p-1 rounded">Chart Data</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled value="Reference">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Carbon Credit</label>
+                        <label class="col-md-4">Carbon Credit</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amccr1" disabled
                                    data-cell="G127">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Carbon Tax</label>
+                        <label class="col-md-4">Carbon Tax</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amct1" disabled
                                    data-cell="G126">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CO2 T&S</label>
+                        <label class="col-md-4">CO2 T&S</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amco1" disabled
                                    data-cell="G125">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Water</label>
+                        <label class="col-md-4">Water</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amwat1" disabled
                                    data-cell="G124">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Electricity</label>
+                        <label class="col-md-4">Electricity</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amel1" disabled
                                    data-cell="G123">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Natural Gas </label>
+                        <label class="col-md-4">Natural Gas </label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amng1" disabled
                                    data-cell="G122">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Fixed OPEX</label>
+                        <label class="col-md-4">Fixed OPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amfo1" disabled
                                    data-cell="G121">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CAPEX</label>
+                        <label class="col-md-4">CAPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amcap1" disabled
                                    data-cell="G120">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Total</label>
+                        <label class="col-md-4">Total</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amtotal1" disabled
                                    data-cell="G128">
@@ -639,69 +639,69 @@
                 <div class="col-md-8 p-8">
                     <h5 class="bg-secondary text-white text-center p-1 rounded">Chart Data</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled value="Blue Ammonia">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Carbon Credit</label>
+                        <label class="col-md-4">Carbon Credit</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amccr2" disabled
                                    data-cell="C127">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Carbon Tax</label>
+                        <label class="col-md-4">Carbon Tax</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amct2" disabled
                                    data-cell="C126">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CO2 T&S</label>
+                        <label class="col-md-4">CO2 T&S</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amco2" disabled
                                    data-cell="C125">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Water</label>
+                        <label class="col-md-4">Water</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amwat2" disabled
                                    data-cell="C124">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Electricity</label>
+                        <label class="col-md-4">Electricity</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amel2" disabled
                                    data-cell="C123">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Natural Gas </label>
+                        <label class="col-md-4">Natural Gas </label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amng2" disabled
                                    data-cell="C122">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Fixed OPEX</label>
+                        <label class="col-md-4">Fixed OPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amfo2" disabled
                                    data-cell="C121">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CAPEX</label>
+                        <label class="col-md-4">CAPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled id="amcap2"
                                    data-cell="C120">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Total</label>
+                        <label class="col-md-4">Total</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="amtotal2" disabled
                                    data-cell="C128">
@@ -724,28 +724,28 @@
                 <div class="col-md-4 p-4 input_wr">
                     <h5 class="bg-success text-white text-center p-1 rounded">Electrolyzer Input</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">Capacity Factor</label>
+                        <label class="col-md-8" style="width: 50%">Capacity Factor</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" step="0.01" min="0" max="1" id="capFacGrVis">
-                                <input type="text" disabled class="form-control form-control-sm"  id="capFacGr" data-cell="G9">
+                                <input type="text" disabled class="form-control form-control-sm greenHydrogenInput"  id="capFacGr" data-cell="G9">
                             </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">Electricity Price (USD/MWh)</label>
+                        <label class="col-md-8" style="width: 50%">Electricity Price (USD/MWh)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="1000" id="electricityGrVis">
-                                <input type="text" disabled class="form-control form-control-sm" id="electricityGr"
+                                <input type="text" disabled class="form-control form-control-sm greenHydrogenInput" id="electricityGr"
                                        data-cell="G10">
                             </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">CAPEX Assumptions</label>
+                        <label class="col-md-8" style="width: 50%">CAPEX Assumptions</label>
                         <div class="col-md-4" style="width: 50%">
-                            <select style="display: none" class="form-control form-control-sm" id="capexGr" data-cell="G11">
+                            <select style="display: none" class="form-control form-control-sm greenHydrogenInput" id="capexGr" data-cell="G11">
                                 <option value="Low">Low</option>
                                 <option value="High">High</option>
                             </select>
@@ -757,9 +757,9 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">Electrolyzer Efficiency</label>
+                        <label class="col-md-8" style="width: 50%">Electrolyzer Efficiency</label>
                         <div class="col-md-4" style="width: 50%">
-                            <select class="form-control form-control-sm" style="display: none" id="electrolyzerEfGr" data-cell="G12">
+                            <select class="form-control form-control-sm greenHydrogenInput" style="display: none" id="electrolyzerEfGr" data-cell="G12">
                                 <option value="Low">Low</option>
                                 <option value="High">High</option>
                             </select>
@@ -771,10 +771,10 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8" style="width: 50%" for="">PTC Tax Credit</label>
+                        <label class="col-md-8" style="width: 50%">PTC Tax Credit</label>
                         <div class="col-md-4" style="width: 50%" style="display: flex; align-items: center;">
                             <label class="switch">
-                                <input type="checkbox" id="ptcTaxCredit" data-cell="G13" class="switch-input">
+                                <input type="checkbox" id="ptcTaxCredit" data-cell="G13" class="switch-input yesNoInputs greenHydrogenInput">
                                 <span class="switch-label" data-off="No" data-on="Yes"></span>
                                 <span class="switch-handle"></span>
                             </label>
@@ -787,7 +787,7 @@
                 <div class="col-md-8 p-8">
                     <h3 style="text-align: center">Hydrogen Production</h3>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8"
                              style="display: flex; flex-direction: row; justify-content: space-between;">
                             <h5 class="bg-success text-white text-center p-1 rounded"
@@ -800,7 +800,7 @@
                     </div>
 
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Cost of H2 Production (USD/kg)</label>
+                        <label class="col-md-4">Cost of H2 Production (USD/kg)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled data-cell="K9">
                             <input type="text" class="form-control form-control-sm text-center" disabled data-cell="L9">
@@ -808,7 +808,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Cost of H2 Production (USD/MMBTU)</label>
+                        <label class="col-md-4">Cost of H2 Production (USD/MMBTU)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="K10">
@@ -819,7 +819,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Cost of H2 Production (USD/MWh)</label>
+                        <label class="col-md-4">Cost of H2 Production (USD/MWh)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="K11">
@@ -830,7 +830,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">Hydrogen Production (TPA)</label>
+                        <label class="col-md-4">Hydrogen Production (TPA)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="K12">
@@ -841,7 +841,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">Energy Efficiency (LHV)</label>
+                        <label class="col-md-4">Energy Efficiency (LHV)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="K13">
@@ -852,7 +852,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">OPEX (%TIC)</label>
+                        <label class="col-md-4">OPEX (%TIC)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="K14">
@@ -863,7 +863,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">CAPEX (USD/kW)</label>
+                        <label class="col-md-4">CAPEX (USD/kW)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="K15">
@@ -874,7 +874,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">Total Installed Cost(USD/kW)</label>
+                        <label class="col-md-4">Total Installed Cost(USD/kW)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="K16">
@@ -897,7 +897,7 @@
                 <div class="col-md-8 p-8">
                     <h3 style="text-align: center">Ammonia Production</h3>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8"
                              style="display: flex; flex-direction: row; justify-content: space-between;">
                             <h5 class="bg-success text-white text-center p-1 rounded"
@@ -910,7 +910,7 @@
                     </div>
 
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Cost of NH3 Production (USD/kg)</label>
+                        <label class="col-md-4">Cost of NH3 Production (USD/kg)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled data-cell="P9">
                             <input type="text" class="form-control form-control-sm text-center" disabled data-cell="Q9">
@@ -918,7 +918,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Cost of NH3 Production (USD/MMBTU)</label>
+                        <label class="col-md-4">Cost of NH3 Production (USD/MMBTU)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="P10">
@@ -929,7 +929,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Cost of NH3 Production (USD/MWh)</label>
+                        <label class="col-md-4">Cost of NH3 Production (USD/MWh)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="P11">
@@ -940,7 +940,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">Ammonia Production (TPA)</label>
+                        <label class="col-md-4">Ammonia Production (TPA)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="P12">
@@ -951,7 +951,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">Energy Efficiency (LHV)</label>
+                        <label class="col-md-4">Energy Efficiency (LHV)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="P13">
@@ -962,7 +962,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">Energy Intensity (GJ/ton NH3)</label>
+                        <label class="col-md-4">Energy Intensity (GJ/ton NH3)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="P14">
@@ -973,7 +973,7 @@
                         </div>
                     </div>
                     <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4" for="">CAPEX (USD/kW)</label>
+                        <label class="col-md-4">CAPEX (USD/kW)</label>
                         <div class="col-md-8 data-row">
                             <input type="text" class="form-control form-control-sm text-center" disabled
                                    data-cell="P15">
@@ -999,48 +999,48 @@
                 <div class="col-md-8 p-8">
                     <h5 class="bg-success text-white text-center p-1 rounded">Levelized Cost of Hydrogen Production</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled value="PEM">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Electricity</label>
+                        <label class="col-md-4">Electricity</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1el1" disabled
                                    data-cell="H85">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Water</label>
+                        <label class="col-md-4">Water</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1wat1" disabled
                                    data-cell="H86">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Fixed OPEX</label>
+                        <label class="col-md-4">Fixed OPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1fo1" disabled
                                    data-cell="H87">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Tax Credit</label>
+                        <label class="col-md-4">Tax Credit</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1TaxCr1" disabled
                                    data-cell="H88">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CAPEX</label>
+                        <label class="col-md-4">CAPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1cap1" disabled
                                    data-cell="H89">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Total</label>
+                        <label class="col-md-4">Total</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1total1" disabled
                                    data-cell="H90">
@@ -1055,48 +1055,48 @@
                 <div class="col-md-8 p-8">
                     <h5 class="bg-success text-white text-center p-1 rounded">Levelized Cost of Hydrogen Production</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled value="AEL">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Electricity</label>
+                        <label class="col-md-4">Electricity</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1el2" disabled
                                    data-cell="C75">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Water</label>
+                        <label class="col-md-4">Water</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1wat2" disabled
                                    data-cell="C76">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Fixed OPEX</label>
+                        <label class="col-md-4">Fixed OPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1fo2" disabled
                                    data-cell="C77">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Tax Credit</label>
+                        <label class="col-md-4">Tax Credit</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1TaxCr2" disabled
                                    data-cell="C78">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CAPEX</label>
+                        <label class="col-md-4">CAPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled id="gr1cap2"
                                    data-cell="C79">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Total</label>
+                        <label class="col-md-4">Total</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled id="gr1total2"
                                    data-cell="C80">
@@ -1110,48 +1110,48 @@
                 <div class="col-md-8 p-8">
                     <h5 class="bg-success text-white text-center p-1 rounded">Levelized Cost of Hydrogen Production</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled value="SOEC">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Electricity</label>
+                        <label class="col-md-4">Electricity</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1el3" disabled
                                    data-cell="C85">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Water</label>
+                        <label class="col-md-4">Water</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1wat3" disabled
                                    data-cell="C86">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Fixed OPEX</label>
+                        <label class="col-md-4">Fixed OPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1fo3" disabled
                                    data-cell="C87">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Tax Credit</label>
+                        <label class="col-md-4">Tax Credit</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1TaxCr3" disabled
                                    data-cell="C88">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CAPEX</label>
+                        <label class="col-md-4">CAPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1cap3" disabled
                                    data-cell="C89">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Total</label>
+                        <label class="col-md-4">Total</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr1total3" disabled
                                    data-cell="C90">
@@ -1165,48 +1165,48 @@
                 <div class="col-md-8 p-8">
                     <h5 class="bg-success text-white text-center p-1 rounded">Levelized Cost of Ammonia</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled value="PEM">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Electricity</label>
+                        <label class="col-md-4">Electricity</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2el1" disabled
                                    data-cell="G85">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Water</label>
+                        <label class="col-md-4">Water</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2wat1" disabled
                                    data-cell="G86">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Fixed OPEX</label>
+                        <label class="col-md-4">Fixed OPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2fo1" disabled
                                    data-cell="G87">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Tax Credit</label>
+                        <label class="col-md-4">Tax Credit</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2TaxCr1" disabled
                                    data-cell="G88">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CAPEX</label>
+                        <label class="col-md-4">CAPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2cap1" disabled
                                    data-cell="G89">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Total</label>
+                        <label class="col-md-4">Total</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2total1" disabled
                                    data-cell="G90">
@@ -1220,48 +1220,48 @@
                 <div class="col-md-8 p-8">
                     <h5 class="bg-success text-white text-center p-1 rounded">Levelized Cost of Ammonia</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled value="AEL">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Electricity</label>
+                        <label class="col-md-4">Electricity</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2el2" disabled
                                    data-cell="C75">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Water</label>
+                        <label class="col-md-4">Water</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2wat2" disabled
                                    data-cell="C76">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Fixed OPEX</label>
+                        <label class="col-md-4">Fixed OPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2fo2" disabled
                                    data-cell="C77">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Tax Credit</label>
+                        <label class="col-md-4">Tax Credit</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2TaxCr2" disabled
                                    data-cell="C78">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CAPEX</label>
+                        <label class="col-md-4">CAPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled id="gr2cap2"
                                    data-cell="C79">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Total</label>
+                        <label class="col-md-4">Total</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled id="gr2total2"
                                    data-cell="C80">
@@ -1275,48 +1275,48 @@
                 <div class="col-md-8 p-8">
                     <h5 class="bg-success text-white text-center p-1 rounded">Levelized Cost of Ammonia Production</h5>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for=""></label>
+                        <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" disabled value="SOEC">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Electricity</label>
+                        <label class="col-md-4">Electricity</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2el3" disabled
                                    data-cell="C86">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Water</label>
+                        <label class="col-md-4">Water</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2wat3" disabled
                                    data-cell="C87">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Fixed OPEX</label>
+                        <label class="col-md-4">Fixed OPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2fo3" disabled
                                    data-cell="C88">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Tax Credit</label>
+                        <label class="col-md-4">Tax Credit</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2TaxCr3" disabled
                                    data-cell="C89">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">CAPEX</label>
+                        <label class="col-md-4">CAPEX</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2cap3" disabled
                                    data-cell="C90">
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-4" for="">Total</label>
+                        <label class="col-md-4">Total</label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
                             <input type="text" class="form-control form-control-sm" id="gr2total3" disabled
                                    data-cell="C91">
