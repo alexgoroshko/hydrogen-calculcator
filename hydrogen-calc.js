@@ -55,7 +55,7 @@ let chartOpts4;
 function hiddenLoader() {
   setTimeout(function() {
     getElById("loaderMain").style = "display: none";
-    getElById("body").style.overflow = "auto"
+    getElById("body").style.overflow = "auto";
   }, 2000);
 }
 
@@ -76,7 +76,7 @@ function splitName(name) {
 }
 
 function setAttrValue(element, value) {
-  element.value = value
+  element.value = value;
   // element.setAttribute("value", value);
 }
 
@@ -385,26 +385,56 @@ HydrogenCalc.fn.drawChart = function() {
 };
 
 
-let yesNoInputs = document.querySelectorAll('.yesNoInputs');
-yesNoInputs.forEach((el)=>{
-  el.addEventListener('click', function(){
-    if(el.checked){
-      setAttrValue(el, "Yes")
+let yesNoInputs = document.querySelectorAll(".yesNoInputs");
+yesNoInputs.forEach((el) => {
+  el.addEventListener("click", function() {
+    if (el.checked) {
+      setAttrValue(el, "Yes");
     } else {
-      setAttrValue(el, "No")
+      setAttrValue(el, "No");
     }
-  })
-})
+  });
+});
+
 
 let blueHydrogenInputEl = document.querySelectorAll(".blueHydrogenInput");
-blueHydrogenInputEl.forEach((el)=> {
-  el.addEventListener('change', buildNewCanvasHydrogenCalc)
+blueHydrogenInputEl.forEach((el) => {
+  el.addEventListener("change", function(e) {
+    const eTargetId = e.target.id;
+    let eTargetVal = e.target.value.replace("$", "").replace(" ", "").replace(",", "") * 1;
+    if (eTargetId == "gas") {
+      if (eTargetVal > 100){
+        eTargetVal = 100;
+      }
+      getElById("gasVis").value = eTargetVal;
+      changeGasVis();
+    } else if (eTargetId == "electricity") {
+      if (eTargetVal > 200){
+        eTargetVal = 200;
+      }
+      getElById("electricityVis").value = eTargetVal;
+      changeElectricityVis();
+    } else if (eTargetId == "carbon") {
+      if (eTargetVal > 500){
+        eTargetVal = 500;
+      }
+      getElById("carbonVis").value = eTargetVal;
+      changeCarbonVis();
+    } else if (eTargetId == "carbonPrice") {
+      if (eTargetVal > 1000){
+        eTargetVal = 1000;
+      }
+      getElById("carbonPriceVis").value = eTargetVal;
+      changeCarbonPriceVis();
+    }
+    buildNewCanvasHydrogenCalc();
+  });
   el.addEventListener("keypress", function(e) {
     if (e.which == 13) {
       el.blur();
     }
-  })
-})
+  });
+});
 
 function calculateHydrogenCalc() {
   $("#Assumptions").calx("getSheet").calculate();
@@ -415,29 +445,45 @@ function calculateHydrogenCalc() {
   buildNewCanvasHydrogenCalc();
 }
 
-getElById("gasVis").addEventListener("change", function(){
+function changeGasVis(){
   self.sheets["Dashboard"].getCell("G11").setValue(getElById("gasVis").value * 1);
   getElById("gas").blur();
   calculateHydrogenCalc();
-})
+}
 
-getElById("electricityVis").addEventListener("change", function() {
+getElById("gasVis").addEventListener("change", function() {
+  changeGasVis()
+});
+
+function changeElectricityVis(){
   self.sheets["Dashboard"].getCell("G12").setValue(getElById("electricityVis").value * 1);
   getElById("electricity").blur();
   calculateHydrogenCalc();
-})
+}
 
-getElById("carbonVis").addEventListener("change", function() {
+getElById("electricityVis").addEventListener("change", function() {
+  changeElectricityVis();
+});
+
+function changeCarbonVis(){
   self.sheets["Dashboard"].getCell("G13").setValue(getElById("carbonVis").value * 1);
   getElById("carbon").blur();
   calculateHydrogenCalc();
-})
+}
 
-getElById("carbonPriceVis").addEventListener("change", function() {
+getElById("carbonVis").addEventListener("change", function() {
+  changeCarbonVis();
+});
+
+function changeCarbonPriceVis(){
   self.sheets["Dashboard"].getCell("G14").setValue(getElById("carbonPriceVis").value * 1);
   getElById("carbonPrice").blur();
   calculateHydrogenCalc();
-})
+}
+
+getElById("carbonPriceVis").addEventListener("change", function() {
+  changeCarbonPriceVis();
+});
 
 function buildNewCanvasHydrogenCalc() {
   if (chartOpts) {
@@ -994,39 +1040,84 @@ function calculateAmmoniaCalc() {
   buildNewCanvasAmmoniaCalc();
 }
 
-getElById("gasAmVis").addEventListener("change", function() {
+function changeGasAmVis(){
   self2.sheets["Dashboard2"].getCell("G8").setValue(getElById("gasAmVis").value * 1);
   getElById("gasAm").blur();
   calculateAmmoniaCalc();
-})
+}
 
-getElById("electricityAmVis").addEventListener("change", function() {
+getElById("gasAmVis").addEventListener("change", function() {
+  changeGasAmVis();
+});
+
+function changeElectricityAmVis(){
   self2.sheets["Dashboard2"].getCell("G9").setValue(getElById("electricityAmVis").value * 1);
   getElById("electricityAm").blur();
   calculateAmmoniaCalc();
-})
+}
 
-getElById("carbonAmVis").addEventListener("change", function() {
+getElById("electricityAmVis").addEventListener("change", function() {
+  changeElectricityAmVis();
+});
+
+function changeCarbonAmVis(){
   self2.sheets["Dashboard2"].getCell("G10").setValue(getElById("carbonAmVis").value * 1);
   getElById("carbonAm").blur();
   calculateAmmoniaCalc();
-})
+}
 
-getElById("carbonPriceAmVis").addEventListener("change", function() {
+getElById("carbonAmVis").addEventListener("change", function() {
+  changeCarbonAmVis();
+});
+
+function changeCarbonPriceAmVis(){
   self2.sheets["Dashboard2"].getCell("G11").setValue(getElById("carbonPriceAmVis").value * 1);
   getElById("carbonPriceAm").blur();
   calculateAmmoniaCalc();
-})
+}
+
+getElById("carbonPriceAmVis").addEventListener("change", function() {
+  changeCarbonPriceAmVis();
+});
 
 let blueAmmoniaInputEl = document.querySelectorAll(".blueAmmoniaInput");
-blueAmmoniaInputEl.forEach((el)=> {
-  el.addEventListener('change', buildNewCanvasAmmoniaCalc)
+blueAmmoniaInputEl.forEach((el) => {
+  el.addEventListener("change", function (e){
+    const eTargetId = e.target.id;
+    let eTargetVal = e.target.value.replace("$", "").replace(" ", "").replace(",", "") * 1;
+    if (eTargetId == "gasAm") {
+      if (eTargetVal > 100){
+        eTargetVal = 100;
+      }
+      getElById("gasAmVis").value = eTargetVal;
+      changeGasAmVis();
+    } else if (eTargetId == "electricityAm") {
+      if (eTargetVal > 200){
+        eTargetVal = 200;
+      }
+      getElById("electricityAmVis").value = eTargetVal;
+      changeElectricityAmVis();
+    } else if (eTargetId == "carbonAm") {
+      if (eTargetVal > 500){
+        eTargetVal = 500;
+      }
+      getElById("carbonAmVis").value = eTargetVal;
+      changeCarbonAmVis();
+    } else if (eTargetId == "carbonPriceAm") {
+      if (eTargetVal > 1000){
+        eTargetVal = 1000;
+      }
+      getElById("carbonPriceAmVis").value = eTargetVal;
+      changeCarbonPriceAmVis()
+    }
+    buildNewCanvasAmmoniaCalc();
+  });
   el.addEventListener("keypress", function(e) {
     if (e.which == 13) {
       el.blur();
     }
-  })
-})
+  });
+});
 
 
 //GREEN CALC ________________________________________________________________________________________________________
@@ -1090,7 +1181,6 @@ GreenHydrogenCalc.fn.init = async function() {
     onAfterCalculate: function() {
       if (self3.chart) {
         self3.chart.data.datasets[0].data = [];
-
         self3.chart.update();
       }
     }
@@ -1098,12 +1188,12 @@ GreenHydrogenCalc.fn.init = async function() {
 
   const checkboxDataValueElectrolyzerEfficiency = wb.Sheets["Dashboard3"]["G12"].v;
   if (checkboxDataValueElectrolyzerEfficiency == "High") {
-    getElById("electrolyzerEfGrVis").setAttribute("checked", "checked")
+    getElById("electrolyzerEfGrVis").setAttribute("checked", "checked");
   }
 
   const checkboxDataValueCapexGr = wb.Sheets["Dashboard3"]["G11"].v;
   if (checkboxDataValueCapexGr == "High") {
-    getElById("capexGrVis").setAttribute("checked", "checked")
+    getElById("capexGrVis").setAttribute("checked", "checked");
   }
 
 
@@ -1563,57 +1653,73 @@ function calculateGreenCalc() {
 }
 
 const electrolyzerEfGrVisEL = getElById("electrolyzerEfGrVis");
-electrolyzerEfGrVisEL.addEventListener("change",function() {
+electrolyzerEfGrVisEL.addEventListener("change", function() {
   const select = getElById("electrolyzerEfGr");
   if (electrolyzerEfGrVisEL.checked) {
     setAttrValue(electrolyzerEfGrVisEL, "High");
-    setAttrValue(select, "High")
+    setAttrValue(select, "High");
     self3.sheets["Dashboard3"].getCell("G12").setValue("High");
   } else if (!electrolyzerEfGrVisEL.checked) {
     setAttrValue(electrolyzerEfGrVisEL, "Low");
-    setAttrValue(select, "Low")
+    setAttrValue(select, "Low");
     self3.sheets["Dashboard3"].getCell("G12").setValue("Low");
   }
   $("#Dashboard3").calx("getSheet").getCell("G11").calculate();
   calculateGreenCalc();
-})
+});
 
 const capexGrVisEL = getElById("capexGrVis");
-capexGrVisEL.addEventListener("change",function() {
+capexGrVisEL.addEventListener("change", function() {
   const select = getElById("capexGr");
   if (capexGrVisEL.checked) {
     setAttrValue(capexGrVisEL, "High");
-    setAttrValue(select, "High")
+    setAttrValue(select, "High");
     self3.sheets["Dashboard3"].getCell("G11").setValue("High");
   } else if (!capexGrVisEL.checked) {
     setAttrValue(capexGrVisEL, "Low");
-    setAttrValue(select, "Low")
+    setAttrValue(select, "Low");
     self3.sheets["Dashboard3"].getCell("G11").setValue("Low");
   }
   $("#Dashboard3").calx("getSheet").getCell("G11").calculate();
   calculateGreenCalc();
-})
+});
 
-getElById("electricityGrVis").addEventListener("change", function() {
+function changeElectricityCrVis(){
   self3.sheets["Dashboard3"].getCell("G10").setValue(getElById("electricityGrVis").value * 1);
   $("#Dashboard3").calx("getSheet").getCell("G10").calculate();
   getElById("electricityGr").blur();
   calculateGreenCalc();
-})
+}
+
+getElById("electricityGrVis").addEventListener("change", function() {
+  changeElectricityCrVis();
+});
+
 
 getElById("capFacGrVis").addEventListener("change", function() {
   self3.sheets["Dashboard3"].getCell("G9").setValue(getElById("capFacGrVis").value * 1);
   $("#Dashboard3").calx("getSheet").getCell("G9").calculate();
   getElById("capFacGr").blur();
   calculateGreenCalc();
-})
+});
 
 let greenHydrogenInputEl = document.querySelectorAll(".greenHydrogenInput");
-greenHydrogenInputEl.forEach((el)=> {
-  el.addEventListener('change', buildNewCanvasGreenCalc)
+greenHydrogenInputEl.forEach((el) => {
+  el.addEventListener("change", function(e){
+    const eTargetId = e.target.id;
+    let eTargetVal = e.target.value.replace("$", "").replace(" ", "").replace(",", "") * 1;
+    if (eTargetId == "electricityGr") {
+      if (eTargetVal > 200){
+        eTargetVal = 200;
+      }
+      getElById("electricityGrVis").value = eTargetVal;
+      changeElectricityCrVis();
+    }
+    buildNewCanvasGreenCalc();
+  } );
   el.addEventListener("keypress", function(e) {
     if (e.which == 13) {
       el.blur();
     }
-  })
-})
+  });
+});
