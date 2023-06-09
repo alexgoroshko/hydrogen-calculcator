@@ -451,7 +451,7 @@ function changeGasVis(){
   calculateHydrogenCalc();
 }
 
-getElById("gasVis").addEventListener("change", function() {
+getElById("gasVis").addEventListener("input", function() {
   changeGasVis()
 });
 
@@ -461,7 +461,7 @@ function changeElectricityVis(){
   calculateHydrogenCalc();
 }
 
-getElById("electricityVis").addEventListener("change", function() {
+getElById("electricityVis").addEventListener("input", function() {
   changeElectricityVis();
 });
 
@@ -471,7 +471,7 @@ function changeCarbonVis(){
   calculateHydrogenCalc();
 }
 
-getElById("carbonVis").addEventListener("change", function() {
+getElById("carbonVis").addEventListener("input", function() {
   changeCarbonVis();
 });
 
@@ -481,7 +481,7 @@ function changeCarbonPriceVis(){
   calculateHydrogenCalc();
 }
 
-getElById("carbonPriceVis").addEventListener("change", function() {
+getElById("carbonPriceVis").addEventListener("input", function() {
   changeCarbonPriceVis();
 });
 
@@ -1046,7 +1046,7 @@ function changeGasAmVis(){
   calculateAmmoniaCalc();
 }
 
-getElById("gasAmVis").addEventListener("change", function() {
+getElById("gasAmVis").addEventListener("input", function() {
   changeGasAmVis();
 });
 
@@ -1056,7 +1056,7 @@ function changeElectricityAmVis(){
   calculateAmmoniaCalc();
 }
 
-getElById("electricityAmVis").addEventListener("change", function() {
+getElById("electricityAmVis").addEventListener("input", function() {
   changeElectricityAmVis();
 });
 
@@ -1066,7 +1066,7 @@ function changeCarbonAmVis(){
   calculateAmmoniaCalc();
 }
 
-getElById("carbonAmVis").addEventListener("change", function() {
+getElById("carbonAmVis").addEventListener("input", function() {
   changeCarbonAmVis();
 });
 
@@ -1076,7 +1076,7 @@ function changeCarbonPriceAmVis(){
   calculateAmmoniaCalc();
 }
 
-getElById("carbonPriceAmVis").addEventListener("change", function() {
+getElById("carbonPriceAmVis").addEventListener("input", function() {
   changeCarbonPriceAmVis();
 });
 
@@ -1691,12 +1691,12 @@ function changeElectricityCrVis(){
   calculateGreenCalc();
 }
 
-getElById("electricityGrVis").addEventListener("change", function() {
+getElById("electricityGrVis").addEventListener("input", function() {
   changeElectricityCrVis();
 });
 
 
-getElById("capFacGrVis").addEventListener("change", function() {
+getElById("capFacGrVis").addEventListener("input", function() {
   self3.sheets["Dashboard3"].getCell("G9").setValue(getElById("capFacGrVis").value * 1);
   $("#Dashboard3").calx("getSheet").getCell("G9").calculate();
   getElById("capFacGr").blur();
