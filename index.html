@@ -46,7 +46,7 @@
                         <label class="col-md-8" style="width: 50%">Natural Gas Price (USD/MMBTU)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
-                                <input type="range" min="0" max="100" id="gasVis">
+                                <input type="range" min="0" max="100" step="0.01" id="gasVis">
                                 <input type="text" class="form-control form-control-sm blueHydrogenInput" id="gas" data-cell="G11">
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                         <label class="col-md-8" style="width: 50%">Electricity Price (USD/MWh)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
-                                <input type="range" min="0" max="200" id="electricityVis">
+                                <input type="range" min="0" max="200" step="0.01" id="electricityVis">
                                 <input type="text" class="form-control form-control-sm blueHydrogenInput" id="electricity"
                                        data-cell="G12">
                             </div>
@@ -66,7 +66,7 @@
                         <label class="col-md-8" style="width: 50%">Carbon T&S (USD/ton)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
-                                <input type="range" min="0" max="500" id="carbonVis">
+                                <input type="range" min="0" max="500" step="0.01" id="carbonVis">
                                 <input type="text" class="form-control form-control-sm blueHydrogenInput" id="carbon" data-cell="G13">
                             </div>
 
@@ -76,7 +76,7 @@
                         <label class="col-md-8" style="width: 50%">Carbon Price (USD/ton)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
-                                <input type="range" min="0" max="1000" id="carbonPriceVis">
+                                <input type="range" min="0" max="1000" step="0.01" id="carbonPriceVis">
                                 <input type="text" class="form-control form-control-sm blueHydrogenInput" id="carbonPrice"
                                        data-cell="G14">
                             </div>
@@ -426,7 +426,7 @@
                         <label class="col-md-8" style="width: 50%">Natural Gas Price (USD/MMBTU)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
-                                <input type="range" min="0" max="100" id="gasAmVis">
+                                <input type="range" min="0" max="100" step="0.01" id="gasAmVis">
                                 <input type="text" class="form-control form-control-sm blueAmmoniaInput" id="gasAm" data-cell="G8">
                             </div>
                         </div>
@@ -435,7 +435,7 @@
                         <label class="col-md-8"  style="width: 50%">Electricity Price (USD/MWh)</label>
                         <div class="col-md-4"  style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
-                                <input type="range" min="0" max="200" id="electricityAmVis">
+                                <input type="range" min="0" max="200" step="0.01" id="electricityAmVis">
                                 <input type="text" class="form-control form-control-sm blueAmmoniaInput" id="electricityAm"
                                        data-cell="G9">
                             </div>
@@ -445,7 +445,7 @@
                         <label class="col-md-8"  style="width: 50%">Carbon T&S (USD/ton)</label>
                         <div class="col-md-4"  style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
-                                <input type="range" min="0" max="500" id="carbonAmVis">
+                                <input type="range" min="0" max="500" step="0.01" id="carbonAmVis">
                                 <input type="text" class="form-control form-control-sm blueAmmoniaInput" id="carbonAm" data-cell="G10">
                             </div>
                         </div>
@@ -454,7 +454,7 @@
                         <label class="col-md-8"  style="width: 50%">Carbon Price (USD/ton)</label>
                         <div class="col-md-4"  style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
-                                <input type="range" min="0" max="1000" id="carbonPriceAmVis">
+                                <input type="range" min="0" max="1000" step="0.01" id="carbonPriceAmVis">
                                 <input type="text" class="form-control form-control-sm blueAmmoniaInput" id="carbonPriceAm"
                                        data-cell="G11">
                             </div>
@@ -736,7 +736,7 @@
                         <label class="col-md-8" style="width: 50%">Electricity Price (USD/MWh)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
-                                <input type="range" min="0" max="200" id="electricityGrVis">
+                                <input type="range" min="0" max="200" step="0.01" id="electricityGrVis">
                                 <input type="text" class="form-control form-control-sm greenHydrogenInput" id="electricityGr"
                                        data-cell="G10">
                             </div>
