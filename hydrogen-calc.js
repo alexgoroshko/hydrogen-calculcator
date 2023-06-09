@@ -1695,25 +1695,35 @@ getElById("electricityGrVis").addEventListener("input", function() {
   changeElectricityCrVis();
 });
 
-
-getElById("capFacGrVis").addEventListener("input", function() {
+function changeCapFacGrVis(){
   self3.sheets["Dashboard3"].getCell("G9").setValue(getElById("capFacGrVis").value * 1);
   $("#Dashboard3").calx("getSheet").getCell("G9").calculate();
   getElById("capFacGr").blur();
   calculateGreenCalc();
+}
+
+getElById("capFacGrVis").addEventListener("input", function() {
+  changeCapFacGrVis()
 });
 
 let greenHydrogenInputEl = document.querySelectorAll(".greenHydrogenInput");
 greenHydrogenInputEl.forEach((el) => {
   el.addEventListener("change", function(e){
     const eTargetId = e.target.id;
-    let eTargetVal = e.target.value.replace("$", "").replace(" ", "").replace(",", "") * 1;
+    let eTargetVal = e.target.value.replace("$", "").replace(" ", "").replace(",", "").replace("%", "") * 1;
     if (eTargetId == "electricityGr") {
       if (eTargetVal > 200){
         eTargetVal = 200;
       }
       getElById("electricityGrVis").value = eTargetVal;
       changeElectricityCrVis();
+    } else if(eTargetId == "capFacGr"){
+      eTargetVal = eTargetVal / 100
+      if (eTargetVal > 1){
+        eTargetVal = 1;
+      }
+      getElById("capFacGrVis").value = eTargetVal;
+      changeCapFacGrVis();
     }
     buildNewCanvasGreenCalc();
   } );
