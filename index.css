@@ -12,14 +12,14 @@ a {
 h1 {
     font-family: 'Arial MT', sans-serif;;
     font-weight: bold;
-    color: navy !important;
+    color: #012169 !important;
     font-size: 30px;
 }
 
 h3 {
     font-family: 'Arial MT', sans-serif;;
     font-weight: bold;
-    color: navy !important;
+    color: #012169 !important;
     font-size: 22px;
 }
 
@@ -31,7 +31,7 @@ h5 {
 
 div {
     font-family: 'Arial MT', sans-serif;;
-    color: navy !important;
+    color: #012169 !important;
     font-size: 16px;
     line-height: 24px;
 }
