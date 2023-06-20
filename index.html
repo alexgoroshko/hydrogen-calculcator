@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
     <title>Hydrogen Calculator</title>
+    <link href="https://fonts.cdnfonts.com/css/arial" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 
@@ -22,10 +23,10 @@
 <div class="container" style="margin-top: 25px">
     <div class="row mb-5" style="display: flex; justify-content: center">
         <nav id="menu">
-            <div><a class="bg-info -btn -bg -txt" onclick="onHydrogen()">Blue Hydrogen Financial Model</a></div>
-            <div><a class="bg-secondary -btn -bg -txt" id="btnAmmonia" onclick="onAmmonia()">Blue Ammonia Financial
+            <div><a class="jump_link_btn blue -btn -txt" onclick="onHydrogen()">Blue Hydrogen Model</a></div>
+            <div><a class="jump_link_btn light_blue navy_col -btn" id="btnAmmonia" onclick="onAmmonia()">Blue Ammonia
                 Model</a></div>
-            <div><a class="bg-success -btn -bg -txt" onclick="onGreen()">Green Hydrogen Financial Model</a></div>
+            <div><a class="jump_link_btn green -btn navy_col" onclick="onGreen()">Green Hydrogen Model</a></div>
         </nav>
     </div>
 </div>
@@ -35,19 +36,19 @@
         <form action="" id="Dashboard">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="text-center text-secondary mb-3" id="hydrogenCalc">Blue Hydrogen Financial Model</h1>
+                    <h1 class="text-center mb-3" id="hydrogenCalc">Blue Hydrogen Financial Model</h1>
                 </div>
             </div>
-            <div class="row mt-3" style="display: flex; justify-content: center;">
-
+            <div class="row mt-3 box_shadow" style="display: flex; justify-content: center;">
                 <div class="col-md-4 p-4 input_wr">
-                    <h5 class="bg-info text-white text-center p-1 rounded">Input</h5>
+                    <h5 class="output_header blue text-white text-center p-1 rounded">Input</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-8" style="width: 50%">Natural Gas Price (USD/MMBTU)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="100" step="0.01" id="gasVis">
-                                <input type="text" class="form-control form-control-sm blueHydrogenInput" id="gas" data-cell="G11">
+                                <input type="text" class="form-control form-control-sm blueHydrogenInput" id="gas"
+                                       data-cell="G11">
                             </div>
                         </div>
                     </div>
@@ -56,7 +57,8 @@
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="200" step="0.01" id="electricityVis">
-                                <input type="text" class="form-control form-control-sm blueHydrogenInput" id="electricity"
+                                <input type="text" class="form-control form-control-sm blueHydrogenInput"
+                                       id="electricity"
                                        data-cell="G12">
                             </div>
 
@@ -67,7 +69,8 @@
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="500" step="0.01" id="carbonVis">
-                                <input type="text" class="form-control form-control-sm blueHydrogenInput" id="carbon" data-cell="G13">
+                                <input type="text" class="form-control form-control-sm blueHydrogenInput" id="carbon"
+                                       data-cell="G13">
                             </div>
 
                         </div>
@@ -77,7 +80,8 @@
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="1000" step="0.01" id="carbonPriceVis">
-                                <input type="text" class="form-control form-control-sm blueHydrogenInput" id="carbonPrice"
+                                <input type="text" class="form-control form-control-sm blueHydrogenInput"
+                                       id="carbonPrice"
                                        data-cell="G14">
                             </div>
 
@@ -87,7 +91,8 @@
                         <label class="col-md-8" style="width: 50%">45Q Tax Credit</label>
                         <div class="col-md-4" style="width: 50%" style="display: flex; align-items: center;">
                             <label class="switch">
-                                <input type="checkbox" id="taxCredit" data-cell="G15" class="switch-input yesNoInputs blueHydrogenInput">
+                                <input type="checkbox" id="taxCredit" data-cell="G15"
+                                       class="switch-input yesNoInputs blueHydrogenInput">
                                 <span class="switch-label" data-off="No" data-on="Yes"></span>
                                 <span class="switch-handle"></span>
                             </label>
@@ -97,7 +102,8 @@
                         <label class="col-md-8" style="width: 50%">Electricity Export</label>
                         <div class="col-md-4" style="width: 50%" style="display: flex; align-items: center;">
                             <label class="switch">
-                                <input type="checkbox" id="electricityExport" data-cell="G8" class="switch-input yesNoInputs blueHydrogenInput">
+                                <input type="checkbox" id="electricityExport" data-cell="G8"
+                                       class="switch-input yesNoInputs blueHydrogenInput">
                                 <span class="switch-label" data-off="No" data-on="Yes"></span>
                                 <span class="switch-handle"></span>
                             </label>
@@ -106,64 +112,75 @@
                 </div>
             </div>
 
-            <div class="row mt-3" style="display: flex; justify-content: center;">
-                <div class="col-md-8 p-8">
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4"></label>
-                        <div class="col-md-8"
-                             style="display: flex; flex-direction: row; justify-content: space-between;">
-                            <h5 class="bg-info text-white text-center p-1 rounded"
-                                style="width:33%; text-align: center;">Reference Case</h5>
-                            <h5 class="bg-info text-white text-center p-1 rounded"
-                                style="width:33%; text-align: center;">SMR +90% CCS</h5>
-                            <h5 class="bg-info text-white text-center p-1 rounded"
-                                style="width:33%; text-align: center;">ATR + GHR</h5>
+            <div class="box_shadow row mt-5">
+                <div class="row mt-4" style="display: flex; justify-content: center;">
+                    <div class="col-md-8 p-8">
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4"></label>
+                            <div class="col-md-8"
+                                 style="display: flex; flex-direction: row; justify-content: space-between;">
+                                <h5 class="output_header blue w33 text-white text-center p-1 rounded"
+                                >Reference Case</h5>
+                                <h5 class="output_header blue w33 text-white text-center p-1 rounded"
+                                >SMR +90% CCS</h5>
+                                <h5 class="output_header blue w33 text-white text-center p-1 rounded"
+                                >ATR + GHR</h5>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4">Cost of H2 Production (USD/kg)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="K8">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="O8">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="S8">
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4">Cost of H2 Production (USD/kg)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K8">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="O8">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="S8">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4">Cost of H2 Production (USD/MMBTU)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="K9">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="O9">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="S9">
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4">Cost of H2 Production (USD/MMBTU)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K9">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="O9">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="S9">
 
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4">Cost of H2 Production (USD/MWh)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K10">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="O10">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="S10">
+                            </div>
                         </div>
                     </div>
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4">Cost of H2 Production (USD/MWh)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K10">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="O10">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="S10">
-                        </div>
+                </div>
+
+                <div class="row mb-4" style="margin-bottom: 2rem">
+                    <div class="col-md-6 offset-md-3" id="canvas_wr">
+                        <canvas id="chart_container" height="200px"></canvas>
                     </div>
                 </div>
             </div>
 
-            <div class="row mt-3">
-                <div class="col-md-6 offset-md-3" id="canvas_wr">
-                    <canvas id="chart_container" height="200px"></canvas>
-                </div>
-            </div>
+            <div class="line"></div>
+
         </form>
 
         <div id="Assumptions"></div>
         <div id="BaseCase">
             <div class="row mt-3" style="display: none; justify-content: center;">
                 <div class="col-md-8 p-8">
-                    <h5 class="bg-info text-white text-center p-1 rounded">Chart Data</h5>
+                    <h5 class="output_header text-white text-center p-1 rounded">Chart Data</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
@@ -246,7 +263,7 @@
         <div id="SMR">
             <div class="row mt-3" style="display: none; justify-content: center;">
                 <div class="col-md-8 p-8">
-                    <h5 class="bg-info text-white text-center p-1 rounded">Chart Data</h5>
+                    <h5 class="output_header text-white text-center p-1 rounded">Chart Data</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
@@ -330,7 +347,7 @@
         <div id="ATR">
             <div class="row mt-3" style="display: none; justify-content: center;">
                 <div class="col-md-8 p-8">
-                    <h5 class="bg-info text-white text-center p-1 rounded">Chart Data</h5>
+                    <h5 class="output_header text-white text-center p-1 rounded">Chart Data</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
@@ -416,46 +433,50 @@
         <form action="" id="Dashboard2">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="text-center text-secondary mb-3" id="ammoniaCalc">Blue Ammonia Financial Model</h1>
+                    <h1 class="text-center mb-3" id="ammoniaCalc">Blue Ammonia Financial Model</h1>
                 </div>
             </div>
-            <div class="row mt-3" style="display: flex; justify-content: center;">
+            <div class="row mt-3 box_shadow" style="display: flex; justify-content: center;">
                 <div class="col-md-4 p-4 input_wr">
-                    <h5 class="bg-secondary text-white text-center p-1 rounded">Input</h5>
+                    <h5 class="output_header light_blue navy_col text-center p-1 rounded">Input</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-8" style="width: 50%">Natural Gas Price (USD/MMBTU)</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="100" step="0.01" id="gasAmVis">
-                                <input type="text" class="form-control form-control-sm blueAmmoniaInput" id="gasAm" data-cell="G8">
+                                <input type="text" class="form-control form-control-sm blueAmmoniaInput" id="gasAm"
+                                       data-cell="G8">
                             </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8"  style="width: 50%">Electricity Price (USD/MWh)</label>
-                        <div class="col-md-4"  style="width: 50%">
+                        <label class="col-md-8" style="width: 50%">Electricity Price (USD/MWh)</label>
+                        <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="200" step="0.01" id="electricityAmVis">
-                                <input type="text" class="form-control form-control-sm blueAmmoniaInput" id="electricityAm"
+                                <input type="text" class="form-control form-control-sm blueAmmoniaInput"
+                                       id="electricityAm"
                                        data-cell="G9">
                             </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8"  style="width: 50%">Carbon T&S (USD/ton)</label>
-                        <div class="col-md-4"  style="width: 50%">
+                        <label class="col-md-8" style="width: 50%">Carbon T&S (USD/ton)</label>
+                        <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="500" step="0.01" id="carbonAmVis">
-                                <input type="text" class="form-control form-control-sm blueAmmoniaInput" id="carbonAm" data-cell="G10">
+                                <input type="text" class="form-control form-control-sm blueAmmoniaInput" id="carbonAm"
+                                       data-cell="G10">
                             </div>
                         </div>
                     </div>
                     <div class="row form-group mb-1">
-                        <label class="col-md-8"  style="width: 50%">Carbon Price (USD/ton)</label>
-                        <div class="col-md-4"  style="width: 50%">
+                        <label class="col-md-8" style="width: 50%">Carbon Price (USD/ton)</label>
+                        <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="1000" step="0.01" id="carbonPriceAmVis">
-                                <input type="text" class="form-control form-control-sm blueAmmoniaInput" id="carbonPriceAm"
+                                <input type="text" class="form-control form-control-sm blueAmmoniaInput"
+                                       id="carbonPriceAm"
                                        data-cell="G11">
                             </div>
                         </div>
@@ -464,7 +485,8 @@
                         <label class="col-md-8" style="width: 50%">45Q Tax Credit</label>
                         <div class="col-md-4" style="width: 50%">
                             <label class="switch">
-                                <input type="checkbox" id="taxCreditAm" data-cell="G12" class="switch-input yesNoInputs blueAmmoniaInput">
+                                <input type="checkbox" id="taxCreditAm" data-cell="G12"
+                                       class="switch-input yesNoInputs blueAmmoniaInput">
                                 <span class="switch-label" data-off="No" data-on="Yes"></span>
                                 <span class="switch-handle"></span>
                             </label>
@@ -474,7 +496,8 @@
                         <label class="col-md-8" style="width: 50%">Electricity Export</label>
                         <div class="col-md-4" style="width: 50%">
                             <label class="switch">
-                                <input type="checkbox" id="elExportAm" data-cell="G13" class="switch-input yesNoInputs blueAmmoniaInput">
+                                <input type="checkbox" id="elExportAm" data-cell="G13"
+                                       class="switch-input yesNoInputs blueAmmoniaInput">
                                 <span class="switch-label" data-off="No" data-on="Yes"></span>
                                 <span class="switch-handle"></span>
                             </label>
@@ -483,85 +506,93 @@
                 </div>
             </div>
 
-            <div class="row mt-3" style="display: flex; justify-content: center;">
-                <div class="col-md-8 p-8">
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4"></label>
-                        <div class="col-md-8"
-                             style="display: flex; flex-direction: row; justify-content: space-between;">
-                            <h5 class="bg-secondary text-white text-center p-1 rounded"
-                                style="width:49.8%; text-align: center;">Reference Case</h5>
-                            <h5 class="bg-secondary text-white text-center p-1 rounded"
-                                style="width:49.8%; text-align: center;">Ammonia with Carbon Capture</h5>
-                        </div>
-                    </div>
 
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4">Cost of NH3 Production (USD/kg)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="K8">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="O8">
+            <div class="box_shadow row mt-5">
+                <div class="row mt-4" style="display: flex; justify-content: center;">
+                    <div class="col-md-8 p-8">
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4"></label>
+                            <div class="col-md-8"
+                                 style="display: flex; flex-direction: row; justify-content: space-between;">
+                                <h5 class="output_header light_blue navy_col text-center p-1 rounded"
+                                    style="width:49.8%; text-align: center;">Reference Case</h5>
+                                <h5 class="output_header light_blue navy_col text-center p-1 rounded"
+                                    style="width:49.8%; text-align: center;">Ammonia w/Carbon Capture</h5>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4">Cost of NH3 Production (USD/MMBTU)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="K9">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="O9">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4">Cost of NH3 Production (USD/MWh)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K10">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="O10">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4">CAPEX (USD/TPA NH3)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K11">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="O11">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4">NH3 Conversion Efficiency (LHV)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K12">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="O12">
 
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4">Cost of NH3 Production (USD/kg)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K8">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="O8">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4">CO2 Capture Rate</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K13">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="O13">
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4">Cost of NH3 Production (USD/MMBTU)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K9">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="O9">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4">Cost of NH3 Production (USD/MWh)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K10">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="O10">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1" style="display: none">
+                            <label class="col-md-4">CAPEX (USD/TPA NH3)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K11">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="O11">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1" style="display: none">
+                            <label class="col-md-4">NH3 Conversion Efficiency (LHV)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K12">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="O12">
+
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1" style="display: none">
+                            <label class="col-md-4">CO2 Capture Rate</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K13">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="O13">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row mt-3">
-                <div class="col-md-6 offset-md-3" id="canvas_wr2">
-                    <canvas id="chart_container2" height="200px"></canvas>
+                <div class="row mt-4" style="margin-bottom: 2rem">
+                    <div class="col-md-6 offset-md-3" id="canvas_wr2">
+                        <canvas id="chart_container2" height="200px"></canvas>
+                    </div>
                 </div>
             </div>
+            <div class="line"></div>
         </form>
 
         <div id="Assumptions2"></div>
         <div id="KBRPurifierReferenceCase">
             <div class="row mt-3" style="display: none; justify-content: center;">
                 <div class="col-md-8 p-8">
-                    <h5 class="bg-secondary text-white text-center p-1 rounded">Chart Data</h5>
+                    <h5 class="output_header text-white text-center p-1 rounded">Chart Data</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
@@ -637,7 +668,7 @@
         <div id="KBRPurifierList2">
             <div class="row mt-3" style="display: none; justify-content: center;">
                 <div class="col-md-8 p-8">
-                    <h5 class="bg-secondary text-white text-center p-1 rounded">Chart Data</h5>
+                    <h5 class="output_header text-white text-center p-1 rounded">Chart Data</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
@@ -717,18 +748,19 @@
         <form action="" id="Dashboard3">
             <div class="row">
                 <div class="col-md-12">
-                    <h1 class="text-center text-secondary mb-3" id="greenCalc">Green Hydrogen Financial Model</h1>
+                    <h1 class="text-center mb-3" id="greenCalc">Green Hydrogen Financial Model</h1>
                 </div>
             </div>
-            <div class="row mt-3" style="display: flex; justify-content: center;">
+            <div class="row mt-3 box_shadow" style="display: flex; justify-content: center;">
                 <div class="col-md-4 p-4 input_wr">
-                    <h5 class="bg-success text-white text-center p-1 rounded">Electrolyzer Input</h5>
+                    <h5 class="output_header green navy_col text-center p-1 rounded">Electrolyzer Input</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-8" style="width: 50%">Capacity Factor</label>
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" step="0.01" min="0" max="1" id="capFacGrVis">
-                                <input type="text" class="form-control form-control-sm greenHydrogenInput" id="capFacGr" data-cell="G9">
+                                <input type="text" class="form-control form-control-sm greenHydrogenInput" id="capFacGr"
+                                       data-cell="G9">
                             </div>
                         </div>
                     </div>
@@ -737,7 +769,8 @@
                         <div class="col-md-4" style="width: 50%">
                             <div style="display: flex" class="input_range_wr">
                                 <input type="range" min="0" max="200" step="0.01" id="electricityGrVis">
-                                <input type="text" class="form-control form-control-sm greenHydrogenInput" id="electricityGr"
+                                <input type="text" class="form-control form-control-sm greenHydrogenInput"
+                                       id="electricityGr"
                                        data-cell="G10">
                             </div>
                         </div>
@@ -745,7 +778,8 @@
                     <div class="row form-group mb-1">
                         <label class="col-md-8" style="width: 50%">CAPEX Assumptions</label>
                         <div class="col-md-4" style="width: 50%">
-                            <select style="display: none" class="form-control form-control-sm greenHydrogenInput" id="capexGr" data-cell="G11">
+                            <select style="display: none" class="form-control form-control-sm greenHydrogenInput"
+                                    id="capexGr" data-cell="G11">
                                 <option value="Low">Low</option>
                                 <option value="High">High</option>
                             </select>
@@ -759,7 +793,8 @@
                     <div class="row form-group mb-1">
                         <label class="col-md-8" style="width: 50%">Electrolyzer Efficiency</label>
                         <div class="col-md-4" style="width: 50%">
-                            <select class="form-control form-control-sm greenHydrogenInput" style="display: none" id="electrolyzerEfGr" data-cell="G12">
+                            <select class="form-control form-control-sm greenHydrogenInput" style="display: none"
+                                    id="electrolyzerEfGr" data-cell="G12">
                                 <option value="Low">Low</option>
                                 <option value="High">High</option>
                             </select>
@@ -774,7 +809,8 @@
                         <label class="col-md-8" style="width: 50%">PTC Tax Credit</label>
                         <div class="col-md-4" style="width: 50%" style="display: flex; align-items: center;">
                             <label class="switch">
-                                <input type="checkbox" id="ptcTaxCredit" data-cell="G13" class="switch-input yesNoInputs greenHydrogenInput">
+                                <input type="checkbox" id="ptcTaxCredit" data-cell="G13"
+                                       class="switch-input yesNoInputs greenHydrogenInput">
                                 <span class="switch-label" data-off="No" data-on="Yes"></span>
                                 <span class="switch-handle"></span>
                             </label>
@@ -783,212 +819,222 @@
                 </div>
             </div>
 
-            <div class="row mt-3" style="display: flex; justify-content: center;">
-                <div class="col-md-8 p-8">
-                    <h3 style="text-align: center">Hydrogen Production</h3>
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4"></label>
-                        <div class="col-md-8"
-                             style="display: flex; flex-direction: row; justify-content: space-between;">
-                            <h5 class="bg-success text-white text-center p-1 rounded"
-                                style="width:33%; text-align: center;">PEM</h5>
-                            <h5 class="bg-success text-white text-center p-1 rounded"
-                                style="width:33%; text-align: center;">AEL</h5>
-                            <h5 class="bg-success text-white text-center p-1 rounded"
-                                style="width:33%; text-align: center;">SOEC</h5>
+            <div class="box_shadow row mt-5">
+                <div class="row mt-4" style="display: flex; justify-content: center;">
+                    <div class="col-md-8 p-8">
+                        <h3 style="text-align: center; margin-bottom: 1.5rem; margin-top: 1rem">Hydrogen Production</h3>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4"></label>
+                            <div class="col-md-8"
+                                 style="display: flex; flex-direction: row; justify-content: space-between;">
+                                <h5 class="output_header green navy_col text-center p-1 rounded"
+                                    style="width:33%; text-align: center;">PEM</h5>
+                                <h5 class="output_header green navy_col text-center p-1 rounded"
+                                    style="width:33%; text-align: center;">AEL</h5>
+                                <h5 class="output_header green navy_col text-center p-1 rounded"
+                                    style="width:33%; text-align: center;">SOEC</h5>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4">Cost of H2 Production (USD/kg)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="K9">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="L9">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="M9">
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4">Cost of H2 Production (USD/kg)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K9">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="L9">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="M9">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4">Cost of H2 Production (USD/MMBTU)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K10">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="L10">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="M10">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4">Cost of H2 Production (USD/MWh)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K11">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="L11">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="M11">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1" style="display: none">
+                            <label class="col-md-4">Hydrogen Production (TPA)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K12">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="L12">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="M12">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1" style="display: none">
+                            <label class="col-md-4">Energy Efficiency (LHV)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K13">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="L13">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="M13">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1" style="display: none">
+                            <label class="col-md-4">OPEX (%TIC)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K14">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="L14">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="M14">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1" style="display: none">
+                            <label class="col-md-4">CAPEX (USD/kW)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K15">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="L15">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="M15">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1" style="display: none">
+                            <label class="col-md-4">Total Installed Cost(USD/kW)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="K16">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="L16">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="M16">
+                            </div>
                         </div>
                     </div>
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4">Cost of H2 Production (USD/MMBTU)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K10">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="L10">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="M10">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4">Cost of H2 Production (USD/MWh)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K11">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="L11">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="M11">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4">Hydrogen Production (TPA)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K12">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="L12">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="M12">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4">Energy Efficiency (LHV)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K13">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="L13">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="M13">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4">OPEX (%TIC)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K14">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="L14">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="M14">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4">CAPEX (USD/kW)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K15">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="L15">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="M15">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4">Total Installed Cost(USD/kW)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="K16">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="L16">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="M16">
-                        </div>
+                </div>
+
+                <div class="row mt-4" style="margin-bottom: 2rem">
+                    <div class="col-md-6 offset-md-3" id="canvas_wr3">
+                        <canvas id="chart_container3" height="200px"></canvas>
                     </div>
                 </div>
             </div>
 
-            <div class="row mt-3">
-                <div class="col-md-6 offset-md-3" id="canvas_wr3">
-                    <canvas id="chart_container3" height="200px"></canvas>
+            <div class="box_shadow row mt-5">
+                <div class="row mt-4" style="display: flex; justify-content: center;">
+                    <div class="col-md-8 p-8">
+                        <h3 style="text-align: center; margin-top: 1rem; margin-bottom: 1.5rem">Ammonia Production</h3>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4"></label>
+                            <div class="col-md-8"
+                                 style="display: flex; flex-direction: row; justify-content: space-between;">
+                                <h5 class="output_header green navy_col text-center p-1 rounded"
+                                    style="width:33%; text-align: center;">PEM</h5>
+                                <h5 class="output_header green navy_col text-center p-1 rounded"
+                                    style="width:33%; text-align: center;">AEL</h5>
+                                <h5 class="output_header green navy_col text-center p-1 rounded"
+                                    style="width:33%; text-align: center;">SOEC</h5>
+                            </div>
+                        </div>
+
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4">Cost of NH3 Production (USD/ton)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="P9">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="Q9">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="R9">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4">Cost of NH3 Production (USD/MMBTU)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="P10">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="Q10">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="R10">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <label class="col-md-4">Cost of NH3 Production (USD/MWh)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="P11">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="Q11">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="R11">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1" style="display: none">
+                            <label class="col-md-4">Ammonia Production (TPA)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="P12">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="Q12">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="R12">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1" style="display: none">
+                            <label class="col-md-4">Energy Efficiency (LHV)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="P13">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="Q13">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="R13">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1" style="display: none">
+                            <label class="col-md-4">Energy Intensity (GJ/ton NH3)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="P14">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="Q14">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="R14">
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1" style="display: none">
+                            <label class="col-md-4">CAPEX (USD/kW)</label>
+                            <div class="col-md-8 data-row">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="P15">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="Q15">
+                                <input type="text" class="form-control form-control-sm text-center" disabled
+                                       data-cell="R15">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="row mt-3" style="display: flex; justify-content: center;">
-                <div class="col-md-8 p-8">
-                    <h3 style="text-align: center">Ammonia Production</h3>
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4"></label>
-                        <div class="col-md-8"
-                             style="display: flex; flex-direction: row; justify-content: space-between;">
-                            <h5 class="bg-success text-white text-center p-1 rounded"
-                                style="width:33%; text-align: center;">PEM</h5>
-                            <h5 class="bg-success text-white text-center p-1 rounded"
-                                style="width:33%; text-align: center;">AEL</h5>
-                            <h5 class="bg-success text-white text-center p-1 rounded"
-                                style="width:33%; text-align: center;">SOEC</h5>
-                        </div>
+                <div class="row mt-4" style="margin-bottom: 2rem">
+                    <div class="col-md-6 offset-md-3" id="canvas_wr4">
+                        <canvas id="chart_container4" height="200px"></canvas>
                     </div>
-
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4">Cost of NH3 Production (USD/ton)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="P9">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="Q9">
-                            <input type="text" class="form-control form-control-sm text-center" disabled data-cell="R9">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4">Cost of NH3 Production (USD/MMBTU)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="P10">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="Q10">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="R10">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1">
-                        <label class="col-md-4">Cost of NH3 Production (USD/MWh)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="P11">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="Q11">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="R11">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4">Ammonia Production (TPA)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="P12">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="Q12">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="R12">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4">Energy Efficiency (LHV)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="P13">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="Q13">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="R13">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4">Energy Intensity (GJ/ton NH3)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="P14">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="Q14">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="R14">
-                        </div>
-                    </div>
-                    <div class="row form-group mb-1" style="display: none">
-                        <label class="col-md-4">CAPEX (USD/kW)</label>
-                        <div class="col-md-8 data-row">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="P15">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="Q15">
-                            <input type="text" class="form-control form-control-sm text-center" disabled
-                                   data-cell="R15">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mt-3">
-                <div class="col-md-6 offset-md-3" id="canvas_wr4">
-                    <canvas id="chart_container4" height="200px"></canvas>
                 </div>
             </div>
         </form>
@@ -997,7 +1043,8 @@
         <div id="H2PEM">
             <div class="row mt-3" style="display: none; justify-content: center;">
                 <div class="col-md-8 p-8">
-                    <h5 class="bg-success text-white text-center p-1 rounded">Levelized Cost of Hydrogen Production</h5>
+                    <h5 class="output_header text-white text-center p-1 rounded">Levelized Cost of Hydrogen
+                        Production</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
@@ -1053,7 +1100,8 @@
         <div id="H2AEL">
             <div class="row mt-3" style="display: none; justify-content: center;">
                 <div class="col-md-8 p-8">
-                    <h5 class="bg-success text-white text-center p-1 rounded">Levelized Cost of Hydrogen Production</h5>
+                    <h5 class="output_header text-white text-center p-1 rounded">Levelized Cost of Hydrogen
+                        Production</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
@@ -1108,7 +1156,8 @@
         <div id="H2SOEC">
             <div class="row mt-3" style="display: none; justify-content: center;">
                 <div class="col-md-8 p-8">
-                    <h5 class="bg-success text-white text-center p-1 rounded">Levelized Cost of Hydrogen Production</h5>
+                    <h5 class="output_header text-white text-center p-1 rounded">Levelized Cost of Hydrogen
+                        Production</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
@@ -1163,7 +1212,7 @@
         <div id="NH3PEM">
             <div class="row mt-3" style="display: none; justify-content: center;">
                 <div class="col-md-8 p-8">
-                    <h5 class="bg-success text-white text-center p-1 rounded">Levelized Cost of Ammonia</h5>
+                    <h5 class="output_header text-white text-center p-1 rounded">Levelized Cost of Ammonia</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
@@ -1218,7 +1267,7 @@
         <div id="NH3AEL">
             <div class="row mt-3" style="display: none; justify-content: center;">
                 <div class="col-md-8 p-8">
-                    <h5 class="bg-success text-white text-center p-1 rounded">Levelized Cost of Ammonia</h5>
+                    <h5 class="output_header text-white text-center p-1 rounded">Levelized Cost of Ammonia</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
@@ -1273,7 +1322,8 @@
         <div id="NH3SOEC">
             <div class="row mt-3" style="display: none; justify-content: center;">
                 <div class="col-md-8 p-8">
-                    <h5 class="bg-success text-white text-center p-1 rounded">Levelized Cost of Ammonia Production</h5>
+                    <h5 class="output_header text-white text-center p-1 rounded">Levelized Cost of Ammonia
+                        Production</h5>
                     <div class="row form-group mb-1">
                         <label class="col-md-4"></label>
                         <div class="col-md-8" style="display: flex; flex-direction: row;">
